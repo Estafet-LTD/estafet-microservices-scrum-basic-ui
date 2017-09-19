@@ -7,9 +7,11 @@
 <body>
 	<div>
 		<h1 th:text="${project.title}"></h1>
-		<div th:if="${project.activeSprint != null}">
+		<div>
 			<h3>Active Sprint</h3> <a th:href="@{/startsprint/__${project.id}__}"><span>Start New Sprint</span></a>
-			<p><a th:href="@{'/project/' + ${project.id} + '/sprint/' + ${project.activeSprint.id}}"><span th:text="${project.activeSprint.name}"></span></a></p>
+			<div th:if="${project.activeSprint != null}">
+				<p><a th:href="@{'/project/' + ${project.id} + '/sprint/' + ${project.activeSprint.id}}"><span th:text="${project.activeSprint.name}"></span></a></p>
+			</div>
 		</div>
 		<div>
 			<h3>Old Sprints</h3>

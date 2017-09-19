@@ -8,7 +8,7 @@
 	<div>
 		<h2>Start Sprint</h2>
 		<div>
-			<form action="#" th:action="@{'/startSprint/' + ${projectId}}" th:object="${startSprint}" method="post">
+			<form action="#" th:action="@{'/startsprint/' + ${projectId}}" th:object="${startSprint}" method="post">
 				<div>
 					<label>No Days:</label> <input type="text" th:field="*{noDays}"/>
 				</div>

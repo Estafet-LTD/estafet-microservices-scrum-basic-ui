@@ -18,6 +18,12 @@ public class ProjectController {
 	@Autowired
 	private ProjectService projectService;
 
+	@RequestMapping("/projects")
+    public String projects(Model model) {
+        model.addAttribute("projects", projectService.getProjects());
+        return "projects";
+    }
+	
 	@RequestMapping("/project/{id}")
 	public String project(@PathVariable int id, Model model) {
 		model.addAttribute("project", projectService.getProject(id));
@@ -32,9 +38,7 @@ public class ProjectController {
 
     @PostMapping("/newproject")
     public String newProjectSubmit(@ModelAttribute Project project) {
-    	
-    	
-        return "projects";
+        return "redirect:/project/" + projectService.createProject(project).getId();
     }
 	
 }

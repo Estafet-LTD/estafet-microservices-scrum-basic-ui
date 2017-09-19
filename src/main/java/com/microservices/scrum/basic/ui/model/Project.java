@@ -10,14 +10,14 @@ public class Project {
 	private String title;
 
 	private List<Sprint> sprints = new ArrayList<Sprint>();
-	
+
 	private List<Story> stories = new ArrayList<Story>();
 
 	public Project addStories(List<Story> stories) {
 		this.stories.addAll(stories);
 		return this;
 	}
-	
+
 	public int getId() {
 		return id;
 	}
@@ -26,13 +26,17 @@ public class Project {
 		return title;
 	}
 
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 	public List<Sprint> getSprints() {
 		for (Sprint sprint : sprints) {
 			sprint.setProjectId(id);
 		}
 		return sprints;
 	}
-	
+
 	public Sprint getActiveSprint() {
 		for (Sprint sprint : getSprints()) {
 			if (sprint.getStatus().equals("Active")) {
@@ -41,7 +45,7 @@ public class Project {
 		}
 		return null;
 	}
-	
+
 	public List<Sprint> getInactiveSprints() {
 		List<Sprint> inactiveSprints = new ArrayList<Sprint>();
 		for (Sprint sprint : getSprints()) {

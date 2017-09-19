@@ -31,9 +31,16 @@ public class ProjectService {
 	}
 
 	public Project getProject(int projectId) {
+		System.out.println("project before :" + projectId);
 		Project project = new RestTemplate().getForObject("http://localhost:8080/project-api/project/{id}",
 				Project.class, projectId);
+		System.out.println("project after :" + project.getId());
 		return project.addStories(storyService.getProjectStories(projectId));
+	}
+
+	public Project createProject(Project project) {
+		System.out.println("this is the title - " + project.getTitle());
+		return new RestTemplate().postForObject("http://localhost:8080/project-api/project", project, Project.class);
 	}
 
 }
