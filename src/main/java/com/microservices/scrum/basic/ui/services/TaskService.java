@@ -9,13 +9,13 @@ import com.microservices.scrum.basic.ui.model.Task;
 public class TaskService {
 
 	public void claim(int taskId) {
-		new RestTemplate().postForObject("http://localhost:8080/sprint-board-api/task/{id}/claim", null, Task.class,
-				taskId);
+		new RestTemplate().postForObject(System.getenv("SPRINT_BOARD_API_SERVICE_URI") + "/task/{id}/claim", null,
+				Task.class, taskId);
 	}
 
 	public void complete(int taskId) {
-		new RestTemplate().postForObject("http://localhost:8080/sprint-board-api/task/{id}/complete", null, Task.class,
-				taskId);
+		new RestTemplate().postForObject(System.getenv("SPRINT_BOARD_API_SERVICE_URI") + "/task/{id}/complete", null,
+				Task.class, taskId);
 	}
 
 }

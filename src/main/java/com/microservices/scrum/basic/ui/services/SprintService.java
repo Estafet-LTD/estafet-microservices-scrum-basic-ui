@@ -17,7 +17,7 @@ public class SprintService {
 	private StoryService storyService;
 
 	public Sprint getSprint(int projectId, int sprintId) {
-		Sprint sprint = new RestTemplate().getForObject("http://localhost:8080/sprint-api/sprint/{id}", Sprint.class,
+		Sprint sprint = new RestTemplate().getForObject(System.getenv("SPRINT_API_SERVICE_URI") + "/sprint/{id}", Sprint.class,
 				sprintId);
 		sprint.setProjectId(projectId);
 		List<Story> stories = storyService.getProjectStories(projectId);
@@ -32,7 +32,7 @@ public class SprintService {
 
 	public void startSprint(int projectId, StartSprint startSprint) {
 		startSprint.setProjectId(projectId);
-		new RestTemplate().postForObject("http://localhost:8080/sprint-api/start-sprint", startSprint, Sprint.class);
+		new RestTemplate().postForObject(System.getenv("SPRINT_API_SERVICE_URI") + "/start-sprint", startSprint, Sprint.class);
 	}
 
 }

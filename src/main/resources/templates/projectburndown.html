@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Simple Scrum Project Management</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<div>
+		<h2>Project Burndown</h2>
+		<h2 th:text="${project.title}"></h2>
+		<table>
+			<tr>
+				<th th:each="sprint : ${project.sprints}"><span
+					th:text="${sprint.name}"></span></th>
+			</tr>
+			<tr>
+				<td th:each="sprint : ${project.sprints}"><span
+					th:text="${sprint.pointsTotal}"></span></td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>

@@ -10,6 +10,7 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.microservices.scrum.basic.ui.model.Project;
+import com.microservices.scrum.basic.ui.model.ProjectBurndown;
 
 @Service
 public class ProjectService {
@@ -19,7 +20,7 @@ public class ProjectService {
 
 	@SuppressWarnings("rawtypes")
 	public List<Project> getProjects() {
-		List objects = new RestTemplate().getForObject("http://localhost:8080/project-api/projects", List.class);
+		List objects = new RestTemplate().getForObject(System.getenv("PROJECT_API_SERVICE_URI") + "/projects", List.class);
 		List<Project> projects = new ArrayList<Project>();
 		ObjectMapper mapper = new ObjectMapper();
 		for (Object object : objects) {
@@ -31,16 +32,20 @@ public class ProjectService {
 	}
 
 	public Project getProject(int projectId) {
-		System.out.println("project before :" + projectId);
-		Project project = new RestTemplate().getForObject("http://localhost:8080/project-api/project/{id}",
+		Project project = new RestTemplate().getForObject(System.getenv("PROJECT_API_SERVICE_URI") + "/project/{id}",
 				Project.class, projectId);
-		System.out.println("project after :" + project.getId());
 		return project.addStories(storyService.getProjectStories(projectId));
 	}
 
 	public Project createProject(Project project) {
-		System.out.println("this is the title - " + project.getTitle());
-		return new RestTemplate().postForObject("http://localhost:8080/project-api/project", project, Project.class);
+		return new RestTemplate().postForObject(System.getenv("PROJECT_API_SERVICE_URI") + "/project-api/project", project, Project.class);
+	}
+
+	public ProjectBurndown getBurndown(int projectId) {
+		ProjectBurndown burndown = new RestTemplate()
+				.getForObject(System.getenv("PROJECT_BURNDOWN_SERVICE_URI") + "/project/{id}/burndown", ProjectBurndown.class, projectId);
+		burndown.setTitle(getProject(projectId).getTitle());
+		return burndown;
 	}
 
 }
