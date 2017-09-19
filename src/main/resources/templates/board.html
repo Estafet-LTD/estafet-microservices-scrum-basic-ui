@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Simple Scrum Project Management</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<div>
+		<a th:href="@{'/project/' + ${projectId} + '/sprint/' + ${board.sprint.id}}"><span
+			th:text="${board.sprint.name}"></span></a>
+		<div>
+			<div>
+				<div>To Do</div>
+				<div th:each="task : ${board.todo}">
+					<span th:text="${task.title}"></span> <span
+						th:text="${task.remainingHours}"></span> <a
+						th:href="@{'/project/' + ${projectId} + '/sprint/' + ${board.sprint.id} + '/task/' + ${task.id} + '/claim' }">Claim</a>
+				</div>
+			</div>
+			<div>
+				<div>In Progress</div>
+				<div th:each="task : ${board.inProgress}">
+					<span th:text="${task.title}"></span> <span
+						th:text="${task.remainingHours}"></span> <a
+						th:href="@{'/project/' + ${projectId} + '/sprint/' + ${board.sprint.id} + '/task/' + ${task.id} + '/complete' }">Complete</a>
+				</div>
+			</div>
+			<div>
+				<div>Completed</div>
+				<div th:each="task : ${board.completed}">
+					<span th:text="${task.title}"></span> <span
+						th:text="${task.remainingHours}"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
