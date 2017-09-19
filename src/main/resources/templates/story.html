@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Simple Scrum Project Management</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<div>
+		<h1 th:text="${story.title}">Story #<span th:text="${story.title}"></span></h1>
+		<p>Description : <span th:text="${story.description}"></span></p>
+		<p>Story Points : <span th:text="${story.storypoints}"></span></p>
+		<p>Status : <span th:text="${story.status}"></span></p>
+		<p>Project : <a th:href="@{/project/__${story.project.id}__}"><span th:text="${story.project.title}"></span></a></p>
+		<div>
+			<div>
+				<h3>Acceptance Criteria</h3> <a th:href="@{/criteria/__${story.id}__}"><span>Add Crtieria</span></a>
+			</div>			
+			<div th:each="criteria : ${story.criteria}">
+				<div th:text="${criteria.description}"></div>
+			</div>			
+		</div>
+		<div>
+			<h3>Tasks</h3> <a th:href="@{/task/__${story.id}__}"><span>Add Task</span></a>
+			<table>
+				<tr>
+					<th>Title</th>
+					<th>Description</th>
+					<th>Initial Hours</th>
+					<th>Remaining Hours</th>
+					<th>Status</th>
+				</tr>
+				<tr th:each="task : ${story.tasks}">
+					<td th:text="${task.title}"/>
+					<td th:text="${task.description}" />
+					<td th:text="${task.initialHours}" />
+					<td th:text="${task.remainingHours}" />
+					<td th:text="${task.status}" />
+				</tr>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

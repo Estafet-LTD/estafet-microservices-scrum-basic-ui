@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Simple Scrum Project Management</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<div>
+		<h2>Create a New Project</h2>
+		<div>
+			<form action="#" th:action="@{/newproject}" th:object="${project}" method="post">
+				<div>
+					<label>Project Title:</label> <input type="text" th:field="*{title}"/>
+				</div>
+				<div>
+					<input type="submit" value="Submit" />
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

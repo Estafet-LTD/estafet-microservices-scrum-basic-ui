@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Simple Scrum Project Management</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<div>
+		<h1 th:text="${project.title}"></h1>
+		<div th:if="${project.activeSprint != null}">
+			<h3>Active Sprint</h3> <a th:href="@{/startsprint/__${project.id}__}"><span>Start New Sprint</span></a>
+			<p><a th:href="@{'/project/' + ${project.id} + '/sprint/' + ${project.activeSprint.id}}"><span th:text="${project.activeSprint.name}"></span></a></p>
+		</div>
+		<div>
+			<h3>Old Sprints</h3>
+			<table>
+				<tr>
+					<th>Sprint #</th>
+					<th>Start Date</th>
+					<th>End Date</th>
+				</tr>
+				<tr th:each="sprint : ${project.inactiveSprints}">
+					<td><a th:href="@{'/project/' + ${project.id} + '/sprint/' + ${sprint.id}}">#<span th:text="${sprint.number}"></span></a></td>
+					<td th:text="${sprint.startDate}" />
+					<td th:text="${sprint.endDate}" />
+				</tr>
+			</table>			
+		</div>
+		<div>
+			<h3>Backlog</h3><a th:href="@{/addstory/__${project.id}__}"><span>Add Story</span></a>
+			<table>
+				<tr>
+					<th>Story</th>
+					<th>Story Points</th>
+					<th>Status</th>
+				</tr>
+				<tr th:each="story : ${project.stories}">
+					<td><a th:href="@{/story/__${story.id}__}"><span th:text="${story.title}"></span></a> </td>
+					<td th:text="${story.storypoints}" />
+					<td th:text="${story.status}" />
+				</tr>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

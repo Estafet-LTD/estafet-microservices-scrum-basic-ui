@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Simple Scrum Project Management</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<div>
+		<h2>Task</h2>
+		<div>
+			<form action="#" th:action="@{'/task/' + ${storyId}}" th:object="${task}" method="post">
+				<div>
+					<label>Title:</label> <input type="text" th:field="*{title}"/>
+					<label>Description:</label> <input type="text" th:field="*{description}"/>
+					<label>Estimate:</label> <input type="text" th:field="*{initialHours}"/>
+				</div>
+				<div>
+					<input type="submit" value="Submit" />
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

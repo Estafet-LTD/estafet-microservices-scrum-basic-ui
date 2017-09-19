@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Simple Scrum Project Management</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<div>
+		<h1 th:text="${sprint.name}"></h1>
+		<p>Status : <span th:text="${sprint.status}"></span></p>
+		<p>Start Date : <span th:text="${sprint.startDate}"></span></p>
+		<p>End Date : <span th:text="${sprint.endDate}"></span></p>
+		<div>
+			<h3>Included Stories</h3>
+			<table>
+				<tr>
+					<th>Title</th>
+					<th>Story Points</th>
+				</tr>
+				<tr th:each="story : ${sprint.sprintStories}">
+					<td><a th:href="@{'/story/' + ${story.id}}"><span th:text="${story.title}"></span></a></td>
+					<td th:text="${story.storypoints}" />
+				</tr>
+			</table>			
+		</div>
+		<div>
+			<h3>Available Stories</h3>
+			<table>
+				<tr>
+					<th>Title</th>
+					<th>Story Points</th>
+					<th>Action</th>
+				</tr>
+				<tr th:each="story : ${sprint.nonSprintStories}">
+					<td><a th:href="@{'/story/' + ${story.id}}"><span th:text="${story.title}"></span></a></td>
+					<td th:text="${story.storypoints}" />
+					<td><a th:href="@{'/project/' + ${sprint.projectId} + '/sprint/' + ${sprint.id} + '/story/' + ${story.id} + '/addtosprint'}">Add to Sprint</a></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

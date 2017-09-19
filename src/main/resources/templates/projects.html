@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Simple Scrum Project Management</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<div>
+		<h2>Projects</h2> <a th:href="@{/newproject}"><span>Create New Project</span></a>
+		<table>
+			<tr>
+				<th>Title</th>
+			</tr>
+			<tr th:each="project : ${projects}">
+				<td><a th:href="@{'/project/' + ${project.id}}"><span th:text="${project.title}"></span></a></td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>
