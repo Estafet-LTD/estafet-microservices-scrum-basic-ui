@@ -38,7 +38,7 @@ public class ProjectService {
 	}
 
 	public Project createProject(Project project) {
-		return new RestTemplate().postForObject(System.getenv("PROJECT_API_SERVICE_URI") + "/project-api/project", project, Project.class);
+		return new RestTemplate().postForObject(System.getenv("PROJECT_API_SERVICE_URI") + "/project", project, Project.class);
 	}
 
 	public ProjectBurndown getBurndown(int projectId) {
