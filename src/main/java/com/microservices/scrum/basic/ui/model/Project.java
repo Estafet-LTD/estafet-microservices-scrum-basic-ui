@@ -59,5 +59,9 @@ public class Project {
 	public List<Story> getStories() {
 		return stories;
 	}
+	
+	public String getName() {
+		return "Project #" + id;
+	}
 
 }

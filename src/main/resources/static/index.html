@@ -1,10 +1,12 @@
 <!DOCTYPE HTML>
-<html>
-<head> 
-    <title>Simple Scrum Project Management</title> 
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="default">
 <body>
-    <p>Access your projects <a href="/projects">here.</a></p>
+	<div layout:fragment="content">
+		<p>
+			Access your projects <a href="/projects">here.</a>
+		</p>
+	</div>
 </body>
 </html>

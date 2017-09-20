@@ -1,23 +1,28 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-<title>Simple Scrum Project Management</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="default">
 <body>
-	<div>
-		<h2>Project Burndown</h2>
-		<h2 th:text="${project.title}"></h2>
-		<table>
-			<tr>
-				<th th:each="sprint : ${project.sprints}"><span
-					th:text="${sprint.name}"></span></th>
-			</tr>
-			<tr>
-				<td th:each="sprint : ${project.sprints}"><span
-					th:text="${sprint.pointsTotal}"></span></td>
-			</tr>
-		</table>
+	<div layout:fragment="content">
+		<h2>
+			Project Burndown <small th:text="${project.title}"></small>
+		</h2>
+		<div>
+			<a th:href="@{/project/__${project.id}__}">return to project</a>
+		</div>
+		<div>
+			<table class="table">
+				<tr>
+					<th th:each="sprint : ${project.sprints}"><span
+						th:text="${sprint.name}"></span></th>
+				</tr>
+				<tr>
+					<td th:each="sprint : ${project.sprints}"><span
+						th:text="${sprint.pointsTotal}"></span></td>
+				</tr>
+			</table>
+		</div>
+
 	</div>
 </body>
 </html>

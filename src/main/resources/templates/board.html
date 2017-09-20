@@ -1,11 +1,9 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-<title>Simple Scrum Project Management</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="default">
 <body>
-	<div>
+	<div layout:fragment="content">
 		<a th:href="@{'/project/' + ${projectId} + '/sprint/' + ${board.sprint.id}}"><span
 			th:text="${board.sprint.name}"></span></a>
 		<div>

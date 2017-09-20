@@ -1,15 +1,17 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-<title>Simple Scrum Project Management</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="default">
 <body>
-	<div>
-		<h1 th:text="${project.title}"></h1>
-		<div>
-			<h3>Active Sprint</h3> <a th:href="@{/startsprint/__${project.id}__}"><span>Start New Sprint</span></a>
-			<div th:if="${project.activeSprint != null}">
+	<div layout:fragment="content">
+		<h2>Project&nbsp;&nbsp;<small th:text="${project.title}"></small></h2>
+		<div class="row">
+			<div class="col-md-8">
+				<h3>Active Sprint&nbsp;&nbsp;<small><a th:href="@{/startsprint/__${project.id}__}"><span>new</span></a></small></h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-8" th:if="${project.activeSprint != null}">
 				<p><a th:href="@{'/project/' + ${project.id} + '/sprint/' + ${project.activeSprint.id}}"><span th:text="${project.activeSprint.name}"></span></a></p>
 			</div>
 		</div>
@@ -18,8 +20,8 @@
 			<a th:href="@{'/project/' + ${project.id} + '/burndown/'}">Project Burndown</a>
 		</div>
 		<div>
-			<h3>Old Sprints</h3>
-			<table>
+			<h3>Completed Sprints</h3>
+			<table class="table">
 				<tr>
 					<th>Sprint #</th>
 					<th>Start Date</th>
@@ -33,8 +35,8 @@
 			</table>			
 		</div>
 		<div>
-			<h3>Backlog</h3><a th:href="@{/addstory/__${project.id}__}"><span>Add Story</span></a>
-			<table>
+			<h3>Backlog&nbsp;&nbsp;<small><a th:href="@{/addstory/__${project.id}__}">Add Story</a></small></h3>
+			<table class="table">
 				<tr>
 					<th>Story</th>
 					<th>Story Points</th>

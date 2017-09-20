@@ -1,27 +1,27 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-<title>Simple Scrum Project Management</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="default">
 <body>
-	<div>
-		<h1 th:text="${story.title}">Story #<span th:text="${story.title}"></span></h1>
+	<div layout:fragment="content">
+		<h1>Story&nbsp;&nbsp;<small th:text="${story.title}"></small></h1>
 		<p>Description : <span th:text="${story.description}"></span></p>
 		<p>Story Points : <span th:text="${story.storypoints}"></span></p>
 		<p>Status : <span th:text="${story.status}"></span></p>
 		<p>Project : <a th:href="@{/project/__${story.project.id}__}"><span th:text="${story.project.title}"></span></a></p>
 		<div>
 			<div>
-				<h3>Acceptance Criteria</h3> <a th:href="@{/criteria/__${story.id}__}"><span>Add Crtieria</span></a>
+				<h3>Acceptance Criteria <small><a th:href="@{/criteria/__${story.id}__}">Add Crtieria</a></small></h3>
 			</div>			
-			<div th:each="criteria : ${story.criteria}">
-				<div th:text="${criteria.description}"></div>
-			</div>			
+			<ol>
+				<li th:each="criteria : ${story.criteria}">
+					<span th:text="${criteria.description}"></span>
+				</li>
+			</ol>			
 		</div>
 		<div>
-			<h3>Tasks</h3> <a th:href="@{/task/__${story.id}__}"><span>Add Task</span></a>
-			<table>
+			<h3>Tasks <small><a th:href="@{/task/__${story.id}__}">Add Task</a></small></h3> 
+			<table class="table">
 				<tr>
 					<th>Title</th>
 					<th>Description</th>
