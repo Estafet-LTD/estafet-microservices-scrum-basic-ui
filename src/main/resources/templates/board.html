@@ -4,30 +4,49 @@
 	layout:decorator="default">
 <body>
 	<div layout:fragment="content">
-		<a th:href="@{'/project/' + ${projectId} + '/sprint/' + ${board.sprint.id}}"><span
-			th:text="${board.sprint.name}"></span></a>
-		<div>
-			<div>
-				<div>To Do</div>
-				<div th:each="task : ${board.todo}">
-					<span th:text="${task.title}"></span> <span
-						th:text="${task.remainingHours}"></span> <a
-						th:href="@{'/project/' + ${projectId} + '/sprint/' + ${board.sprint.id} + '/task/' + ${task.id} + '/claim' }">Claim</a>
+		<h2>
+			Sprint Board&nbsp;&nbsp;<small th:text="${board.sprint.name}"></small>
+		</h2>
+		<a
+			th:href="@{'/project/' + ${projectId} + '/sprint/' + ${board.sprint.id}}">return
+			to sprint</a>
+		<div class="row">
+			<div class="col-md-3">
+				<div>
+					<h3>To Do</h3>
+				</div>
+				<div class="row" th:each="task : ${board.todo}">
+					<div>
+						<span th:text="${task.title}"></span>
+						<span th:text="${task.remainingHours}"></span>
+						Hours
+					</div>
+					<div>
+						<a
+							th:href="@{'/project/' + ${projectId} + '/sprint/' + ${board.sprint.id} + '/task/' + ${task.id} + '/claim' }">Claim</a>
+					</div>
 				</div>
 			</div>
-			<div>
-				<div>In Progress</div>
-				<div th:each="task : ${board.inProgress}">
-					<span th:text="${task.title}"></span> <span
-						th:text="${task.remainingHours}"></span> <a
-						th:href="@{'/project/' + ${projectId} + '/sprint/' + ${board.sprint.id} + '/task/' + ${task.id} + '/complete' }">Complete</a>
+			<div class="col-md-3">
+				<div>
+					<h3>In Progress</h3>
+				</div>
+				<div class="row" th:each="task : ${board.inProgress}">
+					<div th:text="${task.title}">
+						Hours <span th:text="${task.remainingHours}"></span>
+					</div>
+					<div>
+						<a
+							th:href="@{'/project/' + ${projectId} + '/sprint/' + ${board.sprint.id} + '/task/' + ${task.id} + '/complete' }">Complete</a>
+					</div>
 				</div>
 			</div>
-			<div>
-				<div>Completed</div>
-				<div th:each="task : ${board.completed}">
-					<span th:text="${task.title}"></span> <span
-						th:text="${task.remainingHours}"></span>
+			<div class="col-md-2">
+				<div>
+					<h3>Completed</h3>
+				</div>
+				<div class="row" th:each="task : ${board.completed}">
+					<span th:text="${task.title}"></span>
 				</div>
 			</div>
 		</div>
