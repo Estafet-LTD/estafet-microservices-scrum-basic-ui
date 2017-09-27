@@ -17,6 +17,8 @@ public class Sprint {
 
 	private String status;
 
+	private Integer noDays;
+
 	private List<Story> sprintStories = new ArrayList<Story>();
 
 	private List<Story> nonSprintStories = new ArrayList<Story>();
@@ -28,7 +30,7 @@ public class Sprint {
 					sprintStories.add(story);
 				} else {
 					nonSprintStories.add(story);
-				}	
+				}
 			}
 		}
 		return this;
@@ -60,6 +62,10 @@ public class Sprint {
 
 	public Integer getNumber() {
 		return number;
+	}
+
+	public Integer getNoDays() {
+		return noDays;
 	}
 
 	public String getName() {

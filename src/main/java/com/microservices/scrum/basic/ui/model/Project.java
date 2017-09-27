@@ -13,6 +13,11 @@ public class Project {
 
 	private List<Story> stories = new ArrayList<Story>();
 
+	public Project addSprints(List<Sprint> sprints) {
+		this.sprints.addAll(sprints);
+		return this;
+	}
+	
 	public Project addStories(List<Story> stories) {
 		this.stories.addAll(stories);
 		return this;

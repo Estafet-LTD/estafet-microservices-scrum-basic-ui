@@ -18,9 +18,13 @@ public class ProjectService {
 	@Autowired
 	private StoryService storyService;
 
+	@Autowired
+	private SprintService sprintService;
+
 	@SuppressWarnings("rawtypes")
 	public List<Project> getProjects() {
-		List objects = new RestTemplate().getForObject(System.getenv("PROJECT_API_SERVICE_URI") + "/projects", List.class);
+		List objects = new RestTemplate().getForObject(System.getenv("PROJECT_API_SERVICE_URI") + "/projects",
+				List.class);
 		List<Project> projects = new ArrayList<Project>();
 		ObjectMapper mapper = new ObjectMapper();
 		for (Object object : objects) {
@@ -34,16 +38,19 @@ public class ProjectService {
 	public Project getProject(int projectId) {
 		Project project = new RestTemplate().getForObject(System.getenv("PROJECT_API_SERVICE_URI") + "/project/{id}",
 				Project.class, projectId);
-		return project.addStories(storyService.getProjectStories(projectId));
+		return project.addStories(storyService.getProjectStories(projectId))
+				.addSprints(sprintService.getProjectSprints(projectId));
 	}
 
 	public Project createProject(Project project) {
-		return new RestTemplate().postForObject(System.getenv("PROJECT_API_SERVICE_URI") + "/project", project, Project.class);
+		return new RestTemplate().postForObject(System.getenv("PROJECT_API_SERVICE_URI") + "/project", project,
+				Project.class);
 	}
 
 	public ProjectBurndown getBurndown(int projectId) {
-		ProjectBurndown burndown = new RestTemplate()
-				.getForObject(System.getenv("PROJECT_BURNDOWN_SERVICE_URI") + "/project/{id}/burndown", ProjectBurndown.class, projectId);
+		ProjectBurndown burndown = new RestTemplate().getForObject(
+				System.getenv("PROJECT_BURNDOWN_SERVICE_URI") + "/project/{id}/burndown", ProjectBurndown.class,
+				projectId);
 		burndown.setTitle(getProject(projectId).getTitle());
 		return burndown;
 	}
