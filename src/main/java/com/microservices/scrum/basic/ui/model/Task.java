@@ -1,8 +1,10 @@
 package com.microservices.scrum.basic.ui.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Task {
 
 	private Integer id;
@@ -17,6 +19,9 @@ public class Task {
 	private Integer remainingHours;
 
 	private String status = "Not Started";
+
+	@JsonInclude(Include.NON_NULL)
+	private String remainingUpdated;
 
 	public Task setRemainingHours(Integer remainingHours) {
 		this.remainingHours = remainingHours;
@@ -41,6 +46,15 @@ public class Task {
 
 	public Integer getRemainingHours() {
 		return remainingHours;
+	}
+
+	public String getRemainingUpdated() {
+		return remainingUpdated;
+	}
+
+	public Task setRemainingUpdated(String remainingUpdated) {
+		this.remainingUpdated = remainingUpdated;
+		return this;
 	}
 
 	public String getStatus() {

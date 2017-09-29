@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="default">
+<body>
+	<div layout:fragment="content">
+		<div>
+			<h2>
+				Task&nbsp;&nbsp;<small th:text="${task.title}"></small>
+			</h2>
+			<p>
+				Description : <span th:text="${task.description}"></span>
+			</p>
+			<form action="#"
+				th:action="@{'/project/' + ${projectId} + '/sprint/' + ${sprintId} + '/task/' + ${taskId} + '/update'}"
+				th:object="${task}" method="post">
+				<div>
+					<label>Remaining Time:</label> <input type="text"
+						th:field="*{remainingHours}" />
+				</div>
+				<div>
+					<label>Updated:</label> <select th:field="*{remainingUpdated}">
+						<option th:each="day : ${days}" th:value="${day}" th:text="${day}"></option>
+					</select>
+				</div>
+				<div>
+					<input type="submit" value="Submit" />
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

@@ -53,5 +53,16 @@ public class SprintService {
 		new RestTemplate().postForObject(System.getenv("SPRINT_API_SERVICE_URI") + "/start-sprint", startSprint,
 				Sprint.class);
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<String> getSprintDays(int sprintId) {
+		return new RestTemplate().getForObject(System.getenv("SPRINT_API_SERVICE_URI") + "/sprint/{id}/days",
+				List.class, sprintId);
+	}
+	
+	public String getSprintDay(int sprintId) {
+		return new RestTemplate().getForObject(System.getenv("SPRINT_API_SERVICE_URI") + "/sprint/{id}/day",
+				String.class, sprintId);
+	}
 
 }

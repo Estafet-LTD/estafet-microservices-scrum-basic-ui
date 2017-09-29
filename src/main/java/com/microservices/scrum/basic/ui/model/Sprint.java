@@ -3,6 +3,9 @@ package com.microservices.scrum.basic.ui.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Sprint {
 
 	private Integer id;

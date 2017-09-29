@@ -26,5 +26,7 @@ public class SprintBoardService {
 		taskService.complete(taskId);
 		return getSprintBoard(sprintId);
 	}
+	
+	
 
 }
