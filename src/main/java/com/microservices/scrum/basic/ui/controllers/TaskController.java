@@ -43,11 +43,15 @@ public class TaskController {
 	public String update(@PathVariable int projectId, @PathVariable int sprintId, @PathVariable int taskId,
 			Model model) {
 		String today = sprintService.getSprintDay(sprintId);
-		model.addAttribute("task", taskService.getTask(taskId).setRemainingUpdated(today));
+		Task task = taskService.getTask(taskId);
+		if (task.getRemainingUpdated() == null) {
+			task.setRemainingUpdated(today);
+		}
+		model.addAttribute("task", task);
 		model.addAttribute("projectId", projectId);
 		model.addAttribute("sprintId", sprintId);
 		model.addAttribute("taskId", taskId);
-		model.addAttribute("days", sprintService.getSprintDays(sprintId));
+		model.addAttribute("days", sprintService.getSprintDays(sprintId, task));
 		model.addAttribute("today", today);
 		return "updateremainingtime";
 	}

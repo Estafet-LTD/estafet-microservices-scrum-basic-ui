@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="default">
+<body>
+	<div layout:fragment="content">
+		<h2>
+			Sprint Burndown <small th:text="${sprint.number}"></small>
+		</h2>
+		<div>
+			<a th:href="@{/project/__${projectId}__}">Project</a>
+		</div>
+		<div>
+			<a th:href="@{'/project/' + ${projectId} + '/sprint/' + ${sprint.id}}">Sprint</a>
+		</div>		
+		<div>
+			<table class="table">
+				<tr>
+					<th th:each="day : ${sprint.sprintDays}"><span
+						th:text="${day.sprintDay}"></span></th>
+				</tr>
+				<tr>
+					<td th:each="day : ${sprint.sprintDays}"><span
+						th:text="${day.hoursTotal}"></span></td>
+				</tr>
+			</table>
+		</div>
+
+	</div>
+</body>
+</html>

@@ -9,11 +9,14 @@
 		<p>Start Date : <span th:text="${sprint.startDate}"></span></p>
 		<p>End Date : <span th:text="${sprint.endDate}"></span></p>
 		<div>
-			<a th:href="@{'/project/' + ${sprint.projectId}}">Return to Project</a>
+			<a th:href="@{'/project/' + ${sprint.projectId}}">Project</a>
 		</div>
 		<div>
 			<a th:href="@{'/project/' + ${sprint.projectId} + '/sprint/' + ${sprint.id} + '/board'}">Sprint Board</a>
 		</div>
+		<div>
+			<a th:href="@{'/project/' + ${sprint.projectId} + '/sprint/' + ${sprint.id} + '/burndown'}">Sprint Burndown</a>
+		</div>		
 		<div>
 			<h3>Sprint Stories</h3>
 			<table class="table">

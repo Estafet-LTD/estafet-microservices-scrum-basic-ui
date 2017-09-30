@@ -1,6 +1,7 @@
 package com.microservices.scrum.basic.ui.services;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,9 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.microservices.scrum.basic.ui.messages.StartSprint;
 import com.microservices.scrum.basic.ui.model.Sprint;
+import com.microservices.scrum.basic.ui.model.SprintBurndown;
 import com.microservices.scrum.basic.ui.model.Story;
+import com.microservices.scrum.basic.ui.model.Task;
 
 @Service
 public class SprintService {
@@ -55,14 +58,28 @@ public class SprintService {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<String> getSprintDays(int sprintId) {
-		return new RestTemplate().getForObject(System.getenv("SPRINT_API_SERVICE_URI") + "/sprint/{id}/days",
+	public List<String> getSprintDays(int sprintId, Task task) {
+		List<String> days = new RestTemplate().getForObject(System.getenv("SPRINT_API_SERVICE_URI") + "/sprint/{id}/days",
 				List.class, sprintId);
+		Iterator<String> iterator = days.iterator();
+		while (iterator.hasNext()) {
+			if (task.getRemainingUpdated().equals(iterator.next())) {
+				return days;
+			} else {
+				iterator.remove();
+			}
+		}
+		return days;
 	}
 	
 	public String getSprintDay(int sprintId) {
 		return new RestTemplate().getForObject(System.getenv("SPRINT_API_SERVICE_URI") + "/sprint/{id}/day",
 				String.class, sprintId);
+	}
+	
+	public SprintBurndown getSprintBurndown(int sprintId) {
+		return new RestTemplate().getForObject(System.getenv("SPRINT_BURNDOWN_SERVICE_URI") + "/sprint/{id}/burndown",
+				SprintBurndown.class, sprintId);
 	}
 
 }

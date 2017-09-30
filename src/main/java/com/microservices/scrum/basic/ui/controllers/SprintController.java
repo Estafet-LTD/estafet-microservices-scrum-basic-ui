@@ -43,5 +43,12 @@ public class SprintController {
 		sprintService.startSprint(id, startSprint);
 		return "redirect:/project/" + id;
 	}
+	
+	@RequestMapping("/project/{projectId}/sprint/{sprintId}/burndown")
+	public String burndown(@PathVariable int projectId, @PathVariable int sprintId, Model model) {
+		model.addAttribute("sprint", sprintService.getSprintBurndown(sprintId));
+		model.addAttribute("projectId", projectId);
+		return "sprintburndown";
+	}
 
 }
