@@ -11,7 +11,6 @@ import com.estafet.microservices.scrum.basic.ui.messages.AcceptanceCriteriaDetai
 import com.estafet.microservices.scrum.basic.ui.messages.AddSprintStory;
 import com.estafet.microservices.scrum.basic.ui.model.AcceptanceCriterion;
 import com.estafet.microservices.scrum.basic.ui.model.Story;
-import com.estafet.microservices.scrum.basic.ui.model.Task;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -50,11 +49,6 @@ public class StoryService {
 	public Story addAcceptanceCriteria(int storyId, AcceptanceCriterion criteria) {
 		return new RestTemplate().postForObject(System.getenv("STORY_API_SERVICE_URI") + "/story/{id}/criteria",
 				new AcceptanceCriteriaDetails().setCriteria(criteria.getDescription()), Story.class, storyId);
-	}
-
-	public Story addTask(int storyId, Task task) {
-		return new RestTemplate().postForObject(System.getenv("STORY_API_SERVICE_URI") + "/story/{id}/task", task, Story.class,
-				storyId);
 	}
 
 	public Story addStory(int projectId, Story story) {

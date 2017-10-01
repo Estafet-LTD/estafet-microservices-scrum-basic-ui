@@ -10,14 +10,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.estafet.microservices.scrum.basic.ui.model.Task;
 import com.estafet.microservices.scrum.basic.ui.services.SprintService;
-import com.estafet.microservices.scrum.basic.ui.services.StoryService;
 import com.estafet.microservices.scrum.basic.ui.services.TaskService;
 
 @Controller
 public class TaskController {
-
-	@Autowired
-	private StoryService storyService;
 
 	@Autowired
 	private TaskService taskService;
@@ -34,7 +30,7 @@ public class TaskController {
 
 	@PostMapping("/task/{id}")
 	public String taskSubmit(@PathVariable int id, @ModelAttribute Task task) {
-		storyService.addTask(id, task);
+		taskService.addTask(id, task);
 		return "redirect:/story/" + id;
 	}
 
@@ -58,7 +54,7 @@ public class TaskController {
 	@PostMapping("/project/{projectId}/sprint/{sprintId}/task/{taskId}/update")
 	public String updateSubmit(@PathVariable int projectId, @PathVariable int sprintId, @PathVariable int taskId,
 			@ModelAttribute Task task) {
-		taskService.updateRemainingTime(task);
+		taskService.updateRemainingTime(taskId, task);
 		return "redirect:/project/" + projectId + "/sprint/" + sprintId + "/board";
 	}
 

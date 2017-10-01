@@ -28,12 +28,10 @@ public class Sprint {
 
 	public Sprint addStories(List<Story> stories) {
 		for (Story story : stories) {
-			if (!story.getStatus().equals("Completed")) {
-				if (story.getSprintId() == id) {
-					sprintStories.add(story);
-				} else {
-					nonSprintStories.add(story);
-				}
+			if (story.getSprintId() == id) {
+				sprintStories.add(story);
+			} else if (!status.equals("Completed")) {
+				nonSprintStories.add(story);
 			}
 		}
 		return this;

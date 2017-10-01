@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.estafet.microservices.scrum.basic.ui.model.Story;
 import com.estafet.microservices.scrum.basic.ui.model.Task;
 
 @Service
@@ -28,9 +29,13 @@ public class TaskService {
 				taskId);
 	}
 
-	public Task updateRemainingTime(Task task) {
-		return new RestTemplate().postForObject(System.getenv("TASK_API_SERVICE_URI") + "/update-remaining-hours",
-				task, Task.class);
+	public void updateRemainingTime(int taskId, Task task) {
+		new RestTemplate().put(System.getenv("TASK_API_SERVICE_URI") + "/task/{id}/remainingHours", task, taskId);
+	}
+
+	public void addTask(int storyId, Task task) {
+		new RestTemplate().postForObject(System.getenv("TASK_API_SERVICE_URI") + "/story/{id}/task", task, Story.class,
+				storyId);
 	}
 
 }
