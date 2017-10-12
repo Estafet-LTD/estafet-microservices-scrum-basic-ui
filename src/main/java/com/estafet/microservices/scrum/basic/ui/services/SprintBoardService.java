@@ -11,9 +11,12 @@ public class SprintBoardService {
 
 	@Autowired
 	private TaskService taskService;
+	
+	@Autowired
+	private RestTemplate restTemplate;
 
 	public SprintBoard getSprintBoard(int sprintId) {
-		return new RestTemplate().getForObject(System.getenv("SPRINT_BOARD_API_SERVICE_URI") + "/sprint/{id}/board",
+		return restTemplate.getForObject(System.getenv("SPRINT_BOARD_API_SERVICE_URI") + "/sprint/{id}/board",
 				SprintBoard.class, sprintId);
 	}
 

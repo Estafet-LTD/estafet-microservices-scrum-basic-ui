@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.web.client.RestTemplate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -12,6 +13,9 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Story {
 
+	@JsonIgnore
+	private RestTemplate restTemplate;
+	
 	private int id;
 
 	private Integer projectId;
@@ -77,7 +81,7 @@ public class Story {
 
 	@SuppressWarnings("unchecked")
 	public List<Task> getTasks() {
-		return new RestTemplate().getForObject(System.getenv("TASK_API_SERVICE_URI") + "/story/{storyId}/tasks",
+		return restTemplate.getForObject(System.getenv("TASK_API_SERVICE_URI") + "/story/{storyId}/tasks",
 				List.class, id);
 	}
 
@@ -91,6 +95,11 @@ public class Story {
 
 	public void setStorypoints(Integer storypoints) {
 		this.storypoints = storypoints;
+	}
+
+	@JsonIgnore
+	public void setRestTemplate(RestTemplate restTemplate) {
+		this.restTemplate = restTemplate;
 	}
 
 }

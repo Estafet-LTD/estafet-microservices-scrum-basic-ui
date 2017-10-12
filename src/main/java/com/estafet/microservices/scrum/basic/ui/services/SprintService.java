@@ -21,9 +21,12 @@ public class SprintService {
 
 	@Autowired
 	private StoryService storyService;
+	
+	@Autowired
+	private RestTemplate restTemplate;
 
 	public Sprint getSprint(int projectId, int sprintId) {
-		Sprint sprint = new RestTemplate().getForObject(System.getenv("SPRINT_API_SERVICE_URI") + "/sprint/{id}",
+		Sprint sprint = restTemplate.getForObject(System.getenv("SPRINT_API_SERVICE_URI") + "/sprint/{id}",
 				Sprint.class, sprintId);
 		sprint.setProjectId(projectId);
 		List<Story> stories = storyService.getProjectStories(projectId);
@@ -32,7 +35,7 @@ public class SprintService {
 
 	@SuppressWarnings({ "rawtypes" })
 	public List<Sprint> getProjectSprints(int projectId) {
-		List objects =  new RestTemplate().getForObject(System.getenv("SPRINT_API_SERVICE_URI") + "/project/{id}/sprints",
+		List objects =  restTemplate.getForObject(System.getenv("SPRINT_API_SERVICE_URI") + "/project/{id}/sprints",
 				List.class, projectId);
 		List<Sprint> sprints = new ArrayList<Sprint>();
 		ObjectMapper mapper = new ObjectMapper();
@@ -53,13 +56,13 @@ public class SprintService {
 
 	public void startSprint(int projectId, StartSprint startSprint) {
 		startSprint.setProjectId(projectId);
-		new RestTemplate().postForObject(System.getenv("SPRINT_API_SERVICE_URI") + "/start-sprint", startSprint,
+		restTemplate.postForObject(System.getenv("SPRINT_API_SERVICE_URI") + "/start-sprint", startSprint,
 				Sprint.class);
 	}
 	
 	@SuppressWarnings("unchecked")
 	public List<String> getSprintDays(int sprintId, Task task) {
-		List<String> days = new RestTemplate().getForObject(System.getenv("SPRINT_API_SERVICE_URI") + "/sprint/{id}/days",
+		List<String> days = restTemplate.getForObject(System.getenv("SPRINT_API_SERVICE_URI") + "/sprint/{id}/days",
 				List.class, sprintId);
 		Iterator<String> iterator = days.iterator();
 		while (iterator.hasNext()) {
@@ -74,18 +77,18 @@ public class SprintService {
 	
 	@SuppressWarnings("unchecked")
 	public String getLastSprintDay(int sprintId) {
-		List<String> days = new RestTemplate().getForObject(System.getenv("SPRINT_API_SERVICE_URI") + "/sprint/{id}/days",
+		List<String> days = restTemplate.getForObject(System.getenv("SPRINT_API_SERVICE_URI") + "/sprint/{id}/days",
 				List.class, sprintId);
 		return days.get(days.size()-1);
 	}
 	
 	public String getSprintDay(int sprintId) {
-		return new RestTemplate().getForObject(System.getenv("SPRINT_API_SERVICE_URI") + "/sprint/{id}/day",
+		return restTemplate.getForObject(System.getenv("SPRINT_API_SERVICE_URI") + "/sprint/{id}/day",
 				String.class, sprintId);
 	}
 	
 	public SprintBurndown getSprintBurndown(int sprintId) {
-		return new RestTemplate().getForObject(System.getenv("SPRINT_BURNDOWN_SERVICE_URI") + "/sprint/{id}/burndown",
+		return restTemplate.getForObject(System.getenv("SPRINT_BURNDOWN_SERVICE_URI") + "/sprint/{id}/burndown",
 				SprintBurndown.class, sprintId);
 	}
 
