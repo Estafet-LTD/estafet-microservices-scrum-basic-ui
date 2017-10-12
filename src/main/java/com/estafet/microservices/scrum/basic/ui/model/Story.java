@@ -16,7 +16,7 @@ public class Story {
 	@JsonIgnore
 	private RestTemplate restTemplate;
 	
-	private int id;
+	private Integer id;
 
 	private Integer projectId;
 
@@ -51,7 +51,7 @@ public class Story {
 		this.projectId = projectId;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
@@ -81,8 +81,13 @@ public class Story {
 
 	@SuppressWarnings("unchecked")
 	public List<Task> getTasks() {
-		return restTemplate.getForObject(System.getenv("TASK_API_SERVICE_URI") + "/story/{storyId}/tasks",
-				List.class, id);
+		if (id != null) {
+			return restTemplate.getForObject(System.getenv("TASK_API_SERVICE_URI") + "/story/{storyId}/tasks",
+					List.class, id);	
+		} else {
+			return new ArrayList<Task>();
+		}
+		
 	}
 
 	public void setTitle(String title) {
