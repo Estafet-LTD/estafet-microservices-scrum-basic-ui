@@ -12,9 +12,14 @@ import com.estafet.microservices.scrum.basic.ui.model.ProjectBurndown;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.opentracing.Tracer;
+
 @Service
 public class ProjectService {
 
+	@Autowired
+	private Tracer tracer;
+	
 	@Autowired
 	private StoryService storyService;
 
@@ -39,6 +44,7 @@ public class ProjectService {
 	}
 
 	public Project getProject(int projectId) {
+		tracer.activeSpan().setTag("project.id", projectId);
 		Project project = restTemplate.getForObject(System.getenv("PROJECT_API_SERVICE_URI") + "/project/{id}",
 				Project.class, projectId);
 		return project.addStories(storyService.getProjectStories(projectId))
@@ -46,11 +52,14 @@ public class ProjectService {
 	}
 
 	public Project createProject(Project project) {
-		return restTemplate.postForObject(System.getenv("PROJECT_API_SERVICE_URI") + "/project", project,
+		project = restTemplate.postForObject(System.getenv("PROJECT_API_SERVICE_URI") + "/project", project,
 				Project.class);
+		tracer.activeSpan().setTag("project.id", project.getId());
+		return project;
 	}
 
 	public ProjectBurndown getBurndown(int projectId) {
+		tracer.activeSpan().setTag("project.id", projectId);
 		ProjectBurndown burndown = restTemplate.getForObject(
 				System.getenv("PROJECT_BURNDOWN_SERVICE_URI") + "/project/{id}/burndown", ProjectBurndown.class,
 				projectId);
