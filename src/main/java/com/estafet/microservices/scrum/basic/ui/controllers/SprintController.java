@@ -25,27 +25,27 @@ public class SprintController {
 	}
 
 	@RequestMapping("/project/{projectId}/sprint/{sprintId}/story/{storyId}/addtosprint")
-	public String addToSprint(@PathVariable int projectId, @PathVariable int sprintId, @PathVariable int storyId,
+	public String addStoryToSprint(@PathVariable int projectId, @PathVariable int sprintId, @PathVariable int storyId,
 			Model model) {
 		model.addAttribute("sprint", sprintService.addStoryToSprint(projectId, sprintId, storyId));
 		return "redirect:/project/" + projectId	+ "/sprint/" + sprintId;
 	}
 	
 	@GetMapping("/startsprint/{id}")
-	public String taskForm(@PathVariable int id,  Model model) {
+	public String startSprintForm(@PathVariable int id,  Model model) {
 		model.addAttribute("startSprint", new StartSprint());
 		model.addAttribute("projectId", id);
 		return "startsprint";
 	}
 	
 	@PostMapping("/startsprint/{id}")
-	public String taskSubmit(@PathVariable int id, @ModelAttribute StartSprint startSprint) {
+	public String startSprintSubmit(@PathVariable int id, @ModelAttribute StartSprint startSprint) {
 		sprintService.startSprint(id, startSprint);
 		return "redirect:/project/" + id;
 	}
 	
 	@RequestMapping("/project/{projectId}/sprint/{sprintId}/burndown")
-	public String burndown(@PathVariable int projectId, @PathVariable int sprintId, Model model) {
+	public String sprintBurndown(@PathVariable int projectId, @PathVariable int sprintId, Model model) {
 		model.addAttribute("sprint", sprintService.getSprintBurndown(sprintId));
 		model.addAttribute("projectId", projectId);
 		return "sprintburndown";

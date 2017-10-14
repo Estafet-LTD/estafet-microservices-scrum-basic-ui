@@ -35,7 +35,7 @@ public class TaskController {
 	}
 
 	@GetMapping("/project/{projectId}/sprint/{sprintId}/task/{taskId}/update")
-	public String update(@PathVariable int projectId, @PathVariable int sprintId, @PathVariable int taskId,
+	public String updateTaskRemainingTime(@PathVariable int projectId, @PathVariable int sprintId, @PathVariable int taskId,
 			Model model) {
 		String today = sprintService.getSprintDay(sprintId);
 		Task task = taskService.getTask(taskId);
@@ -52,7 +52,7 @@ public class TaskController {
 	}
 
 	@PostMapping("/project/{projectId}/sprint/{sprintId}/task/{taskId}/update")
-	public String updateSubmit(@PathVariable int projectId, @PathVariable int sprintId, @PathVariable int taskId,
+	public String updateTaskRemainingTimeSubmit(@PathVariable int projectId, @PathVariable int sprintId, @PathVariable int taskId,
 			@ModelAttribute Task task) {
 		taskService.updateRemainingTime(taskId, task);
 		return "redirect:/project/" + projectId + "/sprint/" + sprintId + "/board";

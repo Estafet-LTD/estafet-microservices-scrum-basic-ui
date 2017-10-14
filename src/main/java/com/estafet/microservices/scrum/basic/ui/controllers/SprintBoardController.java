@@ -15,14 +15,14 @@ public class SprintBoardController {
 	private SprintBoardService sprintBoardService;
 
 	@RequestMapping("/project/{projectId}/sprint/{sprintId}/board")
-	public String board(@PathVariable int projectId, @PathVariable int sprintId, Model model) {
+	public String sprintBoard(@PathVariable int projectId, @PathVariable int sprintId, Model model) {
 		model.addAttribute("board", sprintBoardService.getSprintBoard(sprintId));
 		model.addAttribute("projectId", projectId);
 		return "board";
 	}
 
 	@RequestMapping("/project/{projectId}/sprint/{sprintId}/task/{taskId}/claim")
-	public String claim(@PathVariable int projectId, @PathVariable int sprintId, @PathVariable int taskId,
+	public String claimTask(@PathVariable int projectId, @PathVariable int sprintId, @PathVariable int taskId,
 			Model model) {
 		model.addAttribute("board", sprintBoardService.claim(sprintId, taskId));
 		model.addAttribute("projectId", projectId);
@@ -30,7 +30,7 @@ public class SprintBoardController {
 	}
 
 	@RequestMapping("/project/{projectId}/sprint/{sprintId}/task/{taskId}/complete")
-	public String complete(@PathVariable int projectId, @PathVariable int sprintId, @PathVariable int taskId,
+	public String completeTask(@PathVariable int projectId, @PathVariable int sprintId, @PathVariable int taskId,
 			Model model) {
 		model.addAttribute("board", sprintBoardService.complete(sprintId, taskId));
 		model.addAttribute("projectId", projectId);
