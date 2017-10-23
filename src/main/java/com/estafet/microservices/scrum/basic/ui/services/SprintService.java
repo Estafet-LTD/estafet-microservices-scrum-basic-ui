@@ -106,7 +106,7 @@ public class SprintService {
 		tracer.activeSpan().setTag("sprint.id", sprintId);
 		SprintBurndown burndown = restTemplate.getForObject(System.getenv("SPRINT_BURNDOWN_SERVICE_URI") + "/sprint/{id}/burndown",
 				SprintBurndown.class, sprintId);
-		tracer.activeSpan().log(burndown.toJSON());
+		System.out.println(burndown.toJSON());
 		return burndown;
 	}
 
