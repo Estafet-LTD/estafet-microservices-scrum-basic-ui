@@ -19,11 +19,11 @@
 			<a th:href="@{'/project/' + ${projectId} + '/sprint/' + ${sprint.id}}">Sprint</a>
 		</div>		
 		<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto">
-			<script type="text/javascript">
-			$(function () {
+			<script th:inline="javascript">
+         		$(function () {
 				  $('#container').highcharts({
 				    title: {
-				      text: 'Burndown Chart',
+				      text: 'Sprint Burndown Chart',
 				      x: -20 //center
 				    },
 				    colors: ['blue', 'red'],
@@ -36,7 +36,7 @@
 				      }
 				    },
 				    subtitle: {
-				      text: 'Sprint 1',
+				      text: /*[[${sprint.name}]]*/ 'Sprint 1',
 				      x: -20
 				    },
 				    xAxis: {
