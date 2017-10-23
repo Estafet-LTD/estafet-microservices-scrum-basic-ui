@@ -3,7 +3,10 @@ package com.estafet.microservices.scrum.basic.ui.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SprintBurndown {
@@ -12,6 +15,7 @@ public class SprintBurndown {
 
 	private Integer number;
 
+	@JsonIgnore
 	private List<SprintBurndownDay> sprintDays = new ArrayList<SprintBurndownDay>();
 
 	public Integer getId() {
@@ -26,6 +30,7 @@ public class SprintBurndown {
 		return "Sprint #" + number;
 	}
 
+	@JsonIgnore
 	public List<SprintBurndownDay> getSprintDays() {
 		return sprintDays;
 	}
@@ -34,7 +39,7 @@ public class SprintBurndown {
 		List<String> days = new ArrayList<String>(sprintDays.size());
 		for (SprintBurndownDay day : sprintDays) {
 			if (day.getSprintDay() != null) {
-				days.add(day.getSprintDay().substring(0, 9));	
+				days.add(day.getSprintDay().substring(0, 10));	
 			} else {
 				days.add("Initial");
 			}
@@ -56,6 +61,14 @@ public class SprintBurndown {
 			ideal.add(day.getIdealHours());
 		}
 		return ideal;
+	}
+	
+	public String toJSON() {
+		try {
+			return new ObjectMapper().writeValueAsString(this);
+		} catch (JsonProcessingException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 }

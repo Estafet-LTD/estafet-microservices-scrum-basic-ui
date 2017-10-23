@@ -76,19 +76,6 @@
 				});
 			</script>
 		</div>
-		<div>
-			<table class="table">
-				<tr>
-					<th th:each="day : ${sprint.sprintDays}"><span
-						th:text="${day.sprintDay}"></span></th>
-				</tr>
-				<tr>
-					<td th:each="day : ${sprint.sprintDays}"><span
-						th:text="${day.hoursTotal}"></span></td>
-				</tr>
-			</table>
-		</div>
-
 	</div>
 </body>
 </html>
