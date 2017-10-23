@@ -1,7 +1,6 @@
 package com.estafet.microservices.scrum.basic.ui.model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -33,13 +32,14 @@ public class SprintBurndown {
 	
 	public List<String> getDays() {
 		List<String> days = new ArrayList<String>(sprintDays.size());
-		days.add("");
-		String[] array = new String[] {"Day 1", "Day 2", "Day 3", "Day 4", "Day 5", "Day 6", "Day 7", "Day 8", "Day 9", "Day 10"};
-		
-		/*for (SprintBurndownDay day : sprintDays) {
-			days.add(day.getSprintDay().substring(10));
-		}*/
-		return Arrays.asList(array);
+		for (SprintBurndownDay day : sprintDays) {
+			if (day.getSprintDay() != null) {
+				days.add(day.getSprintDay().substring(10));	
+			} else {
+				days.add("Initial");
+			}
+		}
+		return days;
 	}
 
 }
