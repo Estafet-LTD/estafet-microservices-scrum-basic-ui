@@ -34,12 +34,28 @@ public class SprintBurndown {
 		List<String> days = new ArrayList<String>(sprintDays.size());
 		for (SprintBurndownDay day : sprintDays) {
 			if (day.getSprintDay() != null) {
-				days.add(day.getSprintDay().substring(10));	
+				days.add(day.getSprintDay().substring(0, 9));	
 			} else {
 				days.add("Initial");
 			}
 		}
 		return days;
+	}
+	
+	public List<Integer> getActual() {
+		List<Integer> actual = new ArrayList<Integer>(sprintDays.size());
+		for (SprintBurndownDay day : sprintDays) {
+			actual.add(day.getHoursTotal());
+		}
+		return actual;
+	}
+	
+	public List<Float> getIdeal() {
+		List<Float> ideal = new ArrayList<Float>(sprintDays.size());
+		for (SprintBurndownDay day : sprintDays) {
+			ideal.add(day.getIdealHours());
+		}
+		return ideal;
 	}
 
 }

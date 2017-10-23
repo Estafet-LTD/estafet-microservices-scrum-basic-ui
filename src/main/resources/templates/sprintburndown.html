@@ -9,9 +9,6 @@
 	</head>	
 <body>
 	<div layout:fragment="content">
-		<h2>
-			Sprint Burndown <small th:text="${sprint.number}"></small>
-		</h2>
 		<div>
 			<a th:href="@{/project/__${projectId}__}">Project</a>
 		</div>
@@ -66,14 +63,14 @@
 				      name: 'Ideal Burn',
 				      color: 'rgba(255,0,0,0.25)',
 				      lineWidth: 2,
-				      data: [100, 90, 80, 70, 60, 50, 40, 30, 20, 10]
+				      data: /*[[${sprint.ideal}]]*/ [100, 90, 80, 70, 60, 50, 40, 30, 20, 10]
 				    }, {
 				      name: 'Actual Burn',
 				      color: 'rgba(0,120,200,0.75)',
 				      marker: {
 				        radius: 6
 				      },
-				      data: [100, 110, 85, 60, 60, 30, 32, 23, 9, 2]
+				      data: /*[[${sprint.actual}]]*/ [100, 110, 85, 60, 60, 30, 32, 23, 9, 2]
 				    }]
 				  });
 				});
