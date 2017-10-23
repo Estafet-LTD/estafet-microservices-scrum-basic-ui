@@ -3,6 +3,7 @@ package com.estafet.microservices.scrum.basic.ui.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -69,6 +70,7 @@ public class Sprint {
 		return noDays;
 	}
 
+	@JsonGetter
 	public String getName() {
 		return "Sprint #" + number;
 	}
