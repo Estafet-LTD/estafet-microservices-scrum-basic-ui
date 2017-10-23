@@ -21,9 +21,22 @@ public class SprintBurndown {
 	public Integer getNumber() {
 		return number;
 	}
+	
+	public String getName() {
+		return "Sprint #" + number;
+	}
 
 	public List<SprintBurndownDay> getSprintDays() {
 		return sprintDays;
+	}
+	
+	public List<String> getDays() {
+		List<String> days = new ArrayList<String>(sprintDays.size());
+		days.add("");
+		for (SprintBurndownDay day : sprintDays) {
+			days.add(day.getSprintDay().substring(10));
+		}
+		return days;
 	}
 
 }
