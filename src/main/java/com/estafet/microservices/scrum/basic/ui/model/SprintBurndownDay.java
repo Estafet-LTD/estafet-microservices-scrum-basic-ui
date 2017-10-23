@@ -9,7 +9,13 @@ public class SprintBurndownDay {
 
 	private Integer hoursTotal;
 
+	private Float idealHours;
+
 	private String sprintDay;
+
+	public Float getIdealHours() {
+		return idealHours;
+	}
 
 	public Integer getDayNo() {
 		return dayNo;
