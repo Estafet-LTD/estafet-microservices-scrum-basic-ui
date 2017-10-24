@@ -13,11 +13,15 @@ public class Project {
 
 	private List<Story> stories = new ArrayList<Story>();
 
+	private Integer noSprints;
+
+	private Integer sprintLengthDays;
+
 	public Project addSprints(List<Sprint> sprints) {
 		this.sprints.addAll(sprints);
 		return this;
 	}
-	
+
 	public Project addStories(List<Story> stories) {
 		this.stories.addAll(stories);
 		return this;
@@ -33,6 +37,22 @@ public class Project {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public Integer getNoSprints() {
+		return noSprints;
+	}
+
+	public void setNoSprints(Integer noSprints) {
+		this.noSprints = noSprints;
+	}
+
+	public Integer getSprintLengthDays() {
+		return sprintLengthDays;
+	}
+
+	public void setSprintLengthDays(Integer sprintLengthDays) {
+		this.sprintLengthDays = sprintLengthDays;
 	}
 
 	public List<Sprint> getSprints() {
@@ -64,7 +84,7 @@ public class Project {
 	public List<Story> getStories() {
 		return stories;
 	}
-	
+
 	public String getName() {
 		return "Project #" + id;
 	}
