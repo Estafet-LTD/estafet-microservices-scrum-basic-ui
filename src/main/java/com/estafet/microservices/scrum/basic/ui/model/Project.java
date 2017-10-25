@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Project {
 
-	private int id;
+	private Integer id;
 
 	private String title;
 
@@ -27,7 +27,7 @@ public class Project {
 		return this;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
