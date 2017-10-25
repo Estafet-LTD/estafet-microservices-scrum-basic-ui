@@ -74,7 +74,7 @@ public class Project {
 	public List<Sprint> getInactiveSprints() {
 		List<Sprint> inactiveSprints = new ArrayList<Sprint>();
 		for (Sprint sprint : getSprints()) {
-			if (!sprint.getStatus().equals("Active")) {
+			if (sprint.getStatus().equals("Completed")) {
 				inactiveSprints.add(sprint);
 			}
 		}
