@@ -47,7 +47,11 @@ public class SprintBurndown {
 	public List<Integer> getActual() {
 		List<Integer> actual = new ArrayList<Integer>(sprintDays.size());
 		for (SprintBurndownDay day : sprintDays) {
-			actual.add(day.getHoursTotal());
+			if (day.getHoursTotal() != null) {
+				actual.add(day.getHoursTotal());	
+			} else {
+				break;
+			}
 		}
 		return actual;
 	}
