@@ -30,7 +30,7 @@ public class Sprint {
 		for (Story story : stories) {
 			if (story.getSprintId() == id) {
 				sprintStories.add(story);
-			} else if (!story.getStatus().equals("Completed")) {
+			} else if (!status.equals("Completed") && !story.getStatus().equals("Completed")) {
 				nonSprintStories.add(story);
 			}
 		}
