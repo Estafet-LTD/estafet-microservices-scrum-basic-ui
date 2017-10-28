@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.estafet.microservices.scrum.basic.ui.model.AcceptanceCriterion;
-import com.estafet.microservices.scrum.basic.ui.services.StoryService;
+import com.estafet.microservices.scrum.basic.ui.service.StoryService;
 
 @Controller
 public class AcceptanceCriteriaController {

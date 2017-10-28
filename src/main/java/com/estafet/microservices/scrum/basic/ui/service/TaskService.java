@@ -1,4 +1,4 @@
-package com.estafet.microservices.scrum.basic.ui.services;
+package com.estafet.microservices.scrum.basic.ui.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

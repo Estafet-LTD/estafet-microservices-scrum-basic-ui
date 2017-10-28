@@ -1,4 +1,4 @@
-package com.estafet.microservices.scrum.basic.ui.services;
+package com.estafet.microservices.scrum.basic.ui.service;
 
 import java.util.ArrayList;
 import java.util.List;

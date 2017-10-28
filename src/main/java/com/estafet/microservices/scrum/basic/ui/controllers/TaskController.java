@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.estafet.microservices.scrum.basic.ui.model.Task;
-import com.estafet.microservices.scrum.basic.ui.services.SprintService;
-import com.estafet.microservices.scrum.basic.ui.services.TaskService;
+import com.estafet.microservices.scrum.basic.ui.service.SprintService;
+import com.estafet.microservices.scrum.basic.ui.service.TaskService;
 
 @Controller
 public class TaskController {

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.estafet.microservices.scrum.basic.ui.model.Project;
-import com.estafet.microservices.scrum.basic.ui.services.ProjectService;
+import com.estafet.microservices.scrum.basic.ui.service.ProjectService;
 
 @Controller
 public class ProjectController {

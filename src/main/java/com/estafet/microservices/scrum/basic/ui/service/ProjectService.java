@@ -1,4 +1,4 @@
-package com.estafet.microservices.scrum.basic.ui.services;
+package com.estafet.microservices.scrum.basic.ui.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +63,6 @@ public class ProjectService {
 		ProjectBurndown burndown = restTemplate.getForObject(
 				System.getenv("PROJECT_BURNDOWN_SERVICE_URI") + "/project/{id}/burndown", ProjectBurndown.class,
 				projectId);
-		burndown.setTitle(getProject(projectId).getTitle());
 		return burndown;
 	}
 

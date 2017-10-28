@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.estafet.microservices.scrum.basic.ui.model.Story;
-import com.estafet.microservices.scrum.basic.ui.services.StoryService;
+import com.estafet.microservices.scrum.basic.ui.service.StoryService;
 
 @Controller
 public class StoryController {

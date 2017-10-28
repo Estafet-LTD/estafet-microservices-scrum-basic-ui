@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.estafet.microservices.scrum.basic.ui.services.SprintBoardService;
+import com.estafet.microservices.scrum.basic.ui.service.SprintBoardService;
 
 @Controller
 public class SprintBoardController {
