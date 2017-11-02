@@ -4,11 +4,10 @@
 	layout:decorator="default">
 <body>
 	<div layout:fragment="content">
-		<h1>Story&nbsp;&nbsp;<small th:text="${story.title}"></small></h1>
-		<p>Description : <span th:text="${story.description}"></span></p>
-		<p>Story Points : <span th:text="${story.storypoints}"></span></p>
-		<p>Status : <span th:text="${story.status}"></span></p>
-		<p>Project : <a th:href="@{/project/__${story.project.id}__}"><span th:text="${story.project.title}"></span></a></p>
+		<div><h1>Story&nbsp;&nbsp;<small th:text="${story.title}"></small></h1></div>
+		<div><small th:text="${story.description}"></small></div>
+		<div><strong>Story Points:</strong><span th:text="${story.storypoints}"></span></div>
+		<div><strong>Status:</strong><span th:text="${story.status}"></span></div>
 		<div>
 			<div>
 				<h3>Acceptance Criteria <small><a th:href="@{/criteria/__${story.id}__}">Add Crtieria</a></small></h3>

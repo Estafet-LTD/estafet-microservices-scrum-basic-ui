@@ -21,10 +21,7 @@ public class StoryService {
 
 	@Autowired
 	private Tracer tracer;
-	
-	@Autowired
-	private ProjectService projectService;
-	
+		
 	@Autowired
 	private RestTemplate restTemplate;
 
@@ -55,7 +52,6 @@ public class StoryService {
 		tracer.activeSpan().setTag("story.id", storyId);
 		Story story = restTemplate.getForObject(System.getenv("STORY_API_SERVICE_URI") + "/story/{id}", Story.class,
 				storyId);
-		story.setProject(projectService.getProject(story.getProjectId()));
 		story.setRestTemplate(restTemplate);
 		return story;
 	}

@@ -22,6 +22,7 @@ public class StoryController {
 	public String story(@PathVariable int id, Model model) {
 		Story story = storyService.getStory(id);
 		model.addAttribute("story", story);
+		model.addAttribute("storyId", story.getId());
 		model.addAttribute("projectId", story.getProjectId());
 		model.addAttribute("sprintId", story.getSprintId());
 		return "story";
