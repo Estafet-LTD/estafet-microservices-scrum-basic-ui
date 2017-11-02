@@ -5,9 +5,9 @@
 <body>
 	<div layout:fragment="content">
 		<div><h1>Story&nbsp;&nbsp;<small th:text="${story.title}"></small></h1></div>
-		<div><small th:text="${story.description}"></small></div>
-		<div><strong>Story Points:</strong><span th:text="${story.storypoints}"></span></div>
-		<div><strong>Status:</strong><span th:text="${story.status}"></span></div>
+		<div><strong>Description:</strong>&nbsp;<span class="text-muted" th:text="${story.description}"></span></div>
+		<div><strong>Story Points:</strong>&nbsp;<span class="text-muted" th:text="${story.storypoints}"></span></div>
+		<div><strong>Status:</strong>&nbsp;<span class="text-muted" th:text="${story.status}"></span></div>
 		<div>
 			<div>
 				<h3>Acceptance Criteria <small><a th:href="@{/criteria/__${story.id}__}">Add Crtieria</a></small></h3>

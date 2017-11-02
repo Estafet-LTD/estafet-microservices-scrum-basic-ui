@@ -4,10 +4,10 @@
 	layout:decorator="default">
 <body>
 	<div layout:fragment="content">
-		<h2>Sprint&nbsp;&nbsp;<small th:text="${sprint.number}"></small></h2>
-		<p>Status : <span th:text="${sprint.status}"></span></p>
-		<p>Start Date : <span th:text="${sprint.startDate}"></span></p>
-		<p>End Date : <span th:text="${sprint.endDate}"></span></p>
+		<div><h2>Sprint&nbsp;&nbsp;<small th:text="${sprint.name}"></small></h2></div>
+		<div>Status: <span th:text="${sprint.status}"></span></div>
+		<div>Start: <span th:text="${sprint.startDate}"></span></div>
+		<div>End: <span th:text="${sprint.endDate}"></span></div>
 		<div>
 			<a th:href="@{'/project/' + ${sprint.projectId} + '/sprint/' + ${sprint.id} + '/board'}">Sprint Board</a>
 		</div>
