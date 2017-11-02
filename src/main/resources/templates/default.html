@@ -14,7 +14,7 @@
         <div class="container">
         	<div class="row">
         		<div class="col-md-1"></div>
-        		<div class="col-md-8"><a th:href="@{/projects}">Projects</a>&nbsp;&gt;&nbsp;<span th:if="${projectId != null}"><a th:href="@{/project/__${projectId}__}">Project</a></span>&nbsp;&gt;&nbsp;<span th:if="${sprintId != null}"><a th:href="@{/sprint/__${sprintId}__}">Sprint</a></span>&nbsp;&gt;&nbsp;<span th:if="${storyId != null}"><a th:href="@{/story/__${storyId}__}">Story</a></span></div>
+        		<div class="col-md-8"><a th:href="@{/projects}">Projects</a><span th:if="${projectId != null}">&nbsp;&gt;&nbsp;<a th:href="@{/project/__${projectId}__}">Project</a></span>&nbsp;&gt;&nbsp;<span th:if="${sprintId != null}"><a th:href="@{/sprint/__${sprintId}__}">Sprint</a></span>&nbsp;&gt;&nbsp;<span th:if="${storyId != null}"><a th:href="@{/story/__${storyId}__}">Story</a></span></div>
         	</div>
         	<div class="row">
         		<div class="col-md-9"></div>
