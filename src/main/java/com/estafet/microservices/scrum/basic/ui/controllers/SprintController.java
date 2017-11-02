@@ -17,6 +17,8 @@ public class SprintController {
 	@RequestMapping("/project/{projectId}/sprint/{sprintId}")
 	public String sprint(@PathVariable int projectId, @PathVariable int sprintId, Model model) {
 		model.addAttribute("sprint", sprintService.getSprint(projectId, sprintId));
+		model.addAttribute("projectId", projectId);
+		model.addAttribute("sprintId", sprintId);
 		return "sprint";
 	}
 
@@ -24,6 +26,8 @@ public class SprintController {
 	public String addStoryToSprint(@PathVariable int projectId, @PathVariable int sprintId, @PathVariable int storyId,
 			Model model) {
 		model.addAttribute("sprint", sprintService.addStoryToSprint(projectId, sprintId, storyId));
+		model.addAttribute("projectId", projectId);
+		model.addAttribute("sprintId", sprintId);
 		return "redirect:/project/" + projectId	+ "/sprint/" + sprintId;
 	}
 	
@@ -31,6 +35,7 @@ public class SprintController {
 	public String sprintBurndown(@PathVariable int projectId, @PathVariable int sprintId, Model model) {
 		model.addAttribute("sprint", sprintService.getSprintBurndown(sprintId));
 		model.addAttribute("projectId", projectId);
+		model.addAttribute("sprintId", sprintId);
 		return "sprintburndown";
 	}
 

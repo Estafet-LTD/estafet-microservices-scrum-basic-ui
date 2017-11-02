@@ -20,7 +20,10 @@ public class StoryController {
 	
 	@RequestMapping("/story/{id}")
 	public String story(@PathVariable int id, Model model) {
-		model.addAttribute("story", storyService.getStory(id));
+		Story story = storyService.getStory(id);
+		model.addAttribute("story", story);
+		model.addAttribute("projectId", story.getProjectId());
+		model.addAttribute("sprintId", story.getSprintId());
 		return "story";
 	}
 	

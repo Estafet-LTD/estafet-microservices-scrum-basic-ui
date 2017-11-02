@@ -27,6 +27,7 @@ public class ProjectController {
 	@RequestMapping("/project/{id}")
 	public String project(@PathVariable int id, Model model) {
 		model.addAttribute("project", projectService.getProject(id));
+		model.addAttribute("projectId", id);
 		return "project";
 	}
 
@@ -44,6 +45,7 @@ public class ProjectController {
 	@RequestMapping("/project/{id}/burndown")
 	public String burndown(@PathVariable int id, Model model) {
 		model.addAttribute("project", projectService.getBurndown(id));
+		model.addAttribute("projectId", id);
 		return "projectburndown";
 	}
 

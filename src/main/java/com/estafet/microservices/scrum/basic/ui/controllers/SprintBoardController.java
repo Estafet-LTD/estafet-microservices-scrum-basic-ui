@@ -18,6 +18,7 @@ public class SprintBoardController {
 	public String sprintBoard(@PathVariable int projectId, @PathVariable int sprintId, Model model) {
 		model.addAttribute("board", sprintBoardService.getSprintBoard(sprintId));
 		model.addAttribute("projectId", projectId);
+		model.addAttribute("sprintId", sprintId);
 		return "board";
 	}
 
@@ -26,6 +27,7 @@ public class SprintBoardController {
 			Model model) {
 		model.addAttribute("board", sprintBoardService.claim(sprintId, taskId));
 		model.addAttribute("projectId", projectId);
+		model.addAttribute("sprintId", sprintId);
 		return "redirect:/project/" + projectId + "/sprint/" + sprintId + "/board";
 	}
 
@@ -34,6 +36,7 @@ public class SprintBoardController {
 			Model model) {
 		model.addAttribute("board", sprintBoardService.complete(sprintId, taskId));
 		model.addAttribute("projectId", projectId);
+		model.addAttribute("sprintId", sprintId);
 		return "redirect:/project/" + projectId + "/sprint/" + sprintId + "/board";
 	}
 

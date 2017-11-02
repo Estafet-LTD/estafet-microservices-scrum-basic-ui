@@ -7,8 +7,6 @@ import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Story {
@@ -26,7 +24,6 @@ public class Story {
 
 	private Integer storypoints;
 
-	@JsonInclude(Include.NON_NULL)
 	private Integer sprintId;
 
 	private String status;
