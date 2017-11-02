@@ -1,8 +1,6 @@
 package com.estafet.microservices.scrum.basic.ui.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Task {
@@ -15,13 +13,13 @@ public class Task {
 
 	private Integer initialHours;
 
-	@JsonInclude(Include.NON_NULL)
 	private Integer remainingHours;
 
 	private String status = "Not Started";
 
-	@JsonInclude(Include.NON_NULL)
 	private String remainingUpdated;
+
+	private String storyTitle;
 
 	public Task setRemainingHours(Integer remainingHours) {
 		this.remainingHours = remainingHours;
@@ -50,6 +48,10 @@ public class Task {
 
 	public String getRemainingUpdated() {
 		return remainingUpdated;
+	}
+
+	public String getStoryTitle() {
+		return storyTitle;
 	}
 
 	public Task setRemainingUpdated(String remainingUpdated) {
