@@ -4,48 +4,39 @@
 	layout:decorator="default">
 <body>
 	<div layout:fragment="content">
-		<h2>
-			Sprint Board&nbsp;&nbsp;<small th:text="${board.sprint.name}"></small>
-		</h2>
-		<a
-			th:href="@{'/project/' + ${projectId} + '/sprint/' + ${board.sprint.id}}">return
-			to sprint</a>
+		<div><h2>Sprint Board&nbsp;<small th:text="${board.sprint.name}"></small></h2></div>
 		<div class="row">
 			<div class="col-md-3">
-				<div>
-					<h3>To Do</h3>
-				</div>
-				<div class="row" th:each="task : ${board.todo}">
+				<h3>To Do</h3>
+			</div>
+			<div class="col-md-3">
+				<h3>In Progress</h3>
+			</div>
+			<div class="col-md-2">
+				<h3>Completed</h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3">
+				<div th:each="task : ${board.todo}">
+					<div><span th:text="${task.title}"></span><span th:text="${task.remainingHours}"></span>&nbsp;Hours</div>
 					<div>
-						<span th:text="${task.title}"></span>
-						[<span th:text="${task.remainingHours}"></span>&nbsp;Hours]
-					</div>
-					<div>
-						<a
-							th:href="@{'/project/' + ${projectId} + '/sprint/' + ${board.sprint.id} + '/task/' + ${task.id} + '/claim' }">Claim</a>
+						<a th:href="@{'/project/' + ${projectId} + '/sprint/' + ${board.sprint.id} + '/task/' + ${task.id} + '/claim' }">Claim</a>
 					</div>
 				</div>
 			</div>
 			<div class="col-md-3">
-				<div>
-					<h3>In Progress</h3>
-				</div>
-				<div class="row" th:each="task : ${board.inProgress}">
+				<div th:each="task : ${board.inProgress}">
 					<div>
-						<span th:text="${task.title}"></span>
-						<a th:href="@{'/project/' + ${projectId} + '/sprint/' + ${board.sprint.id} + '/task/' + ${task.id} + '/update' }">[<span th:text="${task.remainingHours}"></span> &nbsp;Hours]</a>
+						<span th:text="${task.title}"></span><a th:href="@{'/project/' + ${projectId} + '/sprint/' + ${board.sprint.id} + '/task/' + ${task.id} + '/update' }">[<span th:text="${task.remainingHours}"></span> &nbsp;Hours]</a>
 					</div>
 					<div>
-						<a
-							th:href="@{'/project/' + ${projectId} + '/sprint/' + ${board.sprint.id} + '/task/' + ${task.id} + '/complete' }">Complete</a>
+						<a th:href="@{'/project/' + ${projectId} + '/sprint/' + ${board.sprint.id} + '/task/' + ${task.id} + '/complete' }">Complete</a>
 					</div>
 				</div>
 			</div>
 			<div class="col-md-2">
-				<div>
-					<h3>Completed</h3>
-				</div>
-				<div class="row" th:each="task : ${board.completed}">
+				<div th:each="task : ${board.completed}">
 					<span th:text="${task.title}"></span>
 				</div>
 			</div>
