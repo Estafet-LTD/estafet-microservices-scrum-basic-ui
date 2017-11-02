@@ -40,8 +40,8 @@
 			<div class="col-md-2">
 				<div th:each="task : ${board.completed}">
 					<strong><span th:text="${task.title}"></span></strong>
+					<div><em><span class="text-muted" th:text="${task.storyTitle}"></span></em></div>
 				</div>
-				<!-- <div><em><span class="text-muted" th:text="${task.storyTitle}"></span></em></div> -->
 			</div>
 		</div>
 	</div>
