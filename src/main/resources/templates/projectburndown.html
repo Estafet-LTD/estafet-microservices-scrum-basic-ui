@@ -8,9 +8,6 @@
 	</head>		
 <body>
 	<div layout:fragment="content">
-		<div>
-			<a th:href="@{/project/__${project.id}__}">Project</a>
-		</div>
 		<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto">
 			<script th:inline="javascript">
          		$(function () {
@@ -37,7 +34,7 @@
 				    },
 				    yAxis: {
 				      title: {
-				        text: 'Hours'
+				        text: 'Story Points'
 				      },
 				      plotLines: [{
 				        value: 0,
@@ -45,7 +42,7 @@
 				      }]
 				    },
 				    tooltip: {
-				      valueSuffix: ' hrs',
+				      valueSuffix: ' points',
 				      crosshairs: true,
 				      shared: true
 				    },

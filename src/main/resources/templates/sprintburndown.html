@@ -7,13 +7,7 @@
 		<link rel="stylesheet" href="/nv.d3.min.css"/>
 	</head>		
 <body>
-	<div layout:fragment="content">
-		<div>
-			<a th:href="@{/project/__${projectId}__}">Project</a>
-		</div>
-		<div>
-			<a th:href="@{'/project/' + ${projectId} + '/sprint/' + ${sprint.id}}">Sprint</a>
-		</div>		
+	<div layout:fragment="content">	
 		<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto">
 			<script th:inline="javascript">
          		$(function () {
