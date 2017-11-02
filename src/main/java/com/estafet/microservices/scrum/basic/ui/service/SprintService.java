@@ -33,11 +33,15 @@ public class SprintService {
 	public Sprint getSprint(int projectId, int sprintId) {
 		tracer.activeSpan().setTag("project.id", projectId);
 		tracer.activeSpan().setTag("sprint.id", sprintId);
-		Sprint sprint = restTemplate.getForObject(System.getenv("SPRINT_API_SERVICE_URI") + "/sprint/{id}",
-				Sprint.class, sprintId);
+		Sprint sprint = getSprint(sprintId);
 		sprint.setProjectId(projectId);
 		List<Story> stories = storyService.getProjectStories(projectId);
 		return sprint.addStories(stories);
+	}
+
+	public Sprint getSprint(int sprintId) {
+		return restTemplate.getForObject(System.getenv("SPRINT_API_SERVICE_URI") + "/sprint/{id}",
+				Sprint.class, sprintId);
 	}
 
 	@SuppressWarnings({ "rawtypes" })
