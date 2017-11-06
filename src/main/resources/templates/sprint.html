@@ -8,10 +8,11 @@
 		<div><strong>Status:</strong>&nbsp;<span class="text-muted" th:text="${sprint.status}"></span></div>
 		<div><strong>Start:</strong>&nbsp;<span class="text-muted" th:text="${sprint.startDate}"></span></div>
 		<div><strong>End:</strong>&nbsp;<span class="text-muted" th:text="${sprint.endDate}"></span></div>
+		<div>&nbsp;</div>
 		<div>
 			<blockquote>
-  				<p><a th:href="@{'/project/' + ${sprint.projectId} + '/sprint/' + ${sprint.id} + '/board'}">Sprint Board</a></p>
-  				<p><a th:href="@{'/project/' + ${sprint.projectId} + '/sprint/' + ${sprint.id} + '/burndown'}">Sprint Burndown</a></p>
+  				<div><a th:href="@{'/project/' + ${sprint.projectId} + '/sprint/' + ${sprint.id} + '/board'}">Sprint Board</a></div>
+  				<div><a th:href="@{'/project/' + ${sprint.projectId} + '/sprint/' + ${sprint.id} + '/burndown'}">Sprint Burndown</a></div>
 			</blockquote>
 		</div>	
 		<div>
