@@ -23,7 +23,7 @@ public class TaskController {
 
 	@GetMapping("/task/{id}")
 	public String taskForm(@PathVariable int id, Model model) {
-		model.addAttribute("task", new Task());
+		model.addAttribute("task", new Task().init());
 		model.addAttribute("storyId", id);
 		return "task";
 	}

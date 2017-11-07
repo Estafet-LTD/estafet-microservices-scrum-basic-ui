@@ -2,6 +2,7 @@ package com.estafet.microservices.scrum.basic.ui.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Project {
 
@@ -17,6 +18,13 @@ public class Project {
 
 	private Integer sprintLengthDays;
 
+	public Project init() {
+		this.noSprints = 5;
+		this.sprintLengthDays = 5;
+		this.title = "My Project #" +  ThreadLocalRandom.current().nextInt(1, 10000);
+		return this;
+	}
+	
 	public Project addSprints(List<Sprint> sprints) {
 		this.sprints.addAll(sprints);
 		return this;

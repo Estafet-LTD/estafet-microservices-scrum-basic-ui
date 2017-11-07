@@ -30,7 +30,7 @@ public class StoryController {
 	
 	@GetMapping("/addstory/{id}")
 	public String addStoryForm(@PathVariable int id,  Model model) {
-		model.addAttribute("story", new Story());
+		model.addAttribute("story", new Story().init());
 		model.addAttribute("projectId", id);
 		return "addstory";
 	}

@@ -1,5 +1,7 @@
 package com.estafet.microservices.scrum.basic.ui.model;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -21,6 +23,13 @@ public class Task {
 
 	private String storyTitle;
 
+	public Task init() {
+		this.title = "Task #" + ThreadLocalRandom.current().nextInt(1, 10000);
+		this.description = title;
+		this.initialHours =  ThreadLocalRandom.current().nextInt(1, 20);
+		return this;
+	}
+	
 	public Task setRemainingHours(Integer remainingHours) {
 		this.remainingHours = remainingHours;
 		return this;

@@ -19,7 +19,7 @@ public class AcceptanceCriteriaController {
 	
 	@GetMapping("/criteria/{id}")
 	public String criteriaForm(@PathVariable int id,  Model model) {
-		model.addAttribute("criteria", new AcceptanceCriterion());
+		model.addAttribute("criteria", new AcceptanceCriterion().init());
 		model.addAttribute("storyId", id);
 		return "criteria";
 	}

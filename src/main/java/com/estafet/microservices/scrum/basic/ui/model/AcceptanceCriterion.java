@@ -1,11 +1,18 @@
 package com.estafet.microservices.scrum.basic.ui.model;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 public class AcceptanceCriterion {
 
 	private int id;
 
 	private String description;
 
+	public AcceptanceCriterion init() {
+		description = "Acceptance #" + ThreadLocalRandom.current().nextInt(1, 10000);
+		return this;
+	}
+	
 	public int getId() {
 		return id;
 	}

@@ -2,6 +2,7 @@ package com.estafet.microservices.scrum.basic.ui.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.springframework.web.client.RestTemplate;
 
@@ -32,6 +33,14 @@ public class Story {
 
 	private List<AcceptanceCriterion> criteria = new ArrayList<AcceptanceCriterion>();
 
+	public Story init() {
+		this.title = "Story #" + ThreadLocalRandom.current().nextInt(1, 10000);
+		this.description = this.title;
+		int points[] = {1, 2, 3, 5, 8, 20, 40, 100};
+		this.storypoints = points[ThreadLocalRandom.current().nextInt(0, 9)]; 
+		return this;
+	}
+	
 	public Project getProject() {
 		return project;
 	}

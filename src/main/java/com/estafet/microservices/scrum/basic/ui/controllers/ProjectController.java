@@ -33,7 +33,7 @@ public class ProjectController {
 
 	@GetMapping("/newproject")
 	public String newProjectForm(Model model) {
-		model.addAttribute("project", new Project());
+		model.addAttribute("project", new Project().init());
 		return "newproject";
 	}
 
