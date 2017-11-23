@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.retry.annotation.Backoff;
+import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -25,6 +27,7 @@ public class StoryService {
 	@Autowired
 	private RestTemplate restTemplate;
 
+	@Retryable(maxAttempts = 3, backoff = @Backoff(delay=200))
 	@SuppressWarnings({ "rawtypes" })
 	public List<Story> getProjectStories(int projectId) {
 		tracer.activeSpan().setTag("project.id", projectId);
@@ -48,6 +51,7 @@ public class StoryService {
 				new AddSprintStory().setSprintId(sprintId).setStoryId(storyId), Story.class);
 	}
 
+	@Retryable(maxAttempts = 3, backoff = @Backoff(delay=200))
 	public Story getStory(int storyId) {
 		tracer.activeSpan().setTag("story.id", storyId);
 		Story story = restTemplate.getForObject(System.getenv("STORY_API_SERVICE_URI") + "/story/{id}", Story.class,
