@@ -18,7 +18,8 @@ import io.opentracing.Tracer;
 
 @Service
 public class ProjectService {
-
+	private static final String PROJECT_API_SERVICE_URI = System.getenv("PROJECT_API_SERVICE_URI");
+	
 	@Autowired
 	private Tracer tracer;
 	
@@ -34,8 +35,9 @@ public class ProjectService {
 	@SuppressWarnings("rawtypes")
 	@Retryable(maxAttempts = 3, backoff = @Backoff(delay=200))
 	public List<Project> getProjects() {
-		List objects = restTemplate.getForObject(System.getenv("PROJECT_API_SERVICE_URI") + "/projects",
+		List objects = restTemplate.getForObject(PROJECT_API_SERVICE_URI + "/project",
 				List.class);
+
 		List<Project> projects = new ArrayList<Project>();
 		ObjectMapper mapper = new ObjectMapper();
 		for (Object object : objects) {
@@ -49,14 +51,16 @@ public class ProjectService {
 	@Retryable(maxAttempts = 3, backoff = @Backoff(delay=200))
 	public Project getProject(int projectId) {
 		tracer.activeSpan().setTag("project.id", projectId);
-		Project project = restTemplate.getForObject(System.getenv("PROJECT_API_SERVICE_URI") + "/project/{id}",
+
+		Project project = restTemplate.getForObject(PROJECT_API_SERVICE_URI + "/project/{id}",
 				Project.class, projectId);
+		
 		return project.addStories(storyService.getProjectStories(projectId))
-				.addSprints(sprintService.getProjectSprints(projectId));
+					  .addSprints(sprintService.getProjectSprints(projectId));
 	}
 
 	public Project createProject(Project project) {
-		project = restTemplate.postForObject(System.getenv("PROJECT_API_SERVICE_URI") + "/project", project,
+		project = restTemplate.postForObject(PROJECT_API_SERVICE_URI + "/project", project,
 				Project.class);
 		tracer.activeSpan().setTag("project.id", project.getId());
 		return project;
