@@ -20,7 +20,7 @@ import io.opentracing.Tracer;
 public class ProjectService {
 //	private static final String PROJECT_API_SERVICE_URI = System.getenv("PROJECT_API_SERVICE_URI");
 //	private static final String PROJECT_API_SERVICE_URI = "http://localhost:8085/project-api";
-	private static final String PROJECT_API_SERVICE_URI = "http://estafet-microservices-scrum-gateway.192.168.99.100.nip.io/project-api";
+	private static final String PROJECT_API_SERVICE_URI = "http://gateway.microservices-scrum.svc:8080/project-api";
 
 	
 	@Autowired

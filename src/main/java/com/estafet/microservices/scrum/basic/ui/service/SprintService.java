@@ -24,7 +24,7 @@ import io.opentracing.Tracer;
 public class SprintService {
 //	private static final String SPRINT_API_SERVICE_URI = System.getenv("SPRINT_API_SERVICE_URI");
 //	private static final String SPRINT_API_SERVICE_URI = "http://localhost:8088/";
-	private static final String SPRINT_API_SERVICE_URI = "http://estafet-microservices-scrum-gateway.192.168.99.100.nip.io/sprint-api";
+	private static final String SPRINT_API_SERVICE_URI = "http://gateway.microservices-scrum.svc:8080/sprint-api";
 	
 	@Autowired
 	private Tracer tracer;
