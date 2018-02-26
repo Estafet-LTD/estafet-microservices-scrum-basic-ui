@@ -4,11 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.retry.annotation.Backoff;
-import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.estafet.microservices.scrum.basic.ui.config.UrlConstants;
 import com.estafet.microservices.scrum.basic.ui.model.Project;
 import com.estafet.microservices.scrum.basic.ui.model.ProjectBurndown;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -18,10 +17,6 @@ import io.opentracing.Tracer;
 
 @Service
 public class ProjectService {
-//	private static final String PROJECT_API_SERVICE_URI = System.getenv("PROJECT_API_SERVICE_URI");
-//	private static final String PROJECT_API_SERVICE_URI = "http://localhost:8085/project-api";
-	private static final String PROJECT_API_SERVICE_URI = "http://gateway.microservices-scrum.svc:8080/project-api";
-
 	
 	@Autowired
 	private Tracer tracer;
@@ -36,10 +31,8 @@ public class ProjectService {
 	private RestTemplate restTemplate;
 
 	@SuppressWarnings("rawtypes")
-	@Retryable(maxAttempts = 3, backoff = @Backoff(delay=200))
 	public List<Project> getProjects() {
-		List objects = restTemplate.getForObject(PROJECT_API_SERVICE_URI + "/project",
-				List.class);
+		List objects = restTemplate.getForObject(UrlConstants.PROJECT_API_SERVICE_URI + "/project", List.class);
 
 		List<Project> projects = new ArrayList<Project>();
 		ObjectMapper mapper = new ObjectMapper();
@@ -51,11 +44,10 @@ public class ProjectService {
 		return projects;
 	}
 
-	@Retryable(maxAttempts = 3, backoff = @Backoff(delay=200))
 	public Project getProject(int projectId) {
 		tracer.activeSpan().setTag("project.id", projectId);
 
-		Project project = restTemplate.getForObject(PROJECT_API_SERVICE_URI + "/project/{id}",
+		Project project = restTemplate.getForObject(UrlConstants.PROJECT_API_SERVICE_URI + "/project/{id}",
 				Project.class, projectId);
 		
 		return project.addStories(storyService.getProjectStories(projectId))
@@ -63,13 +55,16 @@ public class ProjectService {
 	}
 
 	public Project createProject(Project project) {
-		project = restTemplate.postForObject(PROJECT_API_SERVICE_URI + "/project", project,
+		project = restTemplate.postForObject(UrlConstants.PROJECT_API_SERVICE_URI + "/project", project,
 				Project.class);
-		tracer.activeSpan().setTag("project.id", project.getId());
+		
+		if(project.getId() != null) {
+			tracer.activeSpan().setTag("project.id", project.getId());
+		}
+		
 		return project;
 	}
 
-	@Retryable(maxAttempts = 3, backoff = @Backoff(delay=200))
 	public ProjectBurndown getBurndown(int projectId) {
 		tracer.activeSpan().setTag("project.id", projectId);
 		ProjectBurndown burndown = restTemplate.getForObject(
