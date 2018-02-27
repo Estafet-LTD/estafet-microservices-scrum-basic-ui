@@ -38,7 +38,7 @@ public class Story {
 		this.title = "Story #" + ThreadLocalRandom.current().nextInt(1, 10000);
 		this.description = this.title;
 		int points[] = {1, 2, 3, 5, 8, 20, 40, 100};
-		this.storypoints = points[ThreadLocalRandom.current().nextInt(0, 9)]; 
+		this.storypoints = points[ThreadLocalRandom.current().nextInt(0, 7)]; 
 		return this;
 	}
 	
