@@ -1,8 +1,6 @@
 package com.estafet.microservices.scrum.basic.ui.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.retry.annotation.Backoff;
-import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -13,7 +11,7 @@ import io.opentracing.Tracer;
 
 @Service
 public class TaskService {
-
+	
 	@Autowired
 	private Tracer tracer;
 	
@@ -37,7 +35,6 @@ public class TaskService {
 				Task.class, taskId);
 	}
 
-	@Retryable(maxAttempts = 3, backoff = @Backoff(delay=200))
 	public Task getTask(int taskId) {
 		tracer.activeSpan().setTag("task.id", taskId);
 		return restTemplate.getForObject(System.getenv("TASK_API_SERVICE_URI") + "/task/{id}", Task.class,

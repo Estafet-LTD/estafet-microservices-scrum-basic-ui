@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.retry.annotation.Backoff;
-import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -20,19 +18,17 @@ import io.opentracing.Tracer;
 
 @Service
 public class StoryService {
-
+			
 	@Autowired
 	private Tracer tracer;
 		
 	@Autowired
 	private RestTemplate restTemplate;
 
-	@Retryable(maxAttempts = 3, backoff = @Backoff(delay=200))
 	@SuppressWarnings({ "rawtypes" })
 	public List<Story> getProjectStories(int projectId) {
 		tracer.activeSpan().setTag("project.id", projectId);
-		List objects = restTemplate.getForObject(System.getenv("STORY_API_SERVICE_URI") + "/project/{id}/stories",
-				List.class, projectId);
+		List objects = restTemplate.getForObject(System.getenv("STORY_API_SERVICE_URI") + "/project/{id}/stories", List.class, projectId);
 		List<Story> stories = new ArrayList<Story>();
 		ObjectMapper mapper = new ObjectMapper();
 		for (Object object : objects) {
@@ -51,7 +47,6 @@ public class StoryService {
 				new AddSprintStory().setSprintId(sprintId).setStoryId(storyId), Story.class);
 	}
 
-	@Retryable(maxAttempts = 3, backoff = @Backoff(delay=200))
 	public Story getStory(int storyId) {
 		tracer.activeSpan().setTag("story.id", storyId);
 		Story story = restTemplate.getForObject(System.getenv("STORY_API_SERVICE_URI") + "/story/{id}", Story.class,
@@ -72,8 +67,12 @@ public class StoryService {
 		tracer.activeSpan().setTag("project.id", projectId);
 		story = restTemplate.postForObject(System.getenv("STORY_API_SERVICE_URI") + "/project/{id}/story", story, Story.class,
 				projectId);
-		story.setRestTemplate(restTemplate);
-		tracer.activeSpan().setTag("story.id", story.getId());
+
+		if(story.getId() != null) {
+			story.setRestTemplate(restTemplate);
+			tracer.activeSpan().setTag("story.id", story.getId());
+		}
+		
 		return story;
 	}
 

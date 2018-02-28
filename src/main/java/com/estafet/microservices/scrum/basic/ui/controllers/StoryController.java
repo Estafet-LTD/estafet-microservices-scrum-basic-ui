@@ -38,6 +38,11 @@ public class StoryController {
 	@PostMapping("/addstory/{id}")
 	public String addStorySubmit(@PathVariable int id, @ModelAttribute Story story) {
 		storyService.addStory(id, story);
+		
+		if(story.getId() == null) {
+			return "redirect:/error/503";	
+		}
+		
 		return "redirect:/project/" + id;
 	}
 	
