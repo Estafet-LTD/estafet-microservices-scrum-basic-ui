@@ -6,7 +6,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import org.springframework.web.client.RestTemplate;
 
-import com.estafet.microservices.scrum.basic.ui.config.UrlConstants;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -89,7 +88,7 @@ public class Story {
 	@SuppressWarnings("unchecked")
 	public List<Task> getTasks() {
 		if (id != null) {
-			return restTemplate.getForObject(UrlConstants.TASK_API_SERVICE_URI + "/story/{storyId}/tasks",
+			return restTemplate.getForObject(System.getenv("TASK_API_SERVICE_URI") + "/story/{storyId}/tasks",
 					List.class, id);	
 		} else {
 			return new ArrayList<Task>();

@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.estafet.microservices.scrum.basic.ui.config.UrlConstants;
 import com.estafet.microservices.scrum.basic.ui.messages.StartSprint;
 import com.estafet.microservices.scrum.basic.ui.model.Sprint;
 import com.estafet.microservices.scrum.basic.ui.model.SprintBurndown;
@@ -41,14 +40,14 @@ public class SprintService {
 	}
 
 	public Sprint getSprint(int sprintId) {
-		return restTemplate.getForObject(UrlConstants.SPRINT_API_SERVICE_URI + "/sprint/{id}",
+		return restTemplate.getForObject(System.getenv("SPRINT_API_SERVICE_URI") + "/sprint/{id}",
 				Sprint.class, sprintId);
 	}
 
 	@SuppressWarnings({ "rawtypes" })
 	public List<Sprint> getProjectSprints(int projectId) {
 		tracer.activeSpan().setTag("project.id", projectId);
-		List objects = restTemplate.getForObject(UrlConstants.SPRINT_API_SERVICE_URI + "/project/{id}/sprints", List.class, projectId);
+		List objects = restTemplate.getForObject(System.getenv("SPRINT_API_SERVICE_URI") + "/project/{id}/sprints", List.class, projectId);
 		List<Sprint> sprints = new ArrayList<Sprint>();
 		ObjectMapper mapper = new ObjectMapper();
 		for (Object object : objects) {
@@ -71,7 +70,7 @@ public class SprintService {
 	public void startSprint(int projectId, StartSprint startSprint) {
 		tracer.activeSpan().setTag("project.id", projectId);
 		startSprint.setProjectId(projectId);
-		Sprint sprint = restTemplate.postForObject(UrlConstants.SPRINT_API_SERVICE_URI + "/start-sprint",
+		Sprint sprint = restTemplate.postForObject(System.getenv("SPRINT_API_SERVICE_URI") + "/start-sprint",
 				startSprint, Sprint.class);
 		tracer.activeSpan().setTag("sprint.id", sprint.getId());
 	}
@@ -79,7 +78,7 @@ public class SprintService {
 	@SuppressWarnings("unchecked")
 	public List<String> getSprintDays(int sprintId, Task task) {
 		tracer.activeSpan().setTag("sprint.id", sprintId);
-		List<String> days = restTemplate.getForObject(UrlConstants.SPRINT_API_SERVICE_URI + "/sprint/{id}/days",
+		List<String> days = restTemplate.getForObject(System.getenv("SPRINT_API_SERVICE_URI") + "/sprint/{id}/days",
 				List.class, sprintId);
 		Iterator<String> iterator = days.iterator();
 		while (iterator.hasNext()) {
@@ -95,14 +94,14 @@ public class SprintService {
 	@SuppressWarnings("unchecked")
 	public String getLastSprintDay(int sprintId) {
 		tracer.activeSpan().setTag("sprint.id", sprintId);
-		List<String> days = restTemplate.getForObject(UrlConstants.SPRINT_API_SERVICE_URI + "/sprint/{id}/days",
+		List<String> days = restTemplate.getForObject(System.getenv("SPRINT_API_SERVICE_URI") + "/sprint/{id}/days",
 				List.class, sprintId);
 		return days.get(days.size() - 1);
 	}
 
 	public String getSprintDay(int sprintId) {
 		tracer.activeSpan().setTag("sprint.id", sprintId);
-		return restTemplate.getForObject(UrlConstants.SPRINT_API_SERVICE_URI + "/sprint/{id}/day", String.class,
+		return restTemplate.getForObject(System.getenv("SPRINT_API_SERVICE_URI") + "/sprint/{id}/day", String.class,
 				sprintId);
 	}
 

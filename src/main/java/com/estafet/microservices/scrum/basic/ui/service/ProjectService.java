@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.estafet.microservices.scrum.basic.ui.config.UrlConstants;
 import com.estafet.microservices.scrum.basic.ui.model.Project;
 import com.estafet.microservices.scrum.basic.ui.model.ProjectBurndown;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -32,7 +31,7 @@ public class ProjectService {
 
 	@SuppressWarnings("rawtypes")
 	public List<Project> getProjects() {
-		List objects = restTemplate.getForObject(UrlConstants.PROJECT_API_SERVICE_URI + "/project", List.class);
+		List objects = restTemplate.getForObject(System.getenv("PROJECT_API_SERVICE_URI") + "/project", List.class);
 
 		List<Project> projects = new ArrayList<Project>();
 		ObjectMapper mapper = new ObjectMapper();
@@ -47,7 +46,7 @@ public class ProjectService {
 	public Project getProject(int projectId) {
 		tracer.activeSpan().setTag("project.id", projectId);
 
-		Project project = restTemplate.getForObject(UrlConstants.PROJECT_API_SERVICE_URI + "/project/{id}",
+		Project project = restTemplate.getForObject(System.getenv("PROJECT_API_SERVICE_URI") + "/project/{id}",
 				Project.class, projectId);
 		
 		return project.addStories(storyService.getProjectStories(projectId))
@@ -55,7 +54,7 @@ public class ProjectService {
 	}
 
 	public Project createProject(Project project) {
-		project = restTemplate.postForObject(UrlConstants.PROJECT_API_SERVICE_URI + "/project", project,
+		project = restTemplate.postForObject(System.getenv("PROJECT_API_SERVICE_URI") + "/project", project,
 				Project.class);
 		
 		if(project.getId() != null) {
