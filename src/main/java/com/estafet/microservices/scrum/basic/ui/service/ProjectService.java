@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.retry.annotation.Backoff;
-import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -18,7 +16,7 @@ import io.opentracing.Tracer;
 
 @Service
 public class ProjectService {
-
+	
 	@Autowired
 	private Tracer tracer;
 	
@@ -32,7 +30,6 @@ public class ProjectService {
 	private RestTemplate restTemplate;
 
 	@SuppressWarnings("rawtypes")
-	@Retryable(maxAttempts = 3, backoff = @Backoff(delay=200))
 	public List<Project> getProjects() {
 		List objects = restTemplate.getForObject(System.getenv("PROJECT_GATEWAY_SERVICE_URI") + "/projects",
 				List.class);
@@ -46,23 +43,26 @@ public class ProjectService {
 		return projects;
 	}
 
-	@Retryable(maxAttempts = 3, backoff = @Backoff(delay=200))
 	public Project getProject(int projectId) {
 		tracer.activeSpan().setTag("project.id", projectId);
 		Project project = restTemplate.getForObject(System.getenv("PROJECT_GATEWAY_SERVICE_URI") + "/project/{id}",
 				Project.class, projectId);
+		
 		return project.addStories(storyService.getProjectStories(projectId))
-				.addSprints(sprintService.getProjectSprints(projectId));
+					  .addSprints(sprintService.getProjectSprints(projectId));
 	}
 
 	public Project createProject(Project project) {
 		project = restTemplate.postForObject(System.getenv("PROJECT_GATEWAY_SERVICE_URI") + "/project", project,
 				Project.class);
-		tracer.activeSpan().setTag("project.id", project.getId());
+		
+		if(project.getId() != null) {
+			tracer.activeSpan().setTag("project.id", project.getId());
+		}
+		
 		return project;
 	}
 
-	@Retryable(maxAttempts = 3, backoff = @Backoff(delay=200))
 	public ProjectBurndown getBurndown(int projectId) {
 		tracer.activeSpan().setTag("project.id", projectId);
 		ProjectBurndown burndown = restTemplate.getForObject(

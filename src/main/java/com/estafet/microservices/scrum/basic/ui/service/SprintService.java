@@ -5,8 +5,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.retry.annotation.Backoff;
-import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -22,7 +20,7 @@ import io.opentracing.Tracer;
 
 @Service
 public class SprintService {
-
+	
 	@Autowired
 	private Tracer tracer;
 
@@ -32,7 +30,6 @@ public class SprintService {
 	@Autowired
 	private RestTemplate restTemplate;
 
-	@Retryable(maxAttempts = 3, backoff = @Backoff(delay=200))
 	public Sprint getSprint(int projectId, int sprintId) {
 		tracer.activeSpan().setTag("project.id", projectId);
 		tracer.activeSpan().setTag("sprint.id", sprintId);
@@ -42,14 +39,12 @@ public class SprintService {
 		return sprint.addStories(stories);
 	}
 
-	@Retryable(maxAttempts = 3, backoff = @Backoff(delay=200))
 	public Sprint getSprint(int sprintId) {
 		return restTemplate.getForObject(System.getenv("SPRINT_GATEWAY_SERVICE_URI") + "/sprint/{id}",
 				Sprint.class, sprintId);
 	}
 
 	@SuppressWarnings({ "rawtypes" })
-	@Retryable(maxAttempts = 3, backoff = @Backoff(delay=200))
 	public List<Sprint> getProjectSprints(int projectId) {
 		tracer.activeSpan().setTag("project.id", projectId);
 		List objects = restTemplate.getForObject(System.getenv("SPRINT_GATEWAY_SERVICE_URI") + "/project/{id}/sprints",
@@ -82,7 +77,6 @@ public class SprintService {
 	}
 
 	@SuppressWarnings("unchecked")
-	@Retryable(maxAttempts = 3, backoff = @Backoff(delay=200))
 	public List<String> getSprintDays(int sprintId, Task task) {
 		tracer.activeSpan().setTag("sprint.id", sprintId);
 		List<String> days = restTemplate.getForObject(System.getenv("SPRINT_GATEWAY_SERVICE_URI") + "/sprint/{id}/days",
@@ -97,10 +91,8 @@ public class SprintService {
 		}
 		return days;
 	}
-
 	
 	@SuppressWarnings("unchecked")
-	@Retryable(maxAttempts = 3, backoff = @Backoff(delay=200))
 	public String getLastSprintDay(int sprintId) {
 		tracer.activeSpan().setTag("sprint.id", sprintId);
 		List<String> days = restTemplate.getForObject(System.getenv("SPRINT_GATEWAY_SERVICE_URI") + "/sprint/{id}/days",
@@ -108,14 +100,12 @@ public class SprintService {
 		return days.get(days.size() - 1);
 	}
 
-	@Retryable(maxAttempts = 3, backoff = @Backoff(delay=200))
 	public String getSprintDay(int sprintId) {
 		tracer.activeSpan().setTag("sprint.id", sprintId);
 		return restTemplate.getForObject(System.getenv("SPRINT_GATEWAY_SERVICE_URI") + "/sprint/{id}/day", String.class,
 				sprintId);
 	}
 
-	@Retryable(maxAttempts = 3, backoff = @Backoff(delay=200))
 	public SprintBurndown getSprintBurndown(int sprintId) {
 		tracer.activeSpan().setTag("sprint.id", sprintId);
 		SprintBurndown burndown = restTemplate.getForObject(System.getenv("SPRINT_BURNDOWN_SERVICE_URI") + "/sprint/{id}/burndown",

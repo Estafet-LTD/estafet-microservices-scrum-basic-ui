@@ -39,6 +39,11 @@ public class ProjectController {
 
 	@PostMapping("/newproject")
 	public String newProjectSubmit(@ModelAttribute Project project) {
+	
+		if(projectService.createProject(project).getId() == null) {
+			return "redirect:/error/503";	
+		}
+		
 		return "redirect:/project/" + projectService.createProject(project).getId();
 	}
 
