@@ -31,7 +31,7 @@ public class StoryService {
 	@SuppressWarnings({ "rawtypes" })
 	public List<Story> getProjectStories(int projectId) {
 		tracer.activeSpan().setTag("project.id", projectId);
-		List objects = restTemplate.getForObject(System.getenv("STORY_API_SERVICE_URI") + "/project/{id}/stories",
+		List objects = restTemplate.getForObject(System.getenv("STORY_GATEWAY_SERVICE_URI") + "/project/{id}/stories",
 				List.class, projectId);
 		List<Story> stories = new ArrayList<Story>();
 		ObjectMapper mapper = new ObjectMapper();
@@ -47,14 +47,14 @@ public class StoryService {
 	public void addStoryToSprint(int sprintId, int storyId) {
 		tracer.activeSpan().setTag("sprint.id", sprintId);
 		tracer.activeSpan().setTag("story.id", storyId);
-		restTemplate.postForObject(System.getenv("STORY_API_SERVICE_URI") + "/add-story-to-sprint",
+		restTemplate.postForObject(System.getenv("STORY_GATEWAY_SERVICE_URI") + "/add-story-to-sprint",
 				new AddSprintStory().setSprintId(sprintId).setStoryId(storyId), Story.class);
 	}
 
 	@Retryable(maxAttempts = 3, backoff = @Backoff(delay=200))
 	public Story getStory(int storyId) {
 		tracer.activeSpan().setTag("story.id", storyId);
-		Story story = restTemplate.getForObject(System.getenv("STORY_API_SERVICE_URI") + "/story/{id}", Story.class,
+		Story story = restTemplate.getForObject(System.getenv("STORY_GATEWAY_SERVICE_URI") + "/story/{id}", Story.class,
 				storyId);
 		story.setRestTemplate(restTemplate);
 		return story;
@@ -62,7 +62,7 @@ public class StoryService {
 
 	public Story addAcceptanceCriteria(int storyId, AcceptanceCriterion criteria) {
 		tracer.activeSpan().setTag("story.id", storyId);
-		Story story = restTemplate.postForObject(System.getenv("STORY_API_SERVICE_URI") + "/story/{id}/criteria",
+		Story story = restTemplate.postForObject(System.getenv("STORY_GATEWAY_SERVICE_URI") + "/story/{id}/criteria",
 				new AcceptanceCriteriaDetails().setCriteria(criteria.getDescription()), Story.class, storyId);
 		story.setRestTemplate(restTemplate);
 		return story;
@@ -70,7 +70,7 @@ public class StoryService {
 
 	public Story addStory(int projectId, Story story) {
 		tracer.activeSpan().setTag("project.id", projectId);
-		story = restTemplate.postForObject(System.getenv("STORY_API_SERVICE_URI") + "/project/{id}/story", story, Story.class,
+		story = restTemplate.postForObject(System.getenv("STORY_GATEWAY_SERVICE_URI") + "/project/{id}/story", story, Story.class,
 				projectId);
 		story.setRestTemplate(restTemplate);
 		tracer.activeSpan().setTag("story.id", story.getId());
