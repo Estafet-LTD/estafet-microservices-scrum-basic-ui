@@ -31,7 +31,7 @@ public class ProjectService {
 
 	@SuppressWarnings("rawtypes")
 	public List<Project> getProjects() {
-		List objects = restTemplate.getForObject(System.getenv("PROJECT_GATEWAY_SERVICE_URI") + "/projects",
+		List objects = restTemplate.getForObject(System.getenv("PROJECT_GATEWAY_SERVICE_URI") + "/project",
 				List.class);
 		List<Project> projects = new ArrayList<Project>();
 		ObjectMapper mapper = new ObjectMapper();
