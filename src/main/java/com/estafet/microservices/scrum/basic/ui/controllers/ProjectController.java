@@ -39,12 +39,13 @@ public class ProjectController {
 
 	@PostMapping("/newproject")
 	public String newProjectSubmit(@ModelAttribute Project project) {
-	
-		if(projectService.createProject(project).getId() == null) {
+		project = projectService.createProject(project);
+
+		if(project.getId() == null) {
 			return "redirect:/error/503";	
 		}
 		
-		return "redirect:/project/" + projectService.createProject(project).getId();
+		return "redirect:/project/" + project.getId();
 	}
 
 	@RequestMapping("/project/{id}/burndown")
