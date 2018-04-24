@@ -1,0 +1,5 @@
+---
+# Define the name of the microservice
+microservice: basic-ui
+service_host: basic-ui.microservices-scrum.svc 
+service_uri_env: BASIC_UI_SERVICE_URI

@@ -1,0 +1,28 @@
+---
+- name: Creates Microservice Application in Openshift
+  hosts: localhost
+  vars_files:
+    - microservice-vars.yml
+  tasks:
+  
+    - set_fact: service_envs="-e JAEGER_SAMPLER_TYPE=const -e JAEGER_SAMPLER_PARAM=1 -e JAEGER_SAMPLER_MANAGER_HOST_PORT=jaeger-agent.microservices-scrum.svc:5778 -e JAEGER_AGENT_HOST=jaeger-agent.microservices-scrum.svc"
+
+    - set_fact: service_envs="{{ service_envs }} -e {{ service_uri_env }}=http://{{ service_host }}:8080"
+  
+    - name: Create the microservices application from the source to image builder for non db applications
+      shell: 'oc new-app redhat-openjdk18-openshift~{{ github }}/{{ repo }} --name={{ microservice }} {{ service_envs }} && sleep 120'
+      register: command_result
+      failed_when: "'exists' not in command_result.stderr and command_result.rc != 0"
+      changed_when: "'exists' not in command_result.stderr"
+      tags:
+        - openshift           
+      
+    - name: Expose Basic UI
+      shell: "oc expose service basic-ui"
+      register: command_result
+      failed_when: "'exists' not in command_result.stderr and command_result.rc != 0"
+      changed_when: "'exists' not in command_result.stderr"
+      tags:
+        - openshift           
+
+            
