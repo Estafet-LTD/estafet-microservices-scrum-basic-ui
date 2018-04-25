@@ -71,7 +71,7 @@ public class SprintService {
 	public void startSprint(int projectId, StartSprint startSprint) {
 		tracer.activeSpan().setTag("project.id", projectId);
 		startSprint.setProjectId(projectId);
-		Sprint sprint = restTemplate.postForObject(System.getenv("SPRINT_GATEWAY_SERVICE_URI") + "/start-sprint",
+		Sprint sprint = restTemplate.postForObject(System.getenv("SPRINT_API_SERVICE_URI") + "/start-sprint",
 				startSprint, Sprint.class);
 		tracer.activeSpan().setTag("sprint.id", sprint.getId());
 	}
@@ -79,7 +79,7 @@ public class SprintService {
 	@SuppressWarnings("unchecked")
 	public List<String> getSprintDays(int sprintId, Task task) {
 		tracer.activeSpan().setTag("sprint.id", sprintId);
-		List<String> days = restTemplate.getForObject(System.getenv("SPRINT_GATEWAY_SERVICE_URI") + "/sprint/{id}/days",
+		List<String> days = restTemplate.getForObject(System.getenv("SPRINT_API_SERVICE_URI") + "/sprint/{id}/days",
 				List.class, sprintId);
 		Iterator<String> iterator = days.iterator();
 		while (iterator.hasNext()) {
@@ -95,14 +95,14 @@ public class SprintService {
 	@SuppressWarnings("unchecked")
 	public String getLastSprintDay(int sprintId) {
 		tracer.activeSpan().setTag("sprint.id", sprintId);
-		List<String> days = restTemplate.getForObject(System.getenv("SPRINT_GATEWAY_SERVICE_URI") + "/sprint/{id}/days",
+		List<String> days = restTemplate.getForObject(System.getenv("SPRINT_API_SERVICE_URI") + "/sprint/{id}/days",
 				List.class, sprintId);
 		return days.get(days.size() - 1);
 	}
 
 	public String getSprintDay(int sprintId) {
 		tracer.activeSpan().setTag("sprint.id", sprintId);
-		return restTemplate.getForObject(System.getenv("SPRINT_GATEWAY_SERVICE_URI") + "/sprint/{id}/day", String.class,
+		return restTemplate.getForObject(System.getenv("SPRINT_API_SERVICE_URI") + "/sprint/{id}/day", String.class,
 				sprintId);
 	}
 
