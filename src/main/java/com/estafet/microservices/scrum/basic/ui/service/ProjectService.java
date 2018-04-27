@@ -31,7 +31,7 @@ public class ProjectService {
 	
 	@SuppressWarnings("rawtypes")
 	public List<Project> getProjects() {
-		List objects = restTemplate.getForObject(System.getenv("PROJECT_GATEWAY_SERVICE_URI") + "/project",
+		List objects = restTemplate.getForObject(System.getenv("PROJECT_API_SERVICE_URI") + "/project",
 				List.class);
 		List<Project> projects = new ArrayList<Project>();
 		ObjectMapper mapper = new ObjectMapper();
@@ -45,7 +45,7 @@ public class ProjectService {
 
 	public Project getProject(int projectId) {
 		tracer.activeSpan().setTag("project.id", projectId);
-		Project project = restTemplate.getForObject(System.getenv("PROJECT_GATEWAY_SERVICE_URI") + "/project/{id}",
+		Project project = restTemplate.getForObject(System.getenv("PROJECT_API_SERVICE_URI") + "/project/{id}",
 				Project.class, projectId);
 		
 		return project.addStories(storyService.getProjectStories(projectId))
@@ -53,7 +53,7 @@ public class ProjectService {
 	}
 
 	public Project createProject(Project project) {
-		project = restTemplate.postForObject(System.getenv("PROJECT_GATEWAY_SERVICE_URI") + "/project", project,
+		project = restTemplate.postForObject(System.getenv("PROJECT_API_SERVICE_URI") + "/project", project,
 				Project.class);
 		
 		if(project.getId() != null) {
