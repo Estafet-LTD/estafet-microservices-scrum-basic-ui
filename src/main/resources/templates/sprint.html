@@ -3,7 +3,7 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorator="default">
 <body>
-	<div layout:fragment="content">
+	<div layout:fragment="content" th:if="${sprintServiceIsAlive == true}">
 		<div><h2>Sprint&nbsp;<small th:text="${sprint.name}"></small></h2></div>
 		<div><strong>Status:</strong>&nbsp;<span class="text-muted" th:text="${sprint.status}"></span></div>
 		<div><strong>Start:</strong>&nbsp;<span class="text-muted" th:text="${sprint.startDate}"></span></div>

@@ -28,7 +28,7 @@ public class ProjectService {
 	
 	@Autowired
 	private RestTemplate restTemplate;
-
+	
 	@SuppressWarnings("rawtypes")
 	public List<Project> getProjects() {
 		List objects = restTemplate.getForObject(System.getenv("PROJECT_GATEWAY_SERVICE_URI") + "/project",
