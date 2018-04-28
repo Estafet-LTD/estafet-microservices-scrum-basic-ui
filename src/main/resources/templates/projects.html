@@ -3,7 +3,7 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorator="default">
 <body>
-	<div layout:fragment="content">
+	<div layout:fragment="content" th:if="${projectServiceIsAlive == true}">
 		<div class="row">
 			<div class="col-md-8">
 				<h2>
