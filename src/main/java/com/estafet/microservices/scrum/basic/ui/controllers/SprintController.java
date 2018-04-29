@@ -31,9 +31,9 @@ public class SprintController {
 		model.addAttribute("sprint", sprintService.getSprint(projectId, sprintId));
 		model.addAttribute("projectId", projectId);
 		model.addAttribute("sprintId", sprintId);
-		model.addAttribute("sprintServiceIsAlive",
-				healthCheckService.serviceHealthCheck(ServiceName.SPRINT_SERVICE).getStatus().equals("UP") ? true
-						: false);
+//		model.addAttribute("sprintServiceIsAlive",
+//				healthCheckService.serviceHealthCheck(ServiceName.SPRINT_SERVICE).getStatus().equals("UP") ? true
+//						: false);
 
 		return "sprint";
 	}
@@ -44,9 +44,9 @@ public class SprintController {
 		model.addAttribute("sprint", sprintService.addStoryToSprint(projectId, sprintId, storyId));
 		model.addAttribute("projectId", projectId);
 		model.addAttribute("sprintId", sprintId);
-		model.addAttribute("sprintServiceIsAlive",
-				healthCheckService.serviceHealthCheck(ServiceName.SPRINT_SERVICE).getStatus().equals("UP") ? true
-						: false);
+//		model.addAttribute("sprintServiceIsAlive",
+//				healthCheckService.serviceHealthCheck(ServiceName.SPRINT_SERVICE).getStatus().equals("UP") ? true
+//						: false);
 
 		return "redirect:/project/" + projectId + "/sprint/" + sprintId;
 	}
@@ -56,9 +56,9 @@ public class SprintController {
 		model.addAttribute("sprint", sprintService.getSprintBurndown(sprintId));
 		model.addAttribute("projectId", projectId);
 		model.addAttribute("sprintId", sprintId);
-		model.addAttribute("sprintServiceIsAlive",
-				healthCheckService.serviceHealthCheck(ServiceName.SPRINT_SERVICE).getStatus().equals("UP") ? true
-						: false);
+//		model.addAttribute("sprintServiceIsAlive",
+//				healthCheckService.serviceHealthCheck(ServiceName.SPRINT_SERVICE).getStatus().equals("UP") ? true
+//						: false);
 
 		return "sprintburndown";
 	}

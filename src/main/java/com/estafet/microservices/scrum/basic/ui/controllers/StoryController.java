@@ -30,7 +30,7 @@ public class StoryController {
 		model.addAttribute("storyId", story.getId());
 		model.addAttribute("projectId", story.getProjectId());
 		model.addAttribute("sprintId", story.getSprintId());
-		model.addAttribute("storyServiceIsAlive", healthCheckService.serviceHealthCheck(ServiceName.STORY_SERVICE));
+//		model.addAttribute("storyServiceIsAlive", healthCheckService.serviceHealthCheck(ServiceName.STORY_SERVICE));
 
 		return "story";
 	}
@@ -39,7 +39,7 @@ public class StoryController {
 	public String addStoryForm(@PathVariable int id, Model model) {
 		model.addAttribute("story", new Story().init());
 		model.addAttribute("projectId", id);
-		model.addAttribute("storyServiceIsAlive", healthCheckService.serviceHealthCheck(ServiceName.STORY_SERVICE));
+//		model.addAttribute("storyServiceIsAlive", healthCheckService.serviceHealthCheck(ServiceName.STORY_SERVICE));
 
 		return "addstory";
 	}

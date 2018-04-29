@@ -26,9 +26,9 @@ public class ProjectController {
 	@RequestMapping("/projects")
 	public String projects(Model model) {
 		model.addAttribute("projects", projectService.getProjects());
-		model.addAttribute("projectServiceIsAlive",
-				healthCheckService.serviceHealthCheck(ServiceName.PROJECT_SERVICE).getStatus().equals("UP") ? true
-						: false);
+//		model.addAttribute("projectServiceIsAlive",
+//				healthCheckService.serviceHealthCheck(ServiceName.PROJECT_SERVICE).getStatus().equals("UP") ? true
+//						: false);
 
 		return "projects";
 	}
@@ -37,15 +37,15 @@ public class ProjectController {
 	public String project(@PathVariable int id, Model model) {
 		model.addAttribute("project", projectService.getProject(id));
 		model.addAttribute("projectId", id);
-		model.addAttribute("projectServiceIsAlive",
-				healthCheckService.serviceHealthCheck(ServiceName.PROJECT_SERVICE).getStatus().equals("UP") ? true
-						: false);
-		model.addAttribute("sprintServiceIsAlive",
-				healthCheckService.serviceHealthCheck(ServiceName.SPRINT_SERVICE).getStatus().equals("UP") ? true
-						: false);
-		model.addAttribute("storyServiceIsAlive",
-				healthCheckService.serviceHealthCheck(ServiceName.STORY_SERVICE).getStatus().equals("UP") ? true
-						: false);
+//		model.addAttribute("projectServiceIsAlive",
+//				healthCheckService.serviceHealthCheck(ServiceName.PROJECT_SERVICE).getStatus().equals("UP") ? true
+//						: false);
+//		model.addAttribute("sprintServiceIsAlive",
+//				healthCheckService.serviceHealthCheck(ServiceName.SPRINT_SERVICE).getStatus().equals("UP") ? true
+//						: false);
+//		model.addAttribute("storyServiceIsAlive",
+//				healthCheckService.serviceHealthCheck(ServiceName.STORY_SERVICE).getStatus().equals("UP") ? true
+//						: false);
 
 		return "project";
 	}
@@ -53,9 +53,9 @@ public class ProjectController {
 	@GetMapping("/newproject")
 	public String newProjectForm(Model model) {
 		model.addAttribute("project", new Project().init());
-		model.addAttribute("projectServiceIsAlive",
-				healthCheckService.serviceHealthCheck(ServiceName.PROJECT_SERVICE).getStatus().equals("UP") ? true
-						: false);
+//		model.addAttribute("projectServiceIsAlive",
+//				healthCheckService.serviceHealthCheck(ServiceName.PROJECT_SERVICE).getStatus().equals("UP") ? true
+//						: false);
 
 		return "newproject";
 	}
