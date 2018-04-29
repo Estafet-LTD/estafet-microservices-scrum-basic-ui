@@ -35,6 +35,8 @@ public class SprintController {
 //				healthCheckService.serviceHealthCheck(ServiceName.SPRINT_SERVICE).getStatus().equals("UP") ? true
 //						: false);
 
+		model.addAttribute("sprintServiceIsAlive", true);		
+		
 		return "sprint";
 	}
 
@@ -48,6 +50,8 @@ public class SprintController {
 //				healthCheckService.serviceHealthCheck(ServiceName.SPRINT_SERVICE).getStatus().equals("UP") ? true
 //						: false);
 
+		model.addAttribute("sprintServiceIsAlive", true);		
+		
 		return "redirect:/project/" + projectId + "/sprint/" + sprintId;
 	}
 
@@ -60,6 +64,8 @@ public class SprintController {
 //				healthCheckService.serviceHealthCheck(ServiceName.SPRINT_SERVICE).getStatus().equals("UP") ? true
 //						: false);
 
+		model.addAttribute("sprintServiceIsAlive", true);		
+		
 		return "sprintburndown";
 	}
 

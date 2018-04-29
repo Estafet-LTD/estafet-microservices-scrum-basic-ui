@@ -32,6 +32,8 @@ public class StoryController {
 		model.addAttribute("sprintId", story.getSprintId());
 //		model.addAttribute("storyServiceIsAlive", healthCheckService.serviceHealthCheck(ServiceName.STORY_SERVICE));
 
+		model.addAttribute("storyServiceIsAlive", true);
+		
 		return "story";
 	}
 
@@ -41,6 +43,8 @@ public class StoryController {
 		model.addAttribute("projectId", id);
 //		model.addAttribute("storyServiceIsAlive", healthCheckService.serviceHealthCheck(ServiceName.STORY_SERVICE));
 
+		model.addAttribute("storyServiceIsAlive", true);
+		
 		return "addstory";
 	}
 

@@ -30,6 +30,7 @@ public class ProjectController {
 //				healthCheckService.serviceHealthCheck(ServiceName.PROJECT_SERVICE).getStatus().equals("UP") ? true
 //						: false);
 
+		model.addAttribute("projectServiceIsAlive", true);		
 		return "projects";
 	}
 
@@ -47,6 +48,10 @@ public class ProjectController {
 //				healthCheckService.serviceHealthCheck(ServiceName.STORY_SERVICE).getStatus().equals("UP") ? true
 //						: false);
 
+		model.addAttribute("projectServiceIsAlive", true);
+		model.addAttribute("sprintServiceIsAlive", true);
+		model.addAttribute("storyServiceIsAlive", true);		
+		
 		return "project";
 	}
 
@@ -57,6 +62,8 @@ public class ProjectController {
 //				healthCheckService.serviceHealthCheck(ServiceName.PROJECT_SERVICE).getStatus().equals("UP") ? true
 //						: false);
 
+		model.addAttribute("projectServiceIsAlive", true);		
+		
 		return "newproject";
 	}
 
