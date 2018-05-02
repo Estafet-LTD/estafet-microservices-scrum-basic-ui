@@ -1,12 +1,12 @@
 ---
-- name: Create database for microservice
+- name: Create Basic UI
   hosts: localhost
   vars_files:
     - microservice-vars.yml  
   tasks:
    
     - name: Login in Openshift
-      shell: "oc login --insecure-skip-tls-verify=true -u {{ username }} -p {{ password }} {{ openshift }}"
+      shell: "oc login {{ openshift }} --insecure-skip-tls-verify=true -u {{ username }} -p {{ password }} -n {{ project }}"
       tags:
         - openshift
         
