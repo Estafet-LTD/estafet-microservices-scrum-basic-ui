@@ -2,19 +2,6 @@
 # Define the name of the microservice
 microservice: basic-ui
 
-# defines the location of the estafet github (change this if you have forked and want to use another github)
-#github: https://github.com/Estafet-LTD
-repo: estafet-microservices-scrum-basic-ui
-
-# UNCOMENT Define the OpenShift host:port address
-#openshift: 10.0.75.2:8443
-
-#project: microservices-scrum
-
-# Your OpenShift credentials
-username: developer
-password: developer
-
 cpu_min: 50m
 cpu_max: 500m
 
