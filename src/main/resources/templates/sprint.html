@@ -17,14 +17,14 @@
 		</div>	
 		<div>
 			<h3>Sprint Stories</h3>
-			<table class="table">
+			<table id="activeStories" class="table">
 				<tr>
 					<th>Title</th>
 					<th>Story Points</th>
 					<th>Status</th>
 				</tr>
 				<tr th:each="story : ${sprint.sprintStories}">
-					<td><a th:id="activeStories" th:href="@{'/story/' + ${story.id}}"><span th:text="${story.title}"></span></a></td>
+					<td><a th:href="@{'/story/' + ${story.id}}"><span th:text="${story.title}"></span></a></td>
 					<td th:text="${story.storypoints}" />
 					<td th:text="${story.status}" />
 				</tr>
@@ -32,7 +32,7 @@
 		</div>
 		<div>
 			<h3>Available Stories</h3>
-			<table class="table">
+			<table id="availableStories" class="table">
 				<tr>
 					<th>Title</th>
 					<th>Story Points</th>
@@ -40,7 +40,7 @@
 					<th>Action</th>
 				</tr>
 				<tr th:each="story : ${sprint.nonSprintStories}">
-					<td><a th:id="availableStories" th:href="@{'/story/' + ${story.id}}"><span th:text="${story.title}"></span></a></td>
+					<td><a th:href="@{'/story/' + ${story.id}}"><span th:text="${story.title}"></span></a></td>
 					<td th:text="${story.storypoints}" />
 					<td th:text="${story.status}" />
 					<td><a th:href="@{'/project/' + ${sprint.projectId} + '/sprint/' + ${sprint.id} + '/story/' + ${story.id} + '/addtosprint'}">Add to Sprint</a></td>

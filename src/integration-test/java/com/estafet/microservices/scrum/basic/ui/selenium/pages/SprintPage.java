@@ -11,7 +11,7 @@ import org.openqa.selenium.support.FindBys;
 public class SprintPage extends Page {
 	
 	@FindBys({
-	    @FindBy(xpath = ".//a[@href='/story/1']")
+	    @FindBy(xpath = "//span[contains(text(),'Story #9869')]")
 	})
 	@CacheLookup
 	List<WebElement> sprintStoryLinks;
