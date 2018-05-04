@@ -1,8 +1,6 @@
 package com.estafet.microservices.scrum.basic.ui.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.retry.annotation.Backoff;
-import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -22,7 +20,6 @@ public class SprintBoardService {
 	@Autowired
 	private RestTemplate restTemplate;
 
-	@Retryable(maxAttempts = 3, backoff = @Backoff(delay=200))
 	public SprintBoard getSprintBoard(int sprintId) {
 		tracer.activeSpan().setTag("sprint.id", sprintId);
 		return restTemplate.getForObject(System.getenv("SPRINT_BOARD_API_SERVICE_URI") + "/sprint/{id}/board",

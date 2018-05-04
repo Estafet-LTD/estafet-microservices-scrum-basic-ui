@@ -8,13 +8,11 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.retry.annotation.EnableRetry;
 import org.springframework.web.client.RestTemplate;
 
 @Configuration
 @ComponentScan
 @EnableAutoConfiguration
-@EnableRetry
 @SpringBootApplication
 public class Application extends SpringBootServletInitializer {
 

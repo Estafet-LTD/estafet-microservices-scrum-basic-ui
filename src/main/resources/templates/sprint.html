@@ -24,7 +24,7 @@
 					<th>Status</th>
 				</tr>
 				<tr th:each="story : ${sprint.sprintStories}">
-					<td><a th:href="@{'/story/' + ${story.id}}"><span th:text="${story.title}"></span></a></td>
+					<td><a th:id="activeStories" th:href="@{'/story/' + ${story.id}}"><span th:text="${story.title}"></span></a></td>
 					<td th:text="${story.storypoints}" />
 					<td th:text="${story.status}" />
 				</tr>
@@ -40,7 +40,7 @@
 					<th>Action</th>
 				</tr>
 				<tr th:each="story : ${sprint.nonSprintStories}">
-					<td><a th:href="@{'/story/' + ${story.id}}"><span th:text="${story.title}"></span></a></td>
+					<td><a th:id="availableStories" th:href="@{'/story/' + ${story.id}}"><span th:text="${story.title}"></span></a></td>
 					<td th:text="${story.storypoints}" />
 					<td th:text="${story.status}" />
 					<td><a th:href="@{'/project/' + ${sprint.projectId} + '/sprint/' + ${sprint.id} + '/story/' + ${story.id} + '/addtosprint'}">Add to Sprint</a></td>
