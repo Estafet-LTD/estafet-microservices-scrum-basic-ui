@@ -4,35 +4,57 @@
 	layout:decorator="default">
 <body>
 	<div layout:fragment="content" th:if="${sprintServiceIsAlive == true}">
-		<div><h2>Sprint&nbsp;<small th:text="${sprint.name}"></small></h2></div>
-		<div><strong>Status:</strong>&nbsp;<span class="text-muted" th:text="${sprint.status}"></span></div>
-		<div><strong>Start:</strong>&nbsp;<span class="text-muted" th:text="${sprint.startDate}"></span></div>
-		<div><strong>End:</strong>&nbsp;<span class="text-muted" th:text="${sprint.endDate}"></span></div>
+		<div>
+			<h2>
+				Sprint&nbsp;<small th:text="${sprint.name}"></small>
+			</h2>
+		</div>
+		<div>
+			<strong>Status:</strong>&nbsp;<span class="text-muted"
+				th:text="${sprint.status}"></span>
+		</div>
+		<div>
+			<strong>Start:</strong>&nbsp;<span class="text-muted"
+				th:text="${sprint.startDate}"></span>
+		</div>
+		<div>
+			<strong>End:</strong>&nbsp;<span class="text-muted"
+				th:text="${sprint.endDate}"></span>
+		</div>
 		<div>&nbsp;</div>
 		<div>
 			<blockquote>
-  				<div><a th:href="@{'/project/' + ${sprint.projectId} + '/sprint/' + ${sprint.id} + '/board'}">Sprint Board</a></div>
-  				<div><a th:href="@{'/project/' + ${sprint.projectId} + '/sprint/' + ${sprint.id} + '/burndown'}">Sprint Burndown</a></div>
+				<div>
+					<a
+						th:href="@{'/project/' + ${sprint.projectId} + '/sprint/' + ${sprint.id} + '/board'}">Sprint
+						Board</a>
+				</div>
+				<div>
+					<a
+						th:href="@{'/project/' + ${sprint.projectId} + '/sprint/' + ${sprint.id} + '/burndown'}">Sprint
+						Burndown</a>
+				</div>
 			</blockquote>
-		</div>	
+		</div>
 		<div>
 			<h3>Sprint Stories</h3>
-			<table id="activeStories" class="table">
+			<table class="table">
 				<tr>
 					<th>Title</th>
 					<th>Story Points</th>
 					<th>Status</th>
 				</tr>
 				<tr th:each="story : ${sprint.sprintStories}">
-					<td><a th:href="@{'/story/' + ${story.id}}"><span th:text="${story.title}"></span></a></td>
+					<td><a th:href="@{'/story/' + ${story.id}}"><span
+							th:text="${story.title}"></span></a></td>
 					<td th:text="${story.storypoints}" />
 					<td th:text="${story.status}" />
 				</tr>
-			</table>			
+			</table>
 		</div>
 		<div>
 			<h3>Available Stories</h3>
-			<table id="availableStories" class="table">
+			<table class="table">
 				<tr>
 					<th>Title</th>
 					<th>Story Points</th>
@@ -40,10 +62,13 @@
 					<th>Action</th>
 				</tr>
 				<tr th:each="story : ${sprint.nonSprintStories}">
-					<td><a th:href="@{'/story/' + ${story.id}}"><span th:text="${story.title}"></span></a></td>
+					<td><a th:href="@{'/story/' + ${story.id}}"><span
+							th:text="${story.title}"></span></a></td>
 					<td th:text="${story.storypoints}" />
 					<td th:text="${story.status}" />
-					<td><a th:href="@{'/project/' + ${sprint.projectId} + '/sprint/' + ${sprint.id} + '/story/' + ${story.id} + '/addtosprint'}">Add to Sprint</a></td>
+					<td><a
+						th:href="@{'/project/' + ${sprint.projectId} + '/sprint/' + ${sprint.id} + '/story/' + ${story.id} + '/addtosprint'}">Add
+							to Sprint</a></td>
 				</tr>
 			</table>
 		</div>

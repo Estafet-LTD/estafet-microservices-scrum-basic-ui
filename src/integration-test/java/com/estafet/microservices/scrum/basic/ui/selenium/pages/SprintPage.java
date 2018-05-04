@@ -11,13 +11,13 @@ import org.openqa.selenium.support.FindBys;
 public class SprintPage extends Page {
 	
 	@FindBys({
-	    @FindBy(xpath = "//span[contains(text(),'Story #9869')]")
+		@FindBy(xpath = "//div[7]/table[1]/tbody[1]/tr/td[1]/a")
 	})
 	@CacheLookup
-	List<WebElement> sprintStoryLinks;
+	List<WebElement> activeStoriesLinks;
 	
 	@FindBys({
-	    @FindBy(xpath = "/html[1]/body[1]/div[1]/div[4]/div[2]/div[8]/table[1]/tbody[1]/tr/td[1]/a")
+	    @FindBy(xpath = "//div[8]/table[1]/tbody[1]/tr/td[1]/a")
 	})
 	@CacheLookup
 	List<WebElement> availableStoryLinks;
@@ -38,8 +38,16 @@ public class SprintPage extends Page {
 	@CacheLookup
 	WebElement projectBreadcrumbLink;
 	
+	@FindBy(xpath = "/html[1]/body[1]/div[1]/div[4]/div[2]/div[2]/span[1]")
+	@CacheLookup
+	WebElement status;		
+	
+	@FindBy(xpath = "/html[1]/body[1]/div[1]/div[4]/div[2]/div[1]/h2[1]/small[1]")
+	@CacheLookup
+	WebElement name;
+	
 	public SprintPage(String projectId, String sprintId) {
-		super(sprintId);
+		super(projectId, sprintId);
 	}
 
 	public SprintPage(WebDriver driver) {
@@ -68,7 +76,27 @@ public class SprintPage extends Page {
 	}
 		
 	public List<String> getSprintStories() {
-		return getTextList(sprintStoryLinks);
+		return getTextList(activeStoriesLinks);
+	}
+	
+	public List<String> getAvailableStories() {
+		return getTextList(availableStoryLinks);
 	}
 
+	public StoryPage availableStory(String story) {
+		return click(story, availableStoryLinks, StoryPage.class);
+	}
+	
+	public StoryPage sprintStory(String story) {
+		return click(story, activeStoriesLinks, StoryPage.class);
+	}
+	
+	public String getStatus() {
+		return status.getText();
+	}
+	
+	public String getName() {
+		return name.getText();
+	}
+	
 }

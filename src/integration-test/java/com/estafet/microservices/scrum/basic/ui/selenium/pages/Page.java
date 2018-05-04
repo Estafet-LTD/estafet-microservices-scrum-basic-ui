@@ -42,6 +42,9 @@ public abstract class Page {
 			driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 			PageFactory.initElements(driver, this);
 			driver.get(url.toString());
+			if (!isLoaded()) {
+				throw new RuntimeException("cannot load url " + driver.getCurrentUrl());
+			}
 		} catch (MalformedURLException e) {
 			throw new RuntimeException(e);
 		}
