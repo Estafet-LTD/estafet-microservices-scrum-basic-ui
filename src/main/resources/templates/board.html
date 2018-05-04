@@ -21,8 +21,8 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-3">
-				<div id="todo" th:each="task : ${board.todo}">
+			<div id="todo" class="col-md-3">
+				<div th:each="task : ${board.todo}">
 					<div>
 						<span th:text="${task.title}"></span>&nbsp;<span
 							class="text-muted">[</span><span class="text-muted"
@@ -37,8 +37,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-3">
-				<div id="in-progress" th:each="task : ${board.inProgress}">
+			<div id="in-progress" class="col-md-3">
+				<div th:each="task : ${board.inProgress}">
 					<div>
 						<span th:text="${task.title}"></span><a
 							th:href="@{'/project/' + ${projectId} + '/sprint/' + ${board.sprint.id} + '/task/' + ${task.id} + '/update' }">&nbsp;[<span
@@ -54,8 +54,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-2">
-				<div id="completed" th:each="task : ${board.completed}">
+			<div id="completed" class="col-md-2">
+				<div th:each="task : ${board.completed}">
 					<span th:text="${task.title}"></span>
 					<div>
 						<em><span class="text-muted" th:text="${task.storyTitle}"></span></em>
