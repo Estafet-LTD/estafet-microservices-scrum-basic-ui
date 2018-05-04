@@ -23,7 +23,7 @@ public class ITSprintBoardPageTest {
 	@Before
 	public void before() {
 		wireMockServer.start();
-		sprintBoardPage = new SprintBoardPage("1","2");
+		sprintBoardPage = new SprintBoardPage("1","1");
 	}
 
 	@After
@@ -34,10 +34,27 @@ public class ITSprintBoardPageTest {
 
 	@Test
 	public void testViewToDoTasks() {
-		assertThat(sprintBoardPage.todoTasks().size(), is(3));
-		assertThat(sprintBoardPage.todoTasks().get(0).name(), is("Task #289"));
-		assertThat(sprintBoardPage.todoTasks().get(1).name(), is("Task #6999"));
-		assertThat(sprintBoardPage.todoTasks().get(2).name(), is("Task #9305"));
+		assertThat(sprintBoardPage.todoTasks().size(), is(2));
+		assertThat(sprintBoardPage.todoTasks().get(0).name(), is("Task #6999"));
+		assertThat(sprintBoardPage.todoTasks().get(1).name(), is("Task #9305"));
+	}
+	
+	@Test
+	public void testViewInProgressTasks() {
+		assertThat(sprintBoardPage.inProgressTasks().size(), is(1));
+		assertThat(sprintBoardPage.inProgressTasks().get(0).name(), is("Task #4547"));
+	}
+	
+	@Test
+	public void testClickInProgressUpdateHours() {
+		assertTrue(sprintBoardPage.inProgressTasks().get(0).updateHours().isLoaded("1", "1", "2"));
+	}
+	
+	@Test
+	public void testViewCompletedTasks() {
+		assertThat(sprintBoardPage.completedTasks().size(), is(2));
+		assertThat(sprintBoardPage.completedTasks().get(0).name(), is("Task #289"));
+		assertThat(sprintBoardPage.completedTasks().get(1).name(), is("Task #6329"));
 	}
 	
 	@Test

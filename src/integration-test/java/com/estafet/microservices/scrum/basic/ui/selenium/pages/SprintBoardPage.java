@@ -27,19 +27,19 @@ public class SprintBoardPage extends Page {
 	WebElement sprintBreadcrumbLink;
 
 	@FindBys({
-		@FindBy(xpath = "/html[1]/body[1]/div[1]/div[3]/div[1]/div[1]/div")
+		@FindBy(xpath = "//div[@id='todo']/div")
 	})
 	@CacheLookup
 	List<WebElement> todoTasks;
 
 	@FindBys({
-		@FindBy(xpath = "/html[1]/body[1]/div[1]/div[4]/div[2]/div[3]/div[2]/div")
+		@FindBy(xpath = "//div[@id='in-progress']/div")
 	})
 	@CacheLookup
 	List<WebElement> inProgressTasks;
 
 	@FindBys({
-		@FindBy(xpath = "/html[1]/body[1]/div[1]/div[4]/div[2]/div[3]/div[3]/div")
+		@FindBy(xpath = "//div[@id='completed']/div")
 	})
 	@CacheLookup
 	List<WebElement> completedTasks;
@@ -88,9 +88,9 @@ public class SprintBoardPage extends Page {
 	private <T> List<T> tasks(List<WebElement> divs, Class<T> clazz) {
 		try {
 			List<T> tasks = new ArrayList<T>();
-			for (WebElement div : todoTasks) {
-				Constructor<T> constructor = clazz.getConstructor(WebElement.class);
-				tasks.add(constructor.newInstance(div));
+			for (WebElement div : divs) {
+				Constructor<T> constructor = clazz.getConstructor(WebElement.class, WebDriver.class);
+				tasks.add(constructor.newInstance(div, getDriver()));
 			}
 			return tasks;
 		} catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException

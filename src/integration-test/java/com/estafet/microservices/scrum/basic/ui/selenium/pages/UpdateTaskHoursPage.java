@@ -25,7 +25,7 @@ public class UpdateTaskHoursPage extends Page {
 
 	@Override
 	public String uri() {
-		return "/project/{1}/sprint/{2}/task{3}/update";
+		return "/project/{1}/sprint/{2}/task/{3}/update";
 	}
 
 }
