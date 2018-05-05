@@ -7,7 +7,7 @@ node("maven") {
 		git branch: "master", url: "https://github.com/Estafet-LTD/estafet-microservices-scrum-basic-ui"
 	}
 
-	stage("build and execute unit tests") {
+	stage("unit tests") {
 		try {
 			sh "mvn clean test"
 		} finally {
@@ -23,7 +23,7 @@ node("maven") {
 		openshiftVerifyDeployment namespace: project, depCfg: microservice, replicaCount:"1", verifyReplicaCount: "true", waitTime: "300000"	
 	}
 
-	stage("execute the container tests") {
+	stage("container tests") {
 		try {
 			withEnv(
 				[ "BASIC_UI_URI=http://${microservice}.${project}.svc:8080" ]) {
