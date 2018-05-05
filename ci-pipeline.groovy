@@ -10,7 +10,7 @@ pipeline {
   	stages {
 		stage("checkout") {
 			steps {
-				git branch: "master", url: "https://github.com/Estafet-LTD/estafet-microservices-scrum-basic-ui"
+				git url: "https://github.com/Estafet-LTD/estafet-microservices-scrum-basic-ui.git"
 			}
 		}
     	stage ("unit tests") {
