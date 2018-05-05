@@ -10,7 +10,7 @@ pipeline {
   	stages {
 		stage("checkout") {
 			steps {
-				git url: "https://github.com/Estafet-LTD/estafet-microservices-scrum-basic-ui.git"
+				checkout scm: [$class: 'GitSCM', userRemoteConfigs: [[url: "https://github.com/Estafet-LTD/estafet-microservices-scrum-basic-ui"]], branches: [[name: "master"]]], poll: false
 			}
 		}
     	stage ("unit tests") {
