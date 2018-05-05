@@ -7,10 +7,14 @@ pipeline {
 		label 'maven'
 	}
 	
+	environment { 
+		BASIC_UI_URI="http://${microservice}.${project}.svc:8080" 
+	}
+	
   	stages {
 		stage("checkout") {
 			steps {
-				checkout scm: [$class: 'GitSCM', userRemoteConfigs: [[url: "https://github.com/Estafet-LTD/estafet-microservices-scrum-basic-ui"]], branches: [[name: "master"]]], poll: false
+				git branch: "master", url: "https://github.com/Estafet-LTD/estafet-microservices-scrum-basic-ui"
 			}
 		}
     	stage ("unit tests") {
@@ -29,9 +33,6 @@ pipeline {
 			}
 		}
 		stage ("execute the container tests") {
-		 	environment { 
-                BASIC_UI_URI="http://${microservice}.${project}.svc:8080" 
-            }
             steps {
             	sh "mvn verify -P integration-test"
             }
