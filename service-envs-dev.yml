@@ -1,10 +1,10 @@
 ---
 
 - set_fact: service_envs="--build-env MAVEN_MIRROR_URL=http://nexus.cicd.svc:8081/nexus/content/groups/public"
-- set_fact: service_envs="{{ service_envs }} -e SPRINT_API_SERVICE_URI=http://localhost:8080/sprint-api"
-- set_fact: service_envs="{{ service_envs }} -e STORY_API_SERVICE_URI=http://localhost:8080/story-api"
-- set_fact: service_envs="{{ service_envs }} -e TASK_API_SERVICE_URI=http://localhost:8080/task-api"
-- set_fact: service_envs="{{ service_envs }} -e PROJECT_API_SERVICE_URI=http://localhost:8080/project-api"
-- set_fact: service_envs="{{ service_envs }} -e SPRINT_BOARD_API_SERVICE_URI=http://localhost:8080/sprint-board"
-- set_fact: service_envs="{{ service_envs }} -e SPRINT_BURNDOWN_SERVICE_URI=http://localhost:8080/sprint-burndown"
-- set_fact: service_envs="{{ service_envs }} -e PROJECT_BURNDOWN_SERVICE_URI=http://localhost:8080/project-burndown"
+- set_fact: service_envs="{{ service_envs }} -e SPRINT_API_SERVICE_URI=http://jenkins.cicd.svc:8080/sprint-api"
+- set_fact: service_envs="{{ service_envs }} -e STORY_API_SERVICE_URI=http://jenkins.cicd.svc:8080/story-api"
+- set_fact: service_envs="{{ service_envs }} -e TASK_API_SERVICE_URI=http://jenkins.cicd.svc:8080/task-api"
+- set_fact: service_envs="{{ service_envs }} -e PROJECT_API_SERVICE_URI=http://jenkins.cicd.svc:8080/project-api"
+- set_fact: service_envs="{{ service_envs }} -e SPRINT_BOARD_API_SERVICE_URI=http://jenkins.cicd.svc:8080/sprint-board"
+- set_fact: service_envs="{{ service_envs }} -e SPRINT_BURNDOWN_SERVICE_URI=http://jenkins.cicd.svc:8080/sprint-burndown"
+- set_fact: service_envs="{{ service_envs }} -e PROJECT_BURNDOWN_SERVICE_URI=http://jenkins.cicd.svc:8080/project-burndown"
