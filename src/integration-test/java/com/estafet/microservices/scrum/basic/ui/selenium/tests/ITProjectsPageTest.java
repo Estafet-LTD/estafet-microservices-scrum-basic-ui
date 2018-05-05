@@ -20,6 +20,21 @@ public class ITProjectsPageTest {
 	@Before
 	public void before() {
 		wireMockServer.start();
+		stubFor(get(urlEqualTo("/project-api/projects")).willReturn(aResponse().withBody(
+				"[\r\n" + 
+				"    {\r\n" + 
+				"        \"id\": 2,\r\n" + 
+				"        \"title\": \"My Project #9384\",\r\n" + 
+				"        \"noSprints\": 5,\r\n" + 
+				"        \"sprintLengthDays\": 5\r\n" + 
+				"    },\r\n" + 
+				"    {\r\n" + 
+				"        \"id\": 3,\r\n" + 
+				"        \"title\": \"My Project #1749\",\r\n" + 
+				"        \"noSprints\": 5,\r\n" + 
+				"        \"sprintLengthDays\": 5\r\n" + 
+				"    }\r\n" + 
+				"]")));
 		projectsPage = new ProjectsPage();
 	}
 

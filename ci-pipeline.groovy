@@ -27,6 +27,10 @@ node("maven") {
 		}
 		junit "**/target/failsafe-reports/*.xml"
 	}
+	
+	stage("tag container as preparing for testing") {
+		openshiftTag namespace: project, srcStream: microservice, srcTag: 'latest', destinationNamespace: 'test', destinationStream: microservice, destinationTag: 'PrepareForTesting'
+	}
 
 }
 
