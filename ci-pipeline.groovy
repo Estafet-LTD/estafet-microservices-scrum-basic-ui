@@ -30,7 +30,7 @@ pipeline {
 		}
 		stage ("execute the container tests") {
 		 	environment { 
-                BASIC_UI_URI=http://basic-ui.dev.svc:8080 
+                BASIC_UI_URI="http://${microservice}.${project}.svc:8080" 
             }
             steps {
             	sh "mvn verify -P integration-test"
