@@ -8,11 +8,13 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.estafet.microservices.scrum.basic.ui.selenium.pages.ProjectPage;
 import com.github.tomakehurst.wiremock.WireMockServer;
 
+@Ignore
 public class ITProjectPageTest {
 
 	WireMockServer wireMockServer = new WireMockServer();
