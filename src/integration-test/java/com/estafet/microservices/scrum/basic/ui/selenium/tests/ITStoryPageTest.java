@@ -46,17 +46,17 @@ public class ITStoryPageTest {
 	
 	@Test
 	public void testClickProjectBreadCrumb() {
-		assertTrue(storyPage.projectBreadCrumb().isLoaded("1"));
+		assertTrue(storyPage.projectBreadCrumb().isLoaded("2"));
 	}
 	
 	@Test
 	public void testStatus() {
-		assertThat(storyPage.getStatus(), is("In Progress"));
+		assertThat(storyPage.getStatus(), is("Not Started"));
 	}
 	
 	@Test
 	public void testName() {
-		assertThat(storyPage.getName(), is("Story #4249"));
+		assertThat(storyPage.getName(), is("Story #6482"));
 	}
 	
 	@Test
