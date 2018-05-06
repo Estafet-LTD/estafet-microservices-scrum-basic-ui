@@ -5,12 +5,10 @@ import static org.hamcrest.core.Is.*;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.estafet.microservices.scrum.basic.ui.selenium.pages.StoryPage;
 
-@Ignore
 public class ITStoryPageTest {
 
 	StoryPage storyPage;

@@ -5,7 +5,7 @@
 	},
 	"response": {
 		"status": 200,
-		"body": "[{\"id\": 1, \"title\": \"Story #9869\", \"status\": \"Not Started\", \"projectid\": 2 },{\"id\": 2, \"title\": \"Story #6482\", \"status\": \"Not Started\", \"projectid\": 2 }]",
+		"body": "[{\"id\": 1, \"title\": \"Story #9869\", \"status\": \"Not Started\", \"projectid\": 2, \"storypoints\": 5 },{\"id\": 2, \"title\": \"Story #6482\", \"status\": \"Not Started\", \"projectid\": 2, \"storypoints\": 13 }]",
 		"headers": {
             "Content-Type": "application/json"
         }

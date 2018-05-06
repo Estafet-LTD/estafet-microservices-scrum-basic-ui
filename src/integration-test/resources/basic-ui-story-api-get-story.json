@@ -1,0 +1,13 @@
+{
+	"request": {
+		"method": "GET",
+		"url": "/basic-ui/story-api/story/2"
+	},
+	"response": {
+		"status": 200,
+		"body": "{\"id\": 2, \"title\": \"Story #6482\", \"status\": \"Not Started\", \"projectid\": 2, \"storypoints\": 13 }",
+		"headers": {
+            "Content-Type": "application/json"
+        }
+	}
+}

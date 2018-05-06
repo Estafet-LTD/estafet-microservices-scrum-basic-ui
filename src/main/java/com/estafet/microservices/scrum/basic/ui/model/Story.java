@@ -93,7 +93,6 @@ public class Story {
 		} else {
 			return new ArrayList<Task>();
 		}
-		
 	}
 
 	public void setTitle(String title) {
