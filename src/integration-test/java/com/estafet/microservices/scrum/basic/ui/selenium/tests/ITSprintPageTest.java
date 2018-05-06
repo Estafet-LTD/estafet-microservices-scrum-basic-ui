@@ -39,12 +39,12 @@ public class ITSprintPageTest {
 
 	@Test
 	public void testClickSprintStory() {
-		assertTrue(sprintPage.sprintStory("Story #9869").isLoaded("1"));
+		assertTrue(sprintPage.sprintStory("Story #9869").isLoaded("3"));
 	}
 	
 	@Test
 	public void testClickAvailableStory() {
-		assertTrue(sprintPage.availableStory("Story #6482").isLoaded("4"));
+		assertTrue(sprintPage.availableStory("Story #6482").isLoaded("2"));
 	}
 	
 	@Test
