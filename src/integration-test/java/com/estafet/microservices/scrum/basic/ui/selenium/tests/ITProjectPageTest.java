@@ -27,13 +27,13 @@ public class ITProjectPageTest {
 	@Test
 	public void testViewBacklog() {
 		assertThat(projectPage.getStories().size(), is(4));
-		assertThat(projectPage.getStories().get(0), is("Story #9869"));
+		assertThat(projectPage.getStories().get(0), is("Story #7353"));
 		assertThat(projectPage.getStories().get(1), is("Story #6482"));
 	}
 
 	@Test
 	public void testClickStory() {
-		assertTrue(projectPage.storyPage("Story #9869").isLoaded("1"));
+		assertTrue(projectPage.storyPage("Story #9869").isLoaded("3"));
 	}
 
 	@Test

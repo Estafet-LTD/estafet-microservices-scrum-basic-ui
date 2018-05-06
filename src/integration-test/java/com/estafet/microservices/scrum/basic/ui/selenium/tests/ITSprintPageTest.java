@@ -54,17 +54,17 @@ public class ITSprintPageTest {
 	
 	@Test
 	public void testClickProjectBreadCrumb() {
-		assertTrue(sprintPage.projectBreadCrumb().isLoaded("1"));
+		assertTrue(sprintPage.projectBreadCrumb().isLoaded("2"));
 	}
 	
 	@Test
 	public void testClickSprintBoard() {
-		assertTrue(sprintPage.sprintBoardPage().isLoaded("1", "1"));
+		assertTrue(sprintPage.sprintBoardPage().isLoaded("2", "1"));
 	}
 
 	@Test
 	public void testClickSprintBurndown() {
-		assertTrue(sprintPage.sprintBurndownPage().isLoaded("1", "1"));
+		assertTrue(sprintPage.sprintBurndownPage().isLoaded("2", "1"));
 	}
 	
 	@Test
