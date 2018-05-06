@@ -26,9 +26,9 @@ public class ITProjectPageTest {
 
 	@Test
 	public void testViewBacklog() {
-		assertThat(projectPage.getStories().size(), is(4));
+		assertThat(projectPage.getStories().size(), is(2));
 		assertThat(projectPage.getStories().get(0), is("Story #9869"));
-		assertThat(projectPage.getStories().get(3), is("Story #6482"));
+		assertThat(projectPage.getStories().get(1), is("Story #6482"));
 	}
 
 	@Test
@@ -38,7 +38,7 @@ public class ITProjectPageTest {
 
 	@Test
 	public void testClickNewStory() {
-		assertTrue(projectPage.addStoryPage().isLoaded("1"));
+		assertTrue(projectPage.addStoryPage().isLoaded("2"));
 	}
 
 	@Test
@@ -48,22 +48,22 @@ public class ITProjectPageTest {
 	
 	@Test
 	public void testClickProjectBreadCrumb() {
-		assertTrue(projectPage.projectBreadCrumb().isLoaded("1"));
+		assertTrue(projectPage.projectBreadCrumb().isLoaded("2"));
 	}
 	
 	@Test
 	public void testClickProjectBurndown() {
-		assertTrue(projectPage.projectBurndownPage().isLoaded("1"));
+		assertTrue(projectPage.projectBurndownPage().isLoaded("2"));
 	}
 
 	@Test
 	public void testClickSprintBurndown() {
-		assertTrue(projectPage.sprintBurndownPage().isLoaded("1", "1"));
+		assertTrue(projectPage.sprintBurndownPage().isLoaded("2", "1"));
 	}
 	
 	@Test
 	public void testActiveSprint() {
-		assertTrue(projectPage.activeSprint().isLoaded("1", "1"));
+		assertTrue(projectPage.activeSprint().isLoaded("2", "1"));
 	}
 
 }
