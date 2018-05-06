@@ -1,7 +1,7 @@
 {
 	"request": {
 		"method": "GET",
-		"url": "/basic-ui/project-api/project/2/stories"
+		"url": "/basic-ui/story-api/project/2/stories"
 	},
 	"response": {
 		"status": 200,
