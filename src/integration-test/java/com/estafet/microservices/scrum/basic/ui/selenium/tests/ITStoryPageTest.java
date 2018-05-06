@@ -1,35 +1,27 @@
 package com.estafet.microservices.scrum.basic.ui.selenium.tests;
 
 import static org.junit.Assert.*;
-
 import static org.hamcrest.core.Is.*;
-
-import static com.github.tomakehurst.wiremock.client.WireMock.*;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.estafet.microservices.scrum.basic.ui.selenium.pages.SprintPage;
 import com.estafet.microservices.scrum.basic.ui.selenium.pages.StoryPage;
-import com.github.tomakehurst.wiremock.WireMockServer;
 
 @Ignore
 public class ITStoryPageTest {
 
-	WireMockServer wireMockServer = new WireMockServer();
 	StoryPage storyPage;
 	
 	@Before
 	public void before() {
-		wireMockServer.start();
 		storyPage = new StoryPage("2");
 	}
 
 	@After
 	public void after() {
-		wireMockServer.stop();
 		storyPage.close();
 	}
 

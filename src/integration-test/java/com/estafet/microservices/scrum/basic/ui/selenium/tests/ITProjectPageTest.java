@@ -1,10 +1,8 @@
 package com.estafet.microservices.scrum.basic.ui.selenium.tests;
 
 import static org.junit.Assert.*;
-
 import static org.hamcrest.core.Is.*;
 
-import static com.github.tomakehurst.wiremock.client.WireMock.*;
 
 import org.junit.After;
 import org.junit.Before;
@@ -12,23 +10,19 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import com.estafet.microservices.scrum.basic.ui.selenium.pages.ProjectPage;
-import com.github.tomakehurst.wiremock.WireMockServer;
 
 @Ignore
 public class ITProjectPageTest {
 
-	WireMockServer wireMockServer = new WireMockServer();
 	ProjectPage projectPage;
 	
 	@Before
 	public void before() {
-		wireMockServer.start();
 		projectPage = new ProjectPage("1");
 	}
 
 	@After
 	public void after() {
-		wireMockServer.stop();
 		projectPage.close();
 	}
 
