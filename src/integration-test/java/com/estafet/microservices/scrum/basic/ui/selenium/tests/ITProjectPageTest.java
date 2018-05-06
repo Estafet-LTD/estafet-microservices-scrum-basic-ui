@@ -16,7 +16,7 @@ public class ITProjectPageTest {
 	
 	@Before
 	public void before() {
-		projectPage = new ProjectPage("1");
+		projectPage = new ProjectPage("2");
 	}
 
 	@After
