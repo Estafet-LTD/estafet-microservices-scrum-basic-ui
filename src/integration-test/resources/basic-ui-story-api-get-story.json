@@ -1,11 +1,11 @@
 {
 	"request": {
 		"method": "GET",
-		"url": "/basic-ui/story-api/story/2"
+		"url": "/basic-ui/sprint-api/sprint/1"
 	},
 	"response": {
 		"status": 200,
-		"body": "{\"id\": 2, \"title\": \"Story #6482\", \"status\": \"Not Started\", \"projectId\": 2, \"storypoints\": 13, \"criteria\": [{\"id\": 1, \"description\": \"Acceptance #8261\"},{\"id\": 2, \"description\": \"Acceptance #2165\"},{\"id\": 3, \"description\": \"Acceptance #1162\"}]}",
+		"body": "{\"id\": 1, \"number\": 1, \"noDays\": 5, \"status\": \"Active\", \"projectid\": 2, \"startDate\": \"2017-10-16 00:00:00\", \"endDate\": \"2017-10-20 00:00:00\" }",
 		"headers": {
             "Content-Type": "application/json"
         }

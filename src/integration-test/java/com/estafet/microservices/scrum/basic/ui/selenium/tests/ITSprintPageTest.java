@@ -5,19 +5,17 @@ import static org.hamcrest.core.Is.*;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.estafet.microservices.scrum.basic.ui.selenium.pages.SprintPage;
 
-@Ignore
 public class ITSprintPageTest {
 
 	SprintPage sprintPage;
 	
 	@Before
 	public void before() {
-		sprintPage = new SprintPage("1", "1");
+		sprintPage = new SprintPage("2", "1");
 	}
 
 	@After
