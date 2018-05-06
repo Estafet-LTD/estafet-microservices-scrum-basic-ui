@@ -1,0 +1,13 @@
+{
+	"request": {
+		"method": "GET",
+		"url": "/basic-ui/project-api/project/1/stories"
+	},
+	"response": {
+		"status": 200,
+		"body": "{\"id\": 3, \"title\": \"My Project #1749\", \"status\": \"Not Started\", \"projectid\": 1 }",
+		"headers": {
+            "Content-Type": "application/json"
+        }
+	}
+}

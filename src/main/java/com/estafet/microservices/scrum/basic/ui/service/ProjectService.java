@@ -47,19 +47,14 @@ public class ProjectService {
 		tracer.activeSpan().setTag("project.id", projectId);
 		Project project = restTemplate.getForObject(System.getenv("PROJECT_API_SERVICE_URI") + "/project/{id}",
 				Project.class, projectId);
-		
 		return project.addStories(storyService.getProjectStories(projectId))
 					  .addSprints(sprintService.getProjectSprints(projectId));
 	}
 
 	public Project createProject(Project project) {
+		tracer.activeSpan().setTag("project.id", project.getId());
 		project = restTemplate.postForObject(System.getenv("PROJECT_API_SERVICE_URI") + "/project", project,
 				Project.class);
-		
-		if(project.getId() != null) {
-			tracer.activeSpan().setTag("project.id", project.getId());
-		}
-		
 		return project;
 	}
 

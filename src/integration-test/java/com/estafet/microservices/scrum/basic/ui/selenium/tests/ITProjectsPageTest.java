@@ -5,7 +5,6 @@ import static org.hamcrest.core.Is.*;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.estafet.microservices.scrum.basic.ui.selenium.pages.ProjectsPage;
@@ -31,13 +30,11 @@ public class ITProjectsPageTest {
 		assertThat(projectsPage.getProjects().get(1), is("My Project #1749"));
 	}
 
-	@Ignore
 	@Test
 	public void testClickNewProject() {
 		assertTrue(projectsPage.newProjectPage().isLoaded());
 	}
 
-	@Ignore
 	@Test
 	public void testClickProject() {
 		assertTrue(projectsPage.projectPage("My Project #9384").isLoaded("1"));
