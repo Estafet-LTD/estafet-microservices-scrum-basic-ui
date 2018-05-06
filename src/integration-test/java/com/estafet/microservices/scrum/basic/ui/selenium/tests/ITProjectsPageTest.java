@@ -37,7 +37,7 @@ public class ITProjectsPageTest {
 
 	@Test
 	public void testClickProject() {
-		assertTrue(projectsPage.projectPage("My Project #9384").isLoaded("1"));
+		assertTrue(projectsPage.projectPage("My Project #9384").isLoaded("2"));
 	}
 
 }
