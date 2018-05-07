@@ -1,7 +1,7 @@
 {
 	"request": {
 		"method": "GET",
-		"url": "/basic-ui/task-api/story/2/tasks"
+		"url": "/basic-ui/task-api/story/3/tasks"
 	},
 	"response": {
 		"status": 200,
