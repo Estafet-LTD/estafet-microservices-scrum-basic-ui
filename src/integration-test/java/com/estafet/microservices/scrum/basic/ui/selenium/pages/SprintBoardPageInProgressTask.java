@@ -24,7 +24,7 @@ public class SprintBoardPageInProgressTask {
 	}
 	
 	public String hours() {
-		return task.findElement(By.xpath(".//a")).getText().trim().replaceAll("\\[", "").replaceAll("\\]", "");
+		return task.findElement(By.xpath(".//a")).getText().replaceAll("\\s+", " ").replaceAll("\\[", "").replaceAll("\\]", "");
 	}
 	
 	public String name() {
