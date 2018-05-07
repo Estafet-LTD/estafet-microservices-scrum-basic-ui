@@ -19,7 +19,7 @@ public class AddStoryPage extends Page {
 		super(driver);
 	}
 
-	public ProjectPage projectPage() {
+	public ProjectPage submit() {
 		return click(submitButton, ProjectPage.class);
 	}
 

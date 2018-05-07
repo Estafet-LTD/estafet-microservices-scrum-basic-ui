@@ -40,8 +40,8 @@
 			<div id="in-progress" class="col-md-3">
 				<div th:each="task : ${board.inProgress}">
 					<div>
-						<span th:text="${task.title}"></span><a
-							th:href="@{'/project/' + ${projectId} + '/sprint/' + ${board.sprint.id} + '/task/' + ${task.id} + '/update' }">&nbsp;[<span
+						<span th:text="${task.title}"></span>&nbsp;<a
+							th:href="@{'/project/' + ${projectId} + '/sprint/' + ${board.sprint.id} + '/task/' + ${task.id} + '/update' }">[<span
 							th:text="${task.remainingHours}"></span> &nbsp;Hours]
 						</a>
 					</div>

@@ -19,8 +19,8 @@ public class AddCriteriaPage extends Page {
 		super(driver);
 	}
 
-	public ProjectPage projectPage() {
-		return click(submitButton, ProjectPage.class);
+	public StoryPage submit() {
+		return click(submitButton, StoryPage.class);
 	}
 
 	@Override
