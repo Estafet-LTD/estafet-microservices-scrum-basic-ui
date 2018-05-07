@@ -1,0 +1,13 @@
+{
+	"request": {
+		"method": "GET",
+		"url": "/basic-ui/project-burndown/project/2/burndown"
+	},
+	"response": {
+		"status": 200,
+		"body": "{\"id\": 1, \"sprints\": [ { \"id\": 0, \"number\": 0,  \"pointsTotal\": 46,  \"projectId\": 1  },  { \"id\": 1, \"number\": 1, \"pointsTotal\": 41, \"projectId\": 1 } ] }",
+		"headers": {
+            "Content-Type": "application/json"
+        }
+	}
+}

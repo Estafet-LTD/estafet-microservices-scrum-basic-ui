@@ -1,0 +1,13 @@
+{
+	"request": {
+		"method": "GET",
+		"url": "/basic-ui/sprint-burndown/sprint/1/burndown"
+	},
+	"response": {
+		"status": 200,
+		"body": "{\"id\": 1, \"startDate\": \"2017-10-01 00:00:00\", \"number\": 1, \"noDays\": 5, \"sprintDays\": [{ \"id\": 1, \"dayNo\": 1, \"hoursTotal\": 21, \"sprintDay\": \"2017-10-02 00:00:00\"}, {\"id\": 2, \"dayNo\": 2, \"hoursTotal\": 0, \"sprintDay\": \"2017-10-03 00:00:00\"}, { \"id\": 3, \"dayNo\": 3, \"hoursTotal\": 0, \"sprintDay\": \"2017-10-04 00:00:00\" }, { \"id\": 4, \"dayNo\": 4, \"hoursTotal\": 0, \"sprintDay\": \"2017-10-05 00:00:00\" }, { \"id\": 5, \"dayNo\": 5, \"hoursTotal\": 0, \"sprintDay\": \"2017-10-06 00:00:00\" }]}",
+		"headers": {
+            "Content-Type": "application/json"
+        }
+	}
+}
