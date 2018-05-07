@@ -61,12 +61,12 @@ public class ITStoryPageTest {
 	
 	@Test
 	public void testClickAddTask() {
-		assertTrue(storyPage.addTaskPage().isLoaded("2"));
+		assertTrue(storyPage.addTaskPage().isLoaded("3"));
 	}
 	
 	@Test
 	public void testClickAddCriteria() {
-		assertTrue(storyPage.addCriteriaPage().isLoaded("2"));
+		assertTrue(storyPage.addCriteriaPage().isLoaded("3"));
 	}
 	
 }
