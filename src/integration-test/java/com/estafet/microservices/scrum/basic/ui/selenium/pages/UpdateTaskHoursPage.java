@@ -27,5 +27,10 @@ public class UpdateTaskHoursPage extends Page {
 	public String uri() {
 		return "/project/{1}/sprint/{2}/task/{3}/update";
 	}
+	
+	@Override
+	public String title() {
+		return "Simple Scrum Project Management";
+	}
 
 }

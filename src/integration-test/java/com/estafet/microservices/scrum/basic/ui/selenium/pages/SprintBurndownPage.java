@@ -32,6 +32,11 @@ public class SprintBurndownPage extends Page {
 		return "/project/{1}/sprint/{2}/burndown";
 	}
 	
+	@Override
+	public String title() {
+		return "Simple Scrum Project Management";
+	}
+	
 	public ProjectsPage projectsPage() {
 		return click(projectsBreadcrumbLink, ProjectsPage.class);
 	}

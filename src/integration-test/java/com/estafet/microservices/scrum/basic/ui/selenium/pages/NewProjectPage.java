@@ -22,6 +22,11 @@ public class NewProjectPage extends Page {
 	public ProjectPage submit() {
 		return click(submitButton, ProjectPage.class);
 	}
+	
+	@Override
+	public String title() {
+		return "Simple Scrum Project Management";
+	}
 
 	@Override
 	public String uri() {

@@ -50,20 +50,18 @@ public abstract class Page {
 		}
 	}
 
-	public String getTitle() {
-		return driver.getTitle();
-	}
+	public abstract String title();
 
 	public boolean isLoaded(String... params) {
 		String compare = System.getenv("BASIC_UI_URI") + resolveUri(params);
-		return compare.equals(driver.getCurrentUrl()) && driver.getTitle().equals("Simple Scrum Project Management");
+		return compare.equals(driver.getCurrentUrl()) && driver.getTitle().equals(title());
 	}
 
 	public boolean isLoaded() {
 		return url.toString().equals(driver.getCurrentUrl())
-				&& driver.getTitle().equals("Simple Scrum Project Management");
+				&& driver.getTitle().equals(title());
 	}
-
+	
 	public void close() {
 		driver.close();
 	}

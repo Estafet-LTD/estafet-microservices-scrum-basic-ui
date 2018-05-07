@@ -59,6 +59,11 @@ public class SprintPage extends Page {
 		return "/project/{1}/sprint/{2}";
 	}
 	
+	@Override
+	public String title() {
+		return "Simple Scrum Project Management";
+	}
+	
 	public SprintBoardPage sprintBoardPage() {
 		return click(sprintBoardLink, SprintBoardPage.class);
 	}

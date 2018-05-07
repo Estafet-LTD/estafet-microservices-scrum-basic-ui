@@ -22,6 +22,11 @@ public class AddTaskPage extends Page {
 	public StoryPage submit() {
 		return click(submitButton, StoryPage.class);
 	}
+	
+	@Override
+	public String title() {
+		return "Simple Scrum Project Management";
+	}
 
 	@Override
 	public String uri() {

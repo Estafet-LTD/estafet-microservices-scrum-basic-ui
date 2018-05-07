@@ -15,6 +15,11 @@ public class HomePage extends Page {
 	}
 
 	@Override
+	public String title() {
+		return "Welcome!";
+	}
+
+	@Override
 	public String uri() {
 		return "/";
 	}

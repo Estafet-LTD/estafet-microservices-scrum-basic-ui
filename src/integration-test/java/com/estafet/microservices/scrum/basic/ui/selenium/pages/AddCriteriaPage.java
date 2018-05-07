@@ -24,6 +24,11 @@ public class AddCriteriaPage extends Page {
 	}
 
 	@Override
+	public String title() {
+		return "Simple Scrum Project Management";
+	}
+
+	@Override
 	public String uri() {
 		return "/criteria/{1}";
 	}

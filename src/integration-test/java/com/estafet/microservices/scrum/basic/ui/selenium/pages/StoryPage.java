@@ -71,6 +71,11 @@ public class StoryPage extends Page {
 		return "/story/{1}";
 	}
 	
+	@Override
+	public String title() {
+		return "Simple Scrum Project Management";
+	}
+	
 	public String getStatus() {
 		return status.getText();
 	}

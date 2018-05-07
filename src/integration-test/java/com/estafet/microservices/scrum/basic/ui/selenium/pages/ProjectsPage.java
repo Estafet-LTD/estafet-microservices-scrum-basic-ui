@@ -33,6 +33,11 @@ public class ProjectsPage extends Page {
 		return "/projects";
 	}
 	
+	@Override
+	public String title() {
+		return "Simple Scrum Project Management";
+	}
+	
 	public List<String> getProjects() {
 		return getTextList(projects);
 	}
