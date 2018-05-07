@@ -1,0 +1,13 @@
+{
+	"request": {
+		"method": "GET",
+		"url": "/basic-ui/task-api/task/5"
+	},
+	"response": {
+		"status": 200,
+		"body": "{\"id\": 5,\"title\": \"Task #6999\",\"description\": \"Task #6999\", \"initialHours\": 5, \"remainingHours\": 5, \"status\": \"Not Started\"}",
+		"headers": {
+            "Content-Type": "application/json"
+        }
+	}
+}
