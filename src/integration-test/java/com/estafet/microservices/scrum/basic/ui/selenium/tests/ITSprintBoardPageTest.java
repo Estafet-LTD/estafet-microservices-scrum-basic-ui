@@ -33,7 +33,7 @@ public class ITSprintBoardPageTest {
 	public void testViewInProgressTasks() {
 		assertThat(sprintBoardPage.inProgressTasks().size(), is(2));
 		assertThat(sprintBoardPage.inProgressTasks().get(0).name(), is("hghghg"));
-		assertEquals(sprintBoardPage.inProgressTasks().get(0).hours(), "10 Hours");
+		assertThat(sprintBoardPage.inProgressTasks().get(0).hours(), is("10 Hours"));
 		assertThat(sprintBoardPage.inProgressTasks().get(1).name(), is("qwwqwqwaa"));
 		assertThat(sprintBoardPage.inProgressTasks().get(1).hours(), is("3 Hours"));
 	}

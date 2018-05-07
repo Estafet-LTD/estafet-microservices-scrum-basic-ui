@@ -33,8 +33,8 @@ public abstract class Page {
 	public Page() {
 		this("");
 	}
-	
-	public Page(String ... params) {
+
+	public Page(String... params) {
 		try {
 			this.url = new URL(System.getenv("BASIC_UI_URI") + resolveUri(params));
 			Capabilities capabilities = DesiredCapabilities.htmlUnitWithJs();
@@ -54,13 +54,14 @@ public abstract class Page {
 		return driver.getTitle();
 	}
 
-	public boolean isLoaded(String ... params) {
+	public boolean isLoaded(String... params) {
 		String compare = System.getenv("BASIC_UI_URI") + resolveUri(params);
 		return compare.equals(driver.getCurrentUrl());
 	}
-	
+
 	public boolean isLoaded() {
-		return url.toString().equals(driver.getCurrentUrl());
+		return url.toString().equals(driver.getCurrentUrl())
+				&& driver.getTitle().equals("Simple Scrum Project Management");
 	}
 
 	public void close() {
@@ -78,19 +79,19 @@ public abstract class Page {
 		}
 	}
 
-	protected <T extends Page> T  click(String text, List<WebElement> items, Class<T> clazz) {
-		for(WebElement item : items) {
+	protected <T extends Page> T click(String text, List<WebElement> items, Class<T> clazz) {
+		for (WebElement item : items) {
 			if (item.getText().equals(text)) {
 				return click(item, clazz);
 			}
 		}
 		throw new RuntimeException("cannot find link for " + text);
 	}
-	
+
 	protected List<String> getTextList(List<WebElement> items) {
 		List<String> names = new ArrayList<String>();
-		for(WebElement item : items) {
-			names.add(item.getText());	
+		for (WebElement item : items) {
+			names.add(item.getText());
 		}
 		return names;
 	}
@@ -102,8 +103,8 @@ public abstract class Page {
 	protected URL getUrl() {
 		return url;
 	}
-	
-	private String resolveUri(String ... params) {
+
+	private String resolveUri(String... params) {
 		String uri = uri();
 		int index = 1;
 		for (String param : params) {
