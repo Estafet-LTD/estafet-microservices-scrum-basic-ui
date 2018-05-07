@@ -25,15 +25,14 @@ public class ITSprintBoardPageTest {
 
 	@Test
 	public void testViewToDoTasks() {
-		assertThat(sprintBoardPage.todoTasks().size(), is(2));
-		assertThat(sprintBoardPage.todoTasks().get(0).name(), is("Task #6999"));
-		assertThat(sprintBoardPage.todoTasks().get(1).name(), is("Task #9305"));
+		assertThat(sprintBoardPage.todoTasks().size(), is(1));
+		assertThat(sprintBoardPage.todoTasks().get(0).name(), is("this is a task"));
 	}
 	
 	@Test
 	public void testViewInProgressTasks() {
 		assertThat(sprintBoardPage.inProgressTasks().size(), is(1));
-		assertThat(sprintBoardPage.inProgressTasks().get(0).name(), is("Task #4547"));
+		assertThat(sprintBoardPage.inProgressTasks().get(0).name(), is("hghghg"));
 	}
 	
 	@Test
@@ -43,14 +42,13 @@ public class ITSprintBoardPageTest {
 	
 	@Test
 	public void testViewCompletedTasks() {
-		assertThat(sprintBoardPage.completedTasks().size(), is(2));
-		assertThat(sprintBoardPage.completedTasks().get(0).name(), is("Task #289"));
-		assertThat(sprintBoardPage.completedTasks().get(1).name(), is("Task #6329"));
+		assertThat(sprintBoardPage.completedTasks().size(), is(1));
+		assertThat(sprintBoardPage.completedTasks().get(0).name(), is("this is a task"));
 	}
 	
 	@Test
 	public void testName() {
-		assertThat(sprintBoardPage.getName(), is("Sprint #1"));
+		assertThat(sprintBoardPage.getName(), is("Sprint #2"));
 	}
 	
 }
