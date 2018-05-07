@@ -56,7 +56,7 @@ public abstract class Page {
 
 	public boolean isLoaded(String... params) {
 		String compare = System.getenv("BASIC_UI_URI") + resolveUri(params);
-		return compare.equals(driver.getCurrentUrl());
+		return compare.equals(driver.getCurrentUrl()) && driver.getTitle().equals("Simple Scrum Project Management");
 	}
 
 	public boolean isLoaded() {
