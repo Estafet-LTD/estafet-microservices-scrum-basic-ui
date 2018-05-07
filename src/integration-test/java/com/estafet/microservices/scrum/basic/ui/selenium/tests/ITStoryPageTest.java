@@ -15,7 +15,7 @@ public class ITStoryPageTest {
 	
 	@Before
 	public void before() {
-		storyPage = new StoryPage("2");
+		storyPage = new StoryPage("3");
 	}
 
 	@After
