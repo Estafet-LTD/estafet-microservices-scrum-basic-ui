@@ -11,8 +11,8 @@ public class UpdateTaskHoursPage extends Page {
 	@CacheLookup
 	WebElement submitButton;
 	
-	public UpdateTaskHoursPage(String projectId) {
-		super(projectId);
+	public UpdateTaskHoursPage(String projectId, String sprintId, String taskId) {
+		super(projectId, sprintId, taskId);
 	}
 
 	public UpdateTaskHoursPage(WebDriver driver) {

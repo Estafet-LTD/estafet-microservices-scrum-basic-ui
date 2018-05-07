@@ -37,7 +37,7 @@ public class ITSprintBoardPageTest {
 	
 	@Test
 	public void testClickInProgressUpdateHours() {
-		assertTrue(sprintBoardPage.inProgressTasks().get(0).updateHours().isLoaded("1", "1", "2"));
+		assertTrue(sprintBoardPage.inProgressTasks().get(0).updateHours().isLoaded("2", "2", "5"));
 	}
 	
 	@Test
@@ -49,6 +49,21 @@ public class ITSprintBoardPageTest {
 	@Test
 	public void testName() {
 		assertThat(sprintBoardPage.getName(), is("Sprint #2"));
+	}
+	
+	@Test
+	public void testClickProjectsBreadCrumb() {
+		assertTrue(sprintBoardPage.projectsBreadCrumb().isLoaded());
+	}
+	
+	@Test
+	public void testClickProjectBreadCrumb() {
+		assertTrue(sprintBoardPage.projectBreadCrumb().isLoaded("2"));
+	}
+	
+	@Test
+	public void testClickSprintBreadCrumb() {
+		assertTrue(sprintBoardPage.sprintBreadCrumb().isLoaded("2", "1"));
 	}
 	
 }

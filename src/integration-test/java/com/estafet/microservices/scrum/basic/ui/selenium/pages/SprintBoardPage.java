@@ -60,15 +60,15 @@ public class SprintBoardPage extends Page {
 		return "/project/{1}/sprint/{2}/board";
 	}
 
-	public ProjectsPage projectsPage() {
+	public ProjectsPage projectsBreadCrumb() {
 		return click(projectsBreadcrumbLink, ProjectsPage.class);
 	}
 
-	public ProjectPage projectPage() {
+	public ProjectPage projectBreadCrumb() {
 		return click(projectBreadcrumbLink, ProjectPage.class);
 	}
 
-	public SprintPage sprintPage() {
+	public SprintPage sprintBreadCrumb() {
 		return click(sprintBreadcrumbLink, SprintPage.class);
 	}
 
