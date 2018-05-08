@@ -25,7 +25,7 @@ public class ITHomePageTest {
 
 	@Test
 	public void testLinkToProjects() {
-		assertTrue(homePage.projectsPage().isLoaded());		
+		assertTrue(homePage.clickHereLink().isLoaded());		
 	}
 
 }

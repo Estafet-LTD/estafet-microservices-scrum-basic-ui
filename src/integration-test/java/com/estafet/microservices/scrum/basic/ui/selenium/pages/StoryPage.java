@@ -84,19 +84,19 @@ public class StoryPage extends Page {
 		return name.getText();
 	}
 		
-	public ProjectsPage projectsBreadCrumb() {
+	public ProjectsPage clickProjectsBreadCrumbLink() {
 		return click(projectsBreadcrumbLink, ProjectsPage.class);
 	}
 	
-	public ProjectPage projectBreadCrumb() {
+	public ProjectPage clickProjectBreadCrumbLink() {
 		return click(projectBreadcrumbLink, ProjectPage.class);
 	}
 	
-	public AddTaskPage addTaskPage() {
+	public AddTaskPage clickAddTaskLink() {
 		return click(addTaskLink, AddTaskPage.class);
 	}
 	
-	public AddCriteriaPage addCriteriaPage() {
+	public AddCriteriaPage clickAddCriteriaLink() {
 		return click(addCriteriaLink, AddCriteriaPage.class);
 	}
 	

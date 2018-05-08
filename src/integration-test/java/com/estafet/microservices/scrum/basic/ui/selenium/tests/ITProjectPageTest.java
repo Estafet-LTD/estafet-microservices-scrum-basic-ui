@@ -33,37 +33,37 @@ public class ITProjectPageTest {
 
 	@Test
 	public void testClickStory() {
-		assertTrue(projectPage.storyPage("Story #9869").isLoaded("3"));
+		assertTrue(projectPage.clickStoryLink("Story #9869").isLoaded("3"));
 	}
 
 	@Test
 	public void testClickNewStory() {
-		assertTrue(projectPage.addStoryPage().isLoaded("2"));
+		assertTrue(projectPage.clickAddStoryLink().isLoaded("2"));
 	}
 
 	@Test
 	public void testClickProjectsBreadCrumb() {
-		assertTrue(projectPage.projectsBreadCrumb().isLoaded());
+		assertTrue(projectPage.clickProjectsBreadCrumbLink().isLoaded());
 	}
 	
 	@Test
 	public void testClickProjectBreadCrumb() {
-		assertTrue(projectPage.projectBreadCrumb().isLoaded("2"));
+		assertTrue(projectPage.clickProjectBreadCrumbLink().isLoaded("2"));
 	}
 	
 	@Test
 	public void testClickProjectBurndown() {
-		assertTrue(projectPage.projectBurndownPage().isLoaded("2"));
+		assertTrue(projectPage.clickProjectBurndownLink().isLoaded("2"));
 	}
 
 	@Test
 	public void testClickSprintBurndown() {
-		assertTrue(projectPage.sprintBurndownPage().isLoaded("2", "1"));
+		assertTrue(projectPage.clickSprintBurndownLink().isLoaded("2", "1"));
 	}
 	
 	@Test
 	public void testActiveSprint() {
-		assertTrue(projectPage.activeSprint().isLoaded("2", "1"));
+		assertTrue(projectPage.clickActiveSprintLink().isLoaded("2", "1"));
 	}
 
 }

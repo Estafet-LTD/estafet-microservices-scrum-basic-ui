@@ -19,7 +19,7 @@ public class AddCriteriaPage extends Page {
 		super(driver);
 	}
 
-	public StoryPage submit() {
+	public StoryPage clickSubmitButton() {
 		return click(submitButton, StoryPage.class);
 	}
 

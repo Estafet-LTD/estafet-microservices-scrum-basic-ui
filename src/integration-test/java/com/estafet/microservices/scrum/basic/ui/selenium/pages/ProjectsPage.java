@@ -42,11 +42,11 @@ public class ProjectsPage extends Page {
 		return getTextList(projects);
 	}
 	
-	public ProjectPage projectPage(String project) {
+	public ProjectPage clickProjectLink(String project) {
 		return click(project, projects, ProjectPage.class);
 	}
 	
-	public NewProjectPage newProjectPage() {
+	public NewProjectPage clickNewProjectLink() {
 		return click(newProjectLink, NewProjectPage.class);
 	}
 	

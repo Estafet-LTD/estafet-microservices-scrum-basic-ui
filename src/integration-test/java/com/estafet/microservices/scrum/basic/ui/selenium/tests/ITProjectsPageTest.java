@@ -32,12 +32,12 @@ public class ITProjectsPageTest {
 
 	@Test
 	public void testClickNewProject() {
-		assertTrue(projectsPage.newProjectPage().isLoaded());
+		assertTrue(projectsPage.clickNewProjectLink().isLoaded());
 	}
 
 	@Test
 	public void testClickProject() {
-		assertTrue(projectsPage.projectPage("My Project #9384").isLoaded("2"));
+		assertTrue(projectsPage.clickProjectLink("My Project #9384").isLoaded("2"));
 	}
 
 }

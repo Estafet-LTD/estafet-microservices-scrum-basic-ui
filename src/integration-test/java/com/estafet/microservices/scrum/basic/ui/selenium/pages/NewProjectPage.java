@@ -19,7 +19,7 @@ public class NewProjectPage extends Page {
 		super(driver);
 	}
 
-	public ProjectPage submit() {
+	public ProjectPage clickSubmitButton() {
 		return click(submitButton, ProjectPage.class);
 	}
 	

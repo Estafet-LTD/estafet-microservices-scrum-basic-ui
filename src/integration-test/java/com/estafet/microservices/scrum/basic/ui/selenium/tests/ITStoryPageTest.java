@@ -41,12 +41,12 @@ public class ITStoryPageTest {
 		
 	@Test
 	public void testClickProjectsBreadCrumb() {
-		assertTrue(storyPage.projectsBreadCrumb().isLoaded());
+		assertTrue(storyPage.clickProjectsBreadCrumbLink().isLoaded());
 	}
 	
 	@Test
 	public void testClickProjectBreadCrumb() {
-		assertTrue(storyPage.projectBreadCrumb().isLoaded("2"));
+		assertTrue(storyPage.clickProjectBreadCrumbLink().isLoaded("2"));
 	}
 	
 	@Test
@@ -61,12 +61,12 @@ public class ITStoryPageTest {
 	
 	@Test
 	public void testClickAddTask() {
-		assertTrue(storyPage.addTaskPage().isLoaded("3"));
+		assertTrue(storyPage.clickAddTaskLink().isLoaded("3"));
 	}
 	
 	@Test
 	public void testClickAddCriteria() {
-		assertTrue(storyPage.addCriteriaPage().isLoaded("3"));
+		assertTrue(storyPage.clickAddCriteriaLink().isLoaded("3"));
 	}
 	
 }

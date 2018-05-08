@@ -19,7 +19,7 @@ public class UpdateTaskHoursPage extends Page {
 		super(driver);
 	}
 
-	public ProjectPage projectPage() {
+	public ProjectPage clickSubmitButton() {
 		return click(submitButton, ProjectPage.class);
 	}
 

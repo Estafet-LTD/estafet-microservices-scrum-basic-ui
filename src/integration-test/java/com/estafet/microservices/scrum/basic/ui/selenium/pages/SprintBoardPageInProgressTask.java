@@ -18,16 +18,16 @@ public class SprintBoardPageInProgressTask {
 		return null;
 	}
 	
-	public UpdateTaskHoursPage updateHours() {
+	public UpdateTaskHoursPage getHoursLink() {
 		task.findElement(By.xpath(".//a")).click();
 		return new UpdateTaskHoursPage(driver);
 	}
 	
-	public String hours() {
+	public String getHours() {
 		return task.findElement(By.xpath(".//a")).getText().replaceAll("\\s+", " ").replaceAll("\\[", "").replaceAll("\\]", "");
 	}
 	
-	public String name() {
+	public String getName() {
 		return task.findElement(By.xpath(".//span")).getText();
 	}
 }

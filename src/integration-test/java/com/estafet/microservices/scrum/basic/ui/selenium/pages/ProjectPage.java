@@ -62,31 +62,31 @@ public class ProjectPage extends Page {
 		return getTextList(storyLinks);
 	}
 	
-	public StoryPage storyPage(String story) {
+	public StoryPage clickStoryLink(String story) {
 		return click(story, storyLinks, StoryPage.class);
 	}
 	
-	public SprintPage activeSprint() {
+	public SprintPage clickActiveSprintLink() {
 		return click(activeSprintLink, SprintPage.class);
 	}
 
-	public AddStoryPage addStoryPage() {
+	public AddStoryPage clickAddStoryLink() {
 		return click(addStoryLink, AddStoryPage.class);
 	}
 	
-	public ProjectBurndownPage projectBurndownPage() {
+	public ProjectBurndownPage clickProjectBurndownLink() {
 		return click(projectBurndownLink, ProjectBurndownPage.class);
 	}
 	
-	public SprintBurndownPage sprintBurndownPage() {
+	public SprintBurndownPage clickSprintBurndownLink() {
 		return click(sprintBurndownLink, SprintBurndownPage.class);
 	}
 	
-	public ProjectsPage projectsBreadCrumb() {
+	public ProjectsPage clickProjectsBreadCrumbLink() {
 		return click(projectsBreadcrumbLink, ProjectsPage.class);
 	}
 	
-	public ProjectPage projectBreadCrumb() {
+	public ProjectPage clickProjectBreadCrumbLink() {
 		return click(projectBreadcrumbLink, ProjectPage.class);
 	}
 	

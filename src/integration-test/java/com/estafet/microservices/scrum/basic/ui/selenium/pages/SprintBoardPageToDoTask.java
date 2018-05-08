@@ -18,7 +18,7 @@ public class SprintBoardPageToDoTask {
 		return null;
 	}
 	
-	public String name() {
+	public String getName() {
 		return task.findElement(By.xpath(".//span")).getText();
 	}
 	

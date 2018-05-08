@@ -65,27 +65,27 @@ public class SprintBoardPage extends Page {
 		return "Simple Scrum Project Management";
 	}
 
-	public ProjectsPage projectsBreadCrumb() {
+	public ProjectsPage clickProjectsBreadCrumbLink() {
 		return click(projectsBreadcrumbLink, ProjectsPage.class);
 	}
 
-	public ProjectPage projectBreadCrumb() {
+	public ProjectPage clickProjectBreadCrumbLink() {
 		return click(projectBreadcrumbLink, ProjectPage.class);
 	}
 
-	public SprintPage sprintBreadCrumb() {
+	public SprintPage clickSprintBreadCrumbLink() {
 		return click(sprintBreadcrumbLink, SprintPage.class);
 	}
 
-	public List<SprintBoardPageToDoTask> todoTasks() {
+	public List<SprintBoardPageToDoTask> getTodoTasks() {
 		return tasks(todoTasks, SprintBoardPageToDoTask.class);
 	}
 
-	public List<SprintBoardPageInProgressTask> inProgressTasks() {
+	public List<SprintBoardPageInProgressTask> getInProgressTasks() {
 		return tasks(inProgressTasks, SprintBoardPageInProgressTask.class);
 	}
 
-	public List<SprintBoardPageCompletedTask> completedTasks() {
+	public List<SprintBoardPageCompletedTask> getCompletedTasks() {
 		return tasks(completedTasks, SprintBoardPageCompletedTask.class);
 	}
 

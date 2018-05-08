@@ -39,32 +39,32 @@ public class ITSprintPageTest {
 
 	@Test
 	public void testClickSprintStory() {
-		assertTrue(sprintPage.sprintStory("Story #9869").isLoaded("3"));
+		assertTrue(sprintPage.clickSprintStoryLink("Story #9869").isLoaded("3"));
 	}
 	
 	@Test
 	public void testClickAvailableStory() {
-		assertTrue(sprintPage.availableStory("Story #6482").isLoaded("2"));
+		assertTrue(sprintPage.clickAvailableStoryLink("Story #6482").isLoaded("2"));
 	}
 	
 	@Test
 	public void testClickProjectsBreadCrumb() {
-		assertTrue(sprintPage.projectsBreadCrumb().isLoaded());
+		assertTrue(sprintPage.clickProjectsBreadCrumbLink().isLoaded());
 	}
 	
 	@Test
 	public void testClickProjectBreadCrumb() {
-		assertTrue(sprintPage.projectBreadCrumb().isLoaded("2"));
+		assertTrue(sprintPage.clickProjectBreadCrumbLink().isLoaded("2"));
 	}
 	
 	@Test
 	public void testClickSprintBoard() {
-		assertTrue(sprintPage.sprintBoardPage().isLoaded("2", "1"));
+		assertTrue(sprintPage.clickSprintBoardLink().isLoaded("2", "1"));
 	}
 
 	@Test
 	public void testClickSprintBurndown() {
-		assertTrue(sprintPage.sprintBurndownPage().isLoaded("2", "1"));
+		assertTrue(sprintPage.clikcSprintBurndownLink().isLoaded("2", "1"));
 	}
 	
 	@Test

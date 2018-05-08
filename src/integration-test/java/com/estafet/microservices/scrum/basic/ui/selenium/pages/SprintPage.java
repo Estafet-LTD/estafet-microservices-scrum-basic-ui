@@ -64,19 +64,19 @@ public class SprintPage extends Page {
 		return "Simple Scrum Project Management";
 	}
 	
-	public SprintBoardPage sprintBoardPage() {
+	public SprintBoardPage clickSprintBoardLink() {
 		return click(sprintBoardLink, SprintBoardPage.class);
 	}
 	
-	public SprintBurndownPage sprintBurndownPage() {
+	public SprintBurndownPage clikcSprintBurndownLink() {
 		return click(sprintBurndownLink, SprintBurndownPage.class);
 	}
 	
-	public ProjectsPage projectsBreadCrumb() {
+	public ProjectsPage clickProjectsBreadCrumbLink() {
 		return click(projectsBreadcrumbLink, ProjectsPage.class);
 	}
 	
-	public ProjectPage projectBreadCrumb() {
+	public ProjectPage clickProjectBreadCrumbLink() {
 		return click(projectBreadcrumbLink, ProjectPage.class);
 	}
 		
@@ -88,11 +88,11 @@ public class SprintPage extends Page {
 		return getTextList(availableStoryLinks);
 	}
 
-	public StoryPage availableStory(String story) {
+	public StoryPage clickAvailableStoryLink(String story) {
 		return click(story, availableStoryLinks, StoryPage.class);
 	}
 	
-	public StoryPage sprintStory(String story) {
+	public StoryPage clickSprintStoryLink(String story) {
 		return click(story, activeStoriesLinks, StoryPage.class);
 	}
 	
