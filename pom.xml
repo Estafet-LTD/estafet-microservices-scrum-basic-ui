@@ -170,7 +170,7 @@
 		<dependency>
 			<groupId>estafet-microservices-scrum</groupId>
 			<artifactId>
-				estafet-microservices-scrum-qa-pageobjects
+				estafet-microservices-scrum-lib-pageobjects
 			</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 			<scope>test</scope>
