@@ -7,7 +7,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.estafet.microservices.scrum.basic.ui.selenium.pages.SprintBoardPage;
+import com.estafet.microservices.scrum.qa.selenium.pages.SprintBoardPage;
 
 public class ITSprintBoardPageTest {
 

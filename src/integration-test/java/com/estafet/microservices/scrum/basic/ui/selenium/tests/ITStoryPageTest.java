@@ -7,7 +7,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.estafet.microservices.scrum.basic.ui.selenium.pages.StoryPage;
+import com.estafet.microservices.scrum.qa.selenium.pages.StoryPage;
 
 public class ITStoryPageTest {
 
