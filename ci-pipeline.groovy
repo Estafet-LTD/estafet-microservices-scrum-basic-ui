@@ -23,15 +23,18 @@ node("maven") {
 	}
 
 	stage("container tests") {
-		try {
-			withEnv(
-				[ "BASIC_UI_URI=http://${microservice}.${project}.svc:8080" ]) {
-				sh "mvn verify -P integration-test"
-			}
-		} finally {
-			junit "**/target/failsafe-reports/*.xml"
-		}
+		withEnv( [ "BASIC_UI_URI=http://${microservice}.${project}.svc:8080" ]) {
+			withMaven(mavenSettingsConfig: 'microservices-scrum') {
+ 				sh "mvn clean verify -P integration-test"
+			} 
+		} 
 	}
+	
+	stage("deploy snapshots") {
+		withMaven(mavenSettingsConfig: 'microservices-scrum') {
+ 			sh "mvn clean deploy -Dmaven.test.skip=true"
+		} 
+	}	
 	
 	stage("tag container for testing") {
 		openshiftTag namespace: project, srcStream: microservice, srcTag: 'latest', destinationNamespace: 'test', destinationStream: microservice, destinationTag: 'PrepareForTesting'
