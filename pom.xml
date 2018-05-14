@@ -169,10 +169,8 @@
 		</dependency>
 		<dependency>
 			<groupId>estafet-microservices-scrum</groupId>
-			<artifactId>
-				estafet-microservices-scrum-lib-pageobjects
-			</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<artifactId>estafet-microservices-scrum-lib-pageobjects</artifactId>
+			<version>0.0.1</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
