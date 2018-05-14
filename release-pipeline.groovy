@@ -61,7 +61,6 @@ node('maven') {
 		} else {
 			openshiftCreateResource namespace:project, jsonyaml:template
 		}
-		sh "oc expose service ${microservice}"
 		openshiftVerifyDeployment namespace: project, depCfg: microservice, replicaCount:"1", verifyReplicaCount: "true", waitTime: "600000"
 	}	
 }
