@@ -9,14 +9,45 @@ boolean deploymentConfigurationExists(json, microservice) {
 	return new groovy.json.JsonSlurper().parseText(json).items.find{it.metadata.name == microservice} != null
 }
 
+def username() {
+    withCredentials([usernamePassword(credentialsId: 'microservices-scrum', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+        return USERNAME
+    }
+}
+
+def password() {
+    withCredentials([usernamePassword(credentialsId: 'microservices-scrum', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+        return PASSWORD
+    }
+}
+
 def project = "test"
 def microservice = "basic-ui"
 
-node {
+def developmentVersion
+def releaseVersion
+
+node('maven') {
 
 	stage("checkout") {
-		git branch: "master", url: "https://github.com/Estafet-LTD/estafet-microservices-scrum-basic-ui"
+		git branch: "master", url: "https://${username()}:${password()}@github.com/Estafet-LTD/estafet-microservices-scrum-basic-ui"
 	}
+	
+	stage("increment version") {
+		def pom = readFile('pom.xml');
+		def matcher = new XmlSlurper().parseText(pom).version =~ /(\d+\.\d+\.)(\d+)(\-SNAPSHOT)/
+		developmentVersion = "${matcher[0][1]}${matcher[0][2].toInteger()+1}-SNAPSHOT"
+		releaseVersion = "${matcher[0][1]}${matcher[0][2]}"
+	}
+	
+	stage("perform release") {
+        sh "git config --global user.email \"jenkins@estafet.com\""
+        sh "git config --global user.name \"jenkins\""
+        withMaven(mavenSettingsConfig: 'microservices-scrum') {
+			sh "mvn release:clean release:prepare release:perform -DreleaseVersion=${releaseVersion} -DdevelopmentVersion=${developmentVersion} -DpushChanges=false -DlocalCheckout=true -DpreparationGoals=initialize -B"
+			sh "git push origin master"
+		} 
+	}	
 	
 	stage("deploy container") {
 		sh "oc get is -o json -n ${project} > is.json"
@@ -32,8 +63,7 @@ node {
 		}
 		sh "oc expose service ${microservice}"
 		openshiftVerifyDeployment namespace: project, depCfg: microservice, replicaCount:"1", verifyReplicaCount: "true", waitTime: "600000"
-	}
-
+	}	
 }
 
 node('maven') {
@@ -43,15 +73,13 @@ node('maven') {
 	}
 
 	stage("execute acceptance tests") {
-		try {
+		withMaven(mavenSettingsConfig: 'microservices-scrum') {
 			sh "mvn clean install"
-		} finally {
-			junit "**/target/surefire-reports/*.xml"
-		}	
+		} 
 	}
 	
-	stage("tag container as testing successful") {
-		openshiftTag namespace: project, srcStream: microservice, srcTag: 'PrepareForTesting', destinationNamespace: 'prod', destinationStream: microservice, destinationTag: 'TestingSuccessful'
+	stage("tag container with release version") {
+		openshiftTag namespace: project, srcStream: microservice, srcTag: 'PrepareForTesting', destinationNamespace: 'prod', destinationStream: microservice, destinationTag: releaseVersion
 	}
 
 }
