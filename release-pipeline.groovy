@@ -26,6 +26,7 @@ def microservice = "basic-ui"
 
 def developmentVersion
 def releaseVersion
+def releaseTag
 
 node('maven') {
 
@@ -38,6 +39,7 @@ node('maven') {
 		def matcher = new XmlSlurper().parseText(pom).version =~ /(\d+\.\d+\.)(\d+)(\-SNAPSHOT)/
 		developmentVersion = "${matcher[0][1]}${matcher[0][2].toInteger()+1}-SNAPSHOT"
 		releaseVersion = "${matcher[0][1]}${matcher[0][2]}"
+		releaseTag = "v${releaseVersion}"
 	}
 	
 	stage("perform release") {
@@ -46,8 +48,14 @@ node('maven') {
         withMaven(mavenSettingsConfig: 'microservices-scrum') {
 			sh "mvn release:clean release:prepare release:perform -DreleaseVersion=${releaseVersion} -DdevelopmentVersion=${developmentVersion} -DpushChanges=false -DlocalCheckout=true -DpreparationGoals=initialize -B"
 			sh "git push origin master"
+			sh "git tag ${releaseTag}"
+			sh "git push origin ${releaseTag}"
 		} 
 	}	
+
+	stage("tag image") {
+		openshiftTag namespace: project, srcStream: microservice, srcTag: 'PrepareForTesting', destinationNamespace: 'prod', destinationStream: microservice, destinationTag: releaseVersion
+	}
 	
 	stage("deploy container") {
 		sh "oc get is -o json -n ${project} > is.json"
@@ -65,23 +73,6 @@ node('maven') {
 	}	
 }
 
-node('maven') {
-
-	stage("checkout acceptance tests") {
-		git branch: "master", url: "https://github.com/Estafet-LTD/estafet-microservices-scrum-qa"
-	}
-
-	stage("execute acceptance tests") {
-		withMaven(mavenSettingsConfig: 'microservices-scrum') {
-			sh "mvn clean install"
-		} 
-	}
-	
-	stage("tag container with release version") {
-		openshiftTag namespace: project, srcStream: microservice, srcTag: 'PrepareForTesting', destinationNamespace: 'prod', destinationStream: microservice, destinationTag: releaseVersion
-	}
-
-}
 
 
 
