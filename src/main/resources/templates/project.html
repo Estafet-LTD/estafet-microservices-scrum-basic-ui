@@ -18,7 +18,7 @@
 		<div>
 			<div><h3>Reports</h3></div>
 			<div><a id="project_burndown" th:href="@{'/project/' + ${project.id} + '/burndown/'}">Project Burndown</a></div>
-			<div id="sprint_burndown" th:if="${project.activeSprint != null and sprintServiceIsAlive == true}"><a th:href="@{'/project/' + ${project.id} + '/sprint/' + ${project.activeSprint.id} + '/burndown'}">Sprint Burndown</a></div>
+			<div th:if="${project.activeSprint != null and sprintServiceIsAlive == true}"><a id="sprint_burndown" th:href="@{'/project/' + ${project.id} + '/sprint/' + ${project.activeSprint.id} + '/burndown'}">Sprint Burndown</a></div>
 		</div> 
 		<div th:if="${sprintServiceIsAlive == true}">
 			<h3>Completed Sprints</h3>
