@@ -12,7 +12,7 @@
 		</div>
  		<div class="row" th:if="${sprintServiceIsAlive == true}">
 			<div class="col-md-8" th:if="${project.activeSprint != null and sprintServiceIsAlive == true}">
-				<p><a th:href="@{'/project/' + ${project.id} + '/sprint/' + ${project.activeSprint.id}}"><span th:text="${project.activeSprint.name}"></span></a></p>
+				<p><a id="active_sprint" th:href="@{'/project/' + ${project.id} + '/sprint/' + ${project.activeSprint.id}}"><span th:text="${project.activeSprint.name}"></span></a></p>
 			</div>
 		</div>
 		<div>
@@ -22,7 +22,7 @@
 		</div> 
 		<div th:if="${sprintServiceIsAlive == true}">
 			<h3>Completed Sprints</h3>
-			<table class="table">
+			<table id="completed_sprints" class="table">
 				<tr>
 					<th>Sprint #</th>
 					<th>Start Date</th>
@@ -37,7 +37,7 @@
 		</div>
 		<div th:if="${storyServiceIsAlive == true}">
 			<h3>Backlog&nbsp;&nbsp;<small><a th:href="@{/addstory/__${project.id}__}">Add Story</a></small></h3>
-			<table class="table">
+			<table id="backlog" class="table">
 				<tr>
 					<th>Story</th>
 					<th>Story Points</th>
