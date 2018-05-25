@@ -21,6 +21,7 @@ public class ProjectSprintsCommand extends PollingCommand<List<Sprint>> {
 
 	@Override
 	public boolean isReady(List<Sprint> result) {
+		System.out.println(result);
 		return !result.isEmpty();
 	}
 
