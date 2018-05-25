@@ -1,17 +1,22 @@
 package com.estafet.microservices.scrum.basic.ui.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.web.client.RestTemplate;
+
 import com.estafet.microservices.scrum.basic.ui.model.Sprint;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ProjectSprintsCommand extends PollingCommand<List<Sprint>> {
 
-	private SprintService sprintService;
 	private Integer projectId;
+	private RestTemplate restTemplate;
 	
-	public ProjectSprintsCommand(Integer projectId, SprintService sprintService) {
-		this.sprintService = sprintService;
+	public ProjectSprintsCommand(Integer projectId, RestTemplate restTemplate) {
 		this.projectId = projectId;
+		this.restTemplate = restTemplate;
 	}
 
 	@Override
@@ -21,7 +26,16 @@ public class ProjectSprintsCommand extends PollingCommand<List<Sprint>> {
 
 	@Override
 	public List<Sprint> result() {
-		return sprintService.getProjectSprints(projectId);
+		List objects = restTemplate.getForObject(System.getenv("SPRINT_API_SERVICE_URI") + "/project/{id}/sprints",
+				List.class, projectId);
+		List<Sprint> sprints = new ArrayList<Sprint>();
+		ObjectMapper mapper = new ObjectMapper();
+		for (Object object : objects) {
+			Sprint sprint = mapper.convertValue(object, new TypeReference<Sprint>() {
+			});
+			sprints.add(sprint);
+		}
+		return sprints;
 	}
 
 }

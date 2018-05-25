@@ -49,7 +49,7 @@ public class ProjectService {
 		Project project = restTemplate.getForObject(System.getenv("PROJECT_API_SERVICE_URI") + "/project/{id}",
 				Project.class, projectId);
 		return project.addStories(storyService.getProjectStories(projectId))
-					  .addSprints(new ProjectSprintsCommand(projectId, sprintService).execute());
+					  .addSprints(new ProjectSprintsCommand(projectId, restTemplate).execute());
 	}
 
 	public Project createProject(Project project) {

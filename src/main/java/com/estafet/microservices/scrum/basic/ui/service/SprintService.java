@@ -44,21 +44,6 @@ public class SprintService {
 				Sprint.class, sprintId);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public List<Sprint> getProjectSprints(int projectId) {
-		tracer.activeSpan().setTag("project.id", projectId);
-		List objects = restTemplate.getForObject(System.getenv("SPRINT_API_SERVICE_URI") + "/project/{id}/sprints",
-				List.class, projectId);
-		List<Sprint> sprints = new ArrayList<Sprint>();
-		ObjectMapper mapper = new ObjectMapper();
-		for (Object object : objects) {
-			Sprint sprint = mapper.convertValue(object, new TypeReference<Sprint>() {
-			});
-			sprints.add(sprint);
-		}
-		return sprints;
-	}
-
 	public Sprint addStoryToSprint(int projectId, int sprintId, int storyId) {
 		tracer.activeSpan().setTag("project.id", projectId);
 		tracer.activeSpan().setTag("sprint.id", sprintId);
