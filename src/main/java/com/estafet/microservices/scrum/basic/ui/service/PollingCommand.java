@@ -19,7 +19,7 @@ public abstract class PollingCommand<T> {
 	abstract public T result();
 		
 	public PollingCommand() {
-		this(10);
+		this(5);
 	}
 	
 	public PollingCommand(Integer timeout) {
