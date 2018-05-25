@@ -26,6 +26,8 @@ public abstract class PollingCommand<T> {
 				wait+= DELAY;
 				if (wait >= timeout) {
 					throw new RuntimeException("Timeout after " + wait + "ms");
+				} else {
+					result = result();	
 				}
 			}
 			return result;
