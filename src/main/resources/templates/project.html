@@ -10,7 +10,7 @@
 				<h3>Active Sprint</h3>
 			</div>
 		</div>
- 		<div class="row" th:if="${sprintServiceIsAlive == true}">
+ 		<div class="row">
 			<div class="col-md-8" th:if="${project.activeSprint != null}">
 				<p><a th:id="active_sprint" th:href="@{'/project/' + ${project.id} + '/sprint/' + ${project.activeSprint.id}}"><span th:text="${project.activeSprint.name}"></span></a></p>
 			</div>

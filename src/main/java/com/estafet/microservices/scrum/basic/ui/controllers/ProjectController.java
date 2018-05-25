@@ -20,17 +20,9 @@ public class ProjectController {
 	@Autowired
 	private ProjectService projectService;
 
-	@Autowired
-	private HealthCheckService healthCheckService;
-
 	@RequestMapping("/projects")
 	public String projects(Model model) {
 		model.addAttribute("projects", projectService.getProjects());
-//		model.addAttribute("projectServiceIsAlive",
-//				healthCheckService.serviceHealthCheck(ServiceName.PROJECT_SERVICE).getStatus().equals("UP") ? true
-//						: false);
-
-		model.addAttribute("projectServiceIsAlive", true);		
 		return "projects";
 	}
 
@@ -38,43 +30,19 @@ public class ProjectController {
 	public String project(@PathVariable int id, Model model) {
 		model.addAttribute("project", projectService.getProject(id));
 		model.addAttribute("projectId", id);
-//		model.addAttribute("projectServiceIsAlive",
-//				healthCheckService.serviceHealthCheck(ServiceName.PROJECT_SERVICE).getStatus().equals("UP") ? true
-//						: false);
-//		model.addAttribute("sprintServiceIsAlive",
-//				healthCheckService.serviceHealthCheck(ServiceName.SPRINT_SERVICE).getStatus().equals("UP") ? true
-//						: false);
-//		model.addAttribute("storyServiceIsAlive",
-//				healthCheckService.serviceHealthCheck(ServiceName.STORY_SERVICE).getStatus().equals("UP") ? true
-//						: false);
-
-		model.addAttribute("projectServiceIsAlive", true);
-		model.addAttribute("sprintServiceIsAlive", true);
-		model.addAttribute("storyServiceIsAlive", true);		
-		
 		return "project";
 	}
 
 	@GetMapping("/newproject")
 	public String newProjectForm(Model model) {
 		model.addAttribute("project", new Project().init());
-//		model.addAttribute("projectServiceIsAlive",
-//				healthCheckService.serviceHealthCheck(ServiceName.PROJECT_SERVICE).getStatus().equals("UP") ? true
-//						: false);
-
 		model.addAttribute("projectServiceIsAlive", true);		
-		
 		return "newproject";
 	}
 
 	@PostMapping("/newproject")
 	public String newProjectSubmit(@ModelAttribute Project project) {
 		project = projectService.createProject(project);
-
-		if (project.getId() == null) {
-			return "redirect:/error/503";
-		}
-
 		return "redirect:/project/" + project.getId();
 	}
 
