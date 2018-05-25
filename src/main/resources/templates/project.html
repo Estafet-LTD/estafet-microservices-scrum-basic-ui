@@ -6,12 +6,12 @@
 	<div layout:fragment="content">
 		<h2>Project&nbsp;<small th:text="${project.title}"></small></h2>
 		<div class="row">
-			<div class="col-md-8" th:if="${sprintServiceIsAlive == true}">
+			<div class="col-md-8"">
 				<h3>Active Sprint</h3>
 			</div>
 		</div>
- 		<div class="row" th:if="${sprintServiceIsAlive == true}">
-			<div class="col-md-8" th:if="${project.activeSprint != null and sprintServiceIsAlive == true}">
+ 		<div class="row">
+			<div class="col-md-8">
 				<p><a id="active_sprint" th:href="@{'/project/' + ${project.id} + '/sprint/' + ${project.activeSprint.id}}"><span th:text="${project.activeSprint.name}"></span></a></p>
 			</div>
 		</div>
@@ -20,7 +20,7 @@
 			<div><a id="project_burndown" th:href="@{'/project/' + ${project.id} + '/burndown/'}">Project Burndown</a></div>
 			<div th:if="${project.activeSprint != null and sprintServiceIsAlive == true}"><a id="sprint_burndown" th:href="@{'/project/' + ${project.id} + '/sprint/' + ${project.activeSprint.id} + '/burndown'}">Sprint Burndown</a></div>
 		</div> 
-		<div th:if="${sprintServiceIsAlive == true}">
+		<div>
 			<h3>Completed Sprints</h3>
 			<table id="completed_sprints" class="table">
 				<tr>
@@ -35,7 +35,7 @@
 				</tr>
 			</table>			
 		</div>
-		<div th:if="${storyServiceIsAlive == true}">
+		<div>
 			<h3>Backlog&nbsp;&nbsp;<small><a th:href="@{/addstory/__${project.id}__}">Add Story</a></small></h3>
 			<table id="backlog" class="table">
 				<tr>
