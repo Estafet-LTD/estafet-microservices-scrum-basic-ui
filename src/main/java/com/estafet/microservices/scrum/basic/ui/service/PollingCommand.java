@@ -28,7 +28,7 @@ public abstract class PollingCommand<T> {
 		    public T call() throws Exception {
 		    	T result = result();
 		    	while (!isReady(result)) {
-					Thread.currentThread().sleep(100);
+					Thread.currentThread().sleep(333);
 				}
 		        return result;
 		    }
