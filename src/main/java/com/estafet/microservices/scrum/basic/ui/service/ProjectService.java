@@ -9,7 +9,6 @@ import org.springframework.web.client.RestTemplate;
 
 import com.estafet.microservices.scrum.basic.ui.model.Project;
 import com.estafet.microservices.scrum.basic.ui.model.ProjectBurndown;
-import com.estafet.microservices.scrum.basic.ui.model.Sprint;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -23,9 +22,6 @@ public class ProjectService {
 	
 	@Autowired
 	private StoryService storyService;
-
-	@Autowired
-	private SprintService sprintService;
 	
 	@Autowired
 	private RestTemplate restTemplate;
