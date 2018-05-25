@@ -9,6 +9,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.estafet.microservices.scrum.basic.ui.model.Project;
 import com.estafet.microservices.scrum.basic.ui.model.ProjectBurndown;
+import com.estafet.microservices.scrum.basic.ui.model.Sprint;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -48,7 +49,18 @@ public class ProjectService {
 		Project project = restTemplate.getForObject(System.getenv("PROJECT_API_SERVICE_URI") + "/project/{id}",
 				Project.class, projectId);
 		return project.addStories(storyService.getProjectStories(projectId))
-					  .addSprints(sprintService.getProjectSprints(projectId));
+					  .addSprints(getProjectSprints(projectId));
+	}
+
+	private List<Sprint> getProjectSprints(int projectId) {
+		return new PollingCommand<List<Sprint>>() {
+			public boolean isReady(List<Sprint> result) {
+				return !result.isEmpty();
+			}
+			public List<Sprint> result() {
+				return sprintService.getProjectSprints(projectId);
+			}
+		}.execute();
 	}
 
 	public Project createProject(Project project) {
