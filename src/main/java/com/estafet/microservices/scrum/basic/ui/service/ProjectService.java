@@ -52,7 +52,7 @@ public class ProjectService {
 					  .addSprints(getProjectSprints(projectId));
 	}
 
-	private List<Sprint> getProjectSprints(int projectId) {
+	private List<Sprint> getProjectSprints(final Integer projectId) {
 		return new PollingCommand<List<Sprint>>() {
 			public boolean isReady(List<Sprint> result) {
 				return !result.isEmpty();
