@@ -15,6 +15,7 @@ public class ProjectSprintsCommand extends PollingCommand<List<Sprint>> {
 	private RestTemplate restTemplate;
 	
 	public ProjectSprintsCommand(Integer projectId, RestTemplate restTemplate) {
+		super(20000);
 		this.projectId = projectId;
 		this.restTemplate = restTemplate;
 	}
