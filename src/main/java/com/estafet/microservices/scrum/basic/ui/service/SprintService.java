@@ -45,7 +45,7 @@ public class SprintService {
 	}
 
 	@SuppressWarnings({ "rawtypes" })
-	public List<Sprint> getProjectSprints(Integer projectId) {
+	public List<Sprint> getProjectSprints(int projectId) {
 		tracer.activeSpan().setTag("project.id", projectId);
 		List objects = restTemplate.getForObject(System.getenv("SPRINT_API_SERVICE_URI") + "/project/{id}/sprints",
 				List.class, projectId);

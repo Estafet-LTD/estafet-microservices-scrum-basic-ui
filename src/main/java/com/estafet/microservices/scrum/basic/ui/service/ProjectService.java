@@ -49,18 +49,7 @@ public class ProjectService {
 		Project project = restTemplate.getForObject(System.getenv("PROJECT_API_SERVICE_URI") + "/project/{id}",
 				Project.class, projectId);
 		return project.addStories(storyService.getProjectStories(projectId))
-					  .addSprints(getProjectSprints(projectId));
-	}
-
-	private List<Sprint> getProjectSprints(final Integer projectId) {
-		return new PollingCommand<List<Sprint>>() {
-			public boolean isReady(List<Sprint> result) {
-				return !result.isEmpty();
-			}
-			public List<Sprint> result() {
-				return sprintService.getProjectSprints(projectId);
-			}
-		}.execute();
+					  .addSprints(new ProjectSprintsCommand(projectId, sprintService).execute());
 	}
 
 	public Project createProject(Project project) {
