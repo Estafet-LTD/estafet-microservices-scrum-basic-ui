@@ -66,14 +66,14 @@ public class SprintService {
 		tracer.activeSpan().setTag("sprint.id", sprintId);
 		List<String> days = restTemplate.getForObject(System.getenv("SPRINT_API_SERVICE_URI") + "/sprint/{id}/days",
 				List.class, sprintId);
-		Iterator<String> iterator = days.iterator();
-		while (iterator.hasNext()) {
-			if (task.getRemainingUpdated().equals(iterator.next())) {
-				return days;
-			} else {
-				iterator.remove();
-			}
-		}
+//		Iterator<String> iterator = days.iterator();
+//		while (iterator.hasNext()) {
+//			if (task.getRemainingUpdated().equals(iterator.next())) {
+//				return days;
+//			} else {
+//				iterator.remove();
+//			}
+//		}
 		return days;
 	}
 	
