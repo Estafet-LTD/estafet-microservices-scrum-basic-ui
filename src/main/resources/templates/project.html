@@ -20,7 +20,7 @@
 			<div><a id="project_burndown" th:href="@{'/project/' + ${project.id} + '/burndown/'}">Project Burndown</a></div>
 			<div th:if="${project.activeSprint != null}"><a id="sprint_burndown" th:href="@{'/project/' + ${project.id} + '/sprint/' + ${project.activeSprint.id} + '/burndown'}">Sprint Burndown</a></div>
 		</div> 
-		<div>
+		<div id="completed_sprints">
 			<h3>Completed Sprints</h3>
 			<table id="completed_sprints" class="table">
 				<tr>
@@ -35,7 +35,7 @@
 				</tr>
 			</table>			
 		</div>
-		<div>
+		<div id="backlog">
 			<h3>Backlog&nbsp;&nbsp;<small><a th:href="@{/addstory/__${project.id}__}">Add Story</a></small></h3>
 			<table id="backlog" class="table">
 				<tr>
