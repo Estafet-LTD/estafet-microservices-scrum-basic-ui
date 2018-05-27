@@ -21,14 +21,14 @@ public class TaskController {
 	@Autowired
 	private SprintService sprintService;
 
-	@GetMapping("/task/{id}")
+	@GetMapping("/story/{id}/task")
 	public String taskForm(@PathVariable int id, Model model) {
 		model.addAttribute("task", new Task().init());
 		model.addAttribute("storyId", id);
 		return "task";
 	}
 
-	@PostMapping("/task/{id}")
+	@PostMapping("/story/{id}/task")
 	public String taskSubmit(@PathVariable int id, @ModelAttribute Task task) {
 		taskService.addTask(id, task);
 		return "redirect:/story/" + id;
