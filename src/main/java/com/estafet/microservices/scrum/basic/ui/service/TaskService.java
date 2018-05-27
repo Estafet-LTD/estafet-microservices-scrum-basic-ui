@@ -53,8 +53,8 @@ public class TaskService {
 		tracer.activeSpan().setTag("story.id", storyId);
 		restTemplate.postForObject(System.getenv("TASK_API_SERVICE_URI") + "/story/{id}/task", task, Story.class,
 				storyId);
-		new WaitUntilStoryUpdated(storyId, storyService);
 		tracer.activeSpan().setTag("task.id", task.getId());
+		new WaitUntilStoryUpdated(storyId, storyService).start();
 	}
 
 }

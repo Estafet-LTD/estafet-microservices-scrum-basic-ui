@@ -5,12 +5,18 @@ public abstract class WaitUntil {
 	private static final int DELAY = 500;
 	
 	abstract public boolean success();
-		
+
+	private final int timeout;
+	
 	public WaitUntil() {
 		this(5000);
 	}
 	
 	public WaitUntil(int timeout) {
+		this.timeout = timeout;
+	}
+
+	public void start() {
 		try {
 			int wait = 0;
 			while (!success()) {
