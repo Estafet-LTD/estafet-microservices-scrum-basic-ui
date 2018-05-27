@@ -6,9 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.estafet.microservices.scrum.basic.ui.config.ServiceName;
 import com.estafet.microservices.scrum.basic.ui.model.Sprint;
-import com.estafet.microservices.scrum.basic.ui.service.HealthCheckService;
 import com.estafet.microservices.scrum.basic.ui.service.SprintService;
 
 @Controller
@@ -16,9 +14,6 @@ public class SprintController {
 
 	@Autowired
 	private SprintService sprintService;
-
-	@Autowired
-	private HealthCheckService healthCheckService;
 
 	@RequestMapping("/sprint/{sprintId}")
 	public String sprint(@PathVariable int sprintId, Model model) {
@@ -31,12 +26,6 @@ public class SprintController {
 		model.addAttribute("sprint", sprintService.getSprint(projectId, sprintId));
 		model.addAttribute("projectId", projectId);
 		model.addAttribute("sprintId", sprintId);
-//		model.addAttribute("sprintServiceIsAlive",
-//				healthCheckService.serviceHealthCheck(ServiceName.SPRINT_SERVICE).getStatus().equals("UP") ? true
-//						: false);
-
-		model.addAttribute("sprintServiceIsAlive", true);		
-		
 		return "sprint";
 	}
 
@@ -46,12 +35,6 @@ public class SprintController {
 		model.addAttribute("sprint", sprintService.addStoryToSprint(projectId, sprintId, storyId));
 		model.addAttribute("projectId", projectId);
 		model.addAttribute("sprintId", sprintId);
-//		model.addAttribute("sprintServiceIsAlive",
-//				healthCheckService.serviceHealthCheck(ServiceName.SPRINT_SERVICE).getStatus().equals("UP") ? true
-//						: false);
-
-		model.addAttribute("sprintServiceIsAlive", true);		
-		
 		return "redirect:/project/" + projectId + "/sprint/" + sprintId;
 	}
 
@@ -60,12 +43,6 @@ public class SprintController {
 		model.addAttribute("sprint", sprintService.getSprintBurndown(sprintId));
 		model.addAttribute("projectId", projectId);
 		model.addAttribute("sprintId", sprintId);
-//		model.addAttribute("sprintServiceIsAlive",
-//				healthCheckService.serviceHealthCheck(ServiceName.SPRINT_SERVICE).getStatus().equals("UP") ? true
-//						: false);
-
-		model.addAttribute("sprintServiceIsAlive", true);		
-		
 		return "sprintburndown";
 	}
 

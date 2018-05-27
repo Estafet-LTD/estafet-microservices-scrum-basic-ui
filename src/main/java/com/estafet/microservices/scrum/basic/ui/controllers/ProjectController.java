@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.estafet.microservices.scrum.basic.ui.config.ServiceName;
 import com.estafet.microservices.scrum.basic.ui.model.Project;
-import com.estafet.microservices.scrum.basic.ui.service.HealthCheckService;
 import com.estafet.microservices.scrum.basic.ui.service.ProjectService;
 
 @Controller

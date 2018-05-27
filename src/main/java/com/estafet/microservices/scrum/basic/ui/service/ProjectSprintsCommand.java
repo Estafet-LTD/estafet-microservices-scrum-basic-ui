@@ -24,6 +24,7 @@ public class ProjectSprintsCommand extends PollingCommand<List<Sprint>> {
 		return !result.isEmpty();
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public List<Sprint> result() {
 		List objects = restTemplate.getForObject(System.getenv("SPRINT_API_SERVICE_URI") + "/project/{id}/sprints",

@@ -21,6 +21,9 @@ public class TaskService {
 	@Autowired
 	private SprintService sprintService;
 	
+	@Autowired
+	private StoryService storyService;
+	
 	public void claim(int taskId) {
 		tracer.activeSpan().setTag("task.id", taskId);
 		restTemplate.postForObject(System.getenv("TASK_API_SERVICE_URI") + "/task/{id}/claim", null,
@@ -50,6 +53,7 @@ public class TaskService {
 		tracer.activeSpan().setTag("story.id", storyId);
 		restTemplate.postForObject(System.getenv("TASK_API_SERVICE_URI") + "/story/{id}/task", task, Story.class,
 				storyId);
+		new WaitUntilStoryUpdated(storyId, storyService);
 		tracer.activeSpan().setTag("task.id", task.getId());
 	}
 

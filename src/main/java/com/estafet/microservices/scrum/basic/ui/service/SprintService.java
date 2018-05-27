@@ -1,7 +1,5 @@
 package com.estafet.microservices.scrum.basic.ui.service;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +11,6 @@ import com.estafet.microservices.scrum.basic.ui.model.Sprint;
 import com.estafet.microservices.scrum.basic.ui.model.SprintBurndown;
 import com.estafet.microservices.scrum.basic.ui.model.Story;
 import com.estafet.microservices.scrum.basic.ui.model.Task;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.opentracing.Tracer;
 
