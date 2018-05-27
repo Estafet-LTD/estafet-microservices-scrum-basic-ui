@@ -6,7 +6,7 @@
 	<div layout:fragment="content">
 		<h2>Add Criteria</h2>
 		<div>
-			<form action="#" th:action="@{'/criteria/' + ${storyId}}"
+			<form action="#" th:action="@{'/story/' + ${storyId} + '/criteria'}"
 				th:object="${criteria}" method="post">
 				<div>
 					<label>Description:</label> <input type="text"

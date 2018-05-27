@@ -17,14 +17,14 @@ public class AcceptanceCriteriaController {
 	@Autowired
 	private StoryService storyService;
 	
-	@GetMapping("/criteria/{id}")
+	@GetMapping("/story/{id}/criteria")
 	public String criteriaForm(@PathVariable int id,  Model model) {
 		model.addAttribute("criteria", new AcceptanceCriterion().init());
 		model.addAttribute("storyId", id);
 		return "criteria";
 	}
 	
-	@PostMapping("/criteria/{id}")
+	@PostMapping("/story/{id}/criteria")
 	public String criteriaSubmit(@PathVariable int id, @ModelAttribute AcceptanceCriterion criteria) {
 		storyService.addAcceptanceCriteria(id, criteria);
 		return "redirect:/story/" + id;
