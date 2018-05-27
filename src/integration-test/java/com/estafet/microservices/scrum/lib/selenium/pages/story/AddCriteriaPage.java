@@ -32,7 +32,7 @@ public class AddCriteriaPage extends Page {
 
 	@Override
 	public String uri() {
-		return "/criteria/{1}";
+		return "/story/{1}/criteria";
 	}
 
 }
