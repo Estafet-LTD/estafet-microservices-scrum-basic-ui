@@ -7,6 +7,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
@@ -19,6 +21,10 @@ public abstract class Page {
 
 	private final WebDriver driver;
 	private final URL url;
+	
+	private final String regExSpecialChars = ":/<([{\\^-=$!|]})?*+.>";
+	private final String regExSpecialCharsRE = regExSpecialChars.replaceAll( ".", "\\\\$0");
+	private final Pattern reCharsREP = Pattern.compile( "[" + regExSpecialCharsRE + "]");
 
 	public Page(WebDriver driver) {
 		this.driver = driver;
@@ -39,7 +45,7 @@ public abstract class Page {
 			this.url = new URL(System.getenv("BASIC_UI_URI") + resolveUri(params));
 			Capabilities capabilities = DesiredCapabilities.htmlUnitWithJs();
 			driver = new HtmlUnitDriver(capabilities);
-			driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 			PageFactory.initElements(driver, this);
 			driver.get(url.toString());
 			if (!isLoaded()) {
@@ -58,14 +64,35 @@ public abstract class Page {
 	}
 
 	public boolean isLoaded() {
-		return url.toString().equals(driver.getCurrentUrl())
-				&& driver.getTitle().equals(title());
+		String currentUrl = driver.getCurrentUrl();
+		if (uri().contains("{1}")) {
+			String compare = escapeRegExChars(System.getenv("BASIC_UI_URI")) + escapeRegExChars(uri().replaceAll("\\{\\d+\\}", "REPLACE")).replaceAll("REPLACE", "\\\\d+");
+			return currentUrl.matches(compare) && driver.getTitle() != null && driver.getTitle().equals(title());
+		} else {
+			return url.toString().equals(currentUrl)
+					&& driver.getTitle().equals(title());
+		}
+	}
+	
+	private String escapeRegExChars(String s) {
+	    Matcher m = reCharsREP.matcher( s);
+	    return m.replaceAll( "\\\\$0");
 	}
 	
 	public void close() {
 		driver.close();
 	}
 
+	protected void setField(WebElement element, String value) {
+		element.clear();
+		element.sendKeys(value);
+	}
+	
+	protected void setField(WebElement element, Integer value) {
+		element.clear();
+		element.sendKeys(Integer.toString(value));
+	}
+	
 	protected <T extends Page> T click(WebElement element, Class<T> clazz) {
 		try {
 			element.click();
@@ -101,7 +128,7 @@ public abstract class Page {
 	protected URL getUrl() {
 		return url;
 	}
-
+	
 	private String resolveUri(String... params) {
 		String uri = uri();
 		int index = 1;
@@ -113,5 +140,10 @@ public abstract class Page {
 	}
 
 	public abstract String uri();
+
+	
+	public String getCurrentURI() {
+		return driver.getCurrentUrl().substring(System.getenv("BASIC_UI_URI").length());
+	}
 
 }

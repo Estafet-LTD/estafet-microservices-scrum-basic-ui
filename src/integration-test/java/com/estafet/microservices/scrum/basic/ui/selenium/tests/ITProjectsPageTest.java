@@ -7,15 +7,15 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.estafet.microservices.scrum.lib.selenium.pages.ProjectsPage;
+import com.estafet.microservices.scrum.lib.selenium.pages.project.ProjectListPage;
 
 public class ITProjectsPageTest {
 
-	ProjectsPage projectsPage;
+	ProjectListPage projectsPage;
 
 	@Before
 	public void before() throws Exception {
-		projectsPage = new ProjectsPage();
+		projectsPage = new ProjectListPage();
 	}
 
 	@After

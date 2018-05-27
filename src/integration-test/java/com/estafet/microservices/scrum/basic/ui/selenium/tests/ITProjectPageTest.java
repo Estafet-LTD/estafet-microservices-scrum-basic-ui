@@ -8,7 +8,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.estafet.microservices.scrum.lib.selenium.pages.ProjectPage;
+import com.estafet.microservices.scrum.lib.selenium.pages.project.ProjectPage;
 
 public class ITProjectPageTest {
 

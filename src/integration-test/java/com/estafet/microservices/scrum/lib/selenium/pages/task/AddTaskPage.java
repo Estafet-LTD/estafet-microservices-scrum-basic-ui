@@ -1,28 +1,31 @@
-package com.estafet.microservices.scrum.lib.selenium.pages;
+package com.estafet.microservices.scrum.lib.selenium.pages.task;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 
-public class AddCriteriaPage extends Page {
+import com.estafet.microservices.scrum.lib.selenium.pages.Page;
+import com.estafet.microservices.scrum.lib.selenium.pages.story.StoryPage;
+
+public class AddTaskPage extends Page {
 
 	@FindBy(css = "input")
 	@CacheLookup
 	WebElement submitButton;
 	
-	public AddCriteriaPage(String storyId) {
+	public AddTaskPage(String storyId) {
 		super(storyId);
 	}
 
-	public AddCriteriaPage(WebDriver driver) {
+	public AddTaskPage(WebDriver driver) {
 		super(driver);
 	}
 
 	public StoryPage clickSubmitButton() {
 		return click(submitButton, StoryPage.class);
 	}
-
+	
 	@Override
 	public String title() {
 		return "Simple Scrum Project Management";
@@ -30,7 +33,7 @@ public class AddCriteriaPage extends Page {
 
 	@Override
 	public String uri() {
-		return "/criteria/{1}";
+		return "/story/{1}/task";
 	}
 
 }

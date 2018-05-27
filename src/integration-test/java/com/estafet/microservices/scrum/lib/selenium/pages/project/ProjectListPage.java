@@ -1,4 +1,4 @@
-package com.estafet.microservices.scrum.lib.selenium.pages;
+package com.estafet.microservices.scrum.lib.selenium.pages.project;
 
 import java.util.List;
 
@@ -8,7 +8,9 @@ import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
 
-public class ProjectsPage extends Page {
+import com.estafet.microservices.scrum.lib.selenium.pages.Page;
+
+public class ProjectListPage extends Page {
 
 	@FindBys({
 	    @FindBy(css = "ul > li > a"),
@@ -20,11 +22,11 @@ public class ProjectsPage extends Page {
 	@CacheLookup
 	WebElement newProjectLink;
 	
-	public ProjectsPage() {
+	public ProjectListPage() {
 		super();
 	}
 
-	public ProjectsPage(WebDriver driver) {
+	public ProjectListPage(WebDriver driver) {
 		super(driver);
 	}
 

@@ -7,7 +7,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.estafet.microservices.scrum.lib.selenium.pages.SprintBoardPage;
+import com.estafet.microservices.scrum.lib.selenium.pages.sprint.SprintBoardPage;
 
 public class ITSprintBoardPageTest {
 
@@ -26,27 +26,27 @@ public class ITSprintBoardPageTest {
 	@Test
 	public void testViewToDoTasks() {
 		assertThat(sprintBoardPage.getTodoTasks().size(), is(1));
-		assertThat(sprintBoardPage.getTodoTasks().get(0).getName(), is("this is a task"));
+		assertThat(sprintBoardPage.getTodoTasks().get(0).getTaskTitle(), is("this is a task"));
 	}
 	
 	@Test
 	public void testViewInProgressTasks() {
 		assertThat(sprintBoardPage.getInProgressTasks().size(), is(2));
-		assertThat(sprintBoardPage.getInProgressTasks().get(0).getName(), is("hghghg"));
+		assertThat(sprintBoardPage.getInProgressTasks().get(0).getTaskTitle(), is("hghghg"));
 		assertThat(sprintBoardPage.getInProgressTasks().get(0).getHours(), is("10 Hours"));
-		assertThat(sprintBoardPage.getInProgressTasks().get(1).getName(), is("qwwqwqwaa"));
+		assertThat(sprintBoardPage.getInProgressTasks().get(1).getTaskTitle(), is("qwwqwqwaa"));
 		assertThat(sprintBoardPage.getInProgressTasks().get(1).getHours(), is("3 Hours"));
 	}
 	
 	@Test
 	public void testClickInProgressUpdateHours() {
-		assertTrue(sprintBoardPage.getInProgressTasks().get(0).getHoursLink().isLoaded("2", "2", "5"));
+		assertTrue(sprintBoardPage.getInProgressTasks().get(0).clickHoursLink().isLoaded("2", "2", "5"));
 	}
 	
 	@Test
 	public void testViewCompletedTasks() {
 		assertThat(sprintBoardPage.getCompletedTasks().size(), is(1));
-		assertThat(sprintBoardPage.getCompletedTasks().get(0).getName(), is("this is a task"));
+		assertThat(sprintBoardPage.getCompletedTasks().get(0).getTaskTitle(), is("this is a task"));
 	}
 	
 	@Test

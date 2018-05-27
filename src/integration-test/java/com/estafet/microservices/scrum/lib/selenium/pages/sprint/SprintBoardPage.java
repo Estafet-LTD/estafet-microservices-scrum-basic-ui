@@ -1,4 +1,4 @@
-package com.estafet.microservices.scrum.lib.selenium.pages;
+package com.estafet.microservices.scrum.lib.selenium.pages.sprint;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -10,6 +10,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
+
+import com.estafet.microservices.scrum.lib.selenium.pages.Page;
+import com.estafet.microservices.scrum.lib.selenium.pages.project.ProjectListPage;
+import com.estafet.microservices.scrum.lib.selenium.pages.project.ProjectPage;
 
 public class SprintBoardPage extends Page {
 
@@ -65,8 +69,8 @@ public class SprintBoardPage extends Page {
 		return "Simple Scrum Project Management";
 	}
 
-	public ProjectsPage clickProjectsBreadCrumbLink() {
-		return click(projectsBreadcrumbLink, ProjectsPage.class);
+	public ProjectListPage clickProjectsBreadCrumbLink() {
+		return click(projectsBreadcrumbLink, ProjectListPage.class);
 	}
 
 	public ProjectPage clickProjectBreadCrumbLink() {
@@ -79,6 +83,33 @@ public class SprintBoardPage extends Page {
 
 	public List<SprintBoardPageToDoTask> getTodoTasks() {
 		return tasks(todoTasks, SprintBoardPageToDoTask.class);
+	}
+	
+	public SprintBoardPageInProgressTask getInProgressTask(String taskTitle) {
+		for (SprintBoardPageInProgressTask task : getInProgressTasks()) {
+			if (task.getTaskTitle().equals(taskTitle)) {
+				return task;
+			}
+		}
+		return null;
+	}
+	
+	public SprintBoardPageToDoTask getTodoTask(String taskTitle) {
+		for (SprintBoardPageToDoTask task : getTodoTasks()) {
+			if (task.getTaskTitle().equals(taskTitle)) {
+				return task;
+			}
+		}
+		return null;
+	}
+	
+	public SprintBoardPageCompletedTask getCompleted(String taskTitle) {
+		for (SprintBoardPageCompletedTask task : getCompletedTasks()) {
+			if (task.getTaskTitle().equals(taskTitle)) {
+				return task;
+			}
+		}
+		return null;
 	}
 
 	public List<SprintBoardPageInProgressTask> getInProgressTasks() {
@@ -105,6 +136,14 @@ public class SprintBoardPage extends Page {
 
 	public String getName() {
 		return name.getText();
+	}
+	
+	public Integer getSprintId() {
+		return Integer.parseInt(getCurrentURI().replaceAll("\\/project\\/\\d+\\/sprint\\/", "").replaceAll("\\/board", ""));
+	}
+	
+	public Integer getProjectId() {
+		return Integer.parseInt(getCurrentURI().replaceAll("\\/project\\/", "").replaceAll("\\/sprint\\/\\d+\\/board", ""));
 	}
 
 }

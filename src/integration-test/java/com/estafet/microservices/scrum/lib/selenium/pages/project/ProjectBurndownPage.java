@@ -1,9 +1,11 @@
-package com.estafet.microservices.scrum.lib.selenium.pages;
+package com.estafet.microservices.scrum.lib.selenium.pages.project;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
+
+import com.estafet.microservices.scrum.lib.selenium.pages.Page;
 
 public class ProjectBurndownPage extends Page {
 	
@@ -33,12 +35,16 @@ public class ProjectBurndownPage extends Page {
 		return "Simple Scrum Project Management";
 	}
 	
-	public ProjectsPage clickProjectsBreadCrumbLink() {
-		return click(projectsBreadcrumbLink, ProjectsPage.class);
+	public ProjectListPage clickProjectsBreadCrumbLink() {
+		return click(projectsBreadcrumbLink, ProjectListPage.class);
 	}
 	
 	public ProjectPage clickProjectBreadCrumbLink() {
 		return click(projectBreadcrumbLink, ProjectPage.class);
+	}
+	
+	public Integer getProjectId() {
+		return Integer.parseInt(getCurrentURI().replaceAll("\\/project\\/", "").replaceAll("\\/burndown\\/", ""));
 	}
 	
 }

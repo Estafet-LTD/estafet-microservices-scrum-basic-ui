@@ -1,4 +1,4 @@
-package com.estafet.microservices.scrum.lib.selenium.pages;
+package com.estafet.microservices.scrum.lib.selenium.pages.sprint;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -14,7 +14,7 @@ public class SprintBoardPageCompletedTask {
 		this.driver = driver;
 	}
 	
-	public String getName() {
+	public String getTaskTitle() {
 		return task.findElement(By.xpath(".//span")).getText();
 	}
 	

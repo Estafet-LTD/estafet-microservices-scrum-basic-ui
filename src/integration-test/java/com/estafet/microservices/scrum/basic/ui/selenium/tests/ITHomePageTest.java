@@ -6,7 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.estafet.microservices.scrum.lib.selenium.pages.HomePage;
+import com.estafet.microservices.scrum.lib.selenium.pages.home.HomePage;
 
 public class ITHomePageTest {
 
