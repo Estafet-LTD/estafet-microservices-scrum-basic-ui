@@ -28,7 +28,7 @@
 					<th>Remaining Hours</th>
 					<th>Status</th>
 				</tr>
-				<tr th:each="task : ${story.tasks}">
+				<tr id="task" th:each="task : ${story.tasks}">
 					<td th:text="${task.title}"/>
 					<td th:text="${task.description}" />
 					<td th:text="${task.initialHours}" />
