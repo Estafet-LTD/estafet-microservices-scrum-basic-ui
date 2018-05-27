@@ -29,7 +29,7 @@
 					<th>End Date</th>
 				</tr>
 				<tr th:each="sprint : ${project.inactiveSprints}">
-					<td><a th:href="@{'/project/' + ${project.id} + '/sprint/' + ${sprint.id}}">#<span th:text="${sprint.number}"></span></a></td>
+					<td><a th:href="@{'/project/' + ${project.id} + '/sprint/' + ${sprint.id}}"><span th:text="${sprint.name}"></span></a></td>
 					<td th:text="${sprint.startDate}" />
 					<td th:text="${sprint.endDate}" />
 				</tr>
