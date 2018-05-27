@@ -10,7 +10,7 @@
 		<div><strong>Status:</strong>&nbsp;<span class="text-muted" th:text="${story.status}"></span></div>
 		<div>
 			<div>
-				<h3>Acceptance Criteria <small><a th:href="@{/criteria/__${story.id}__}">Add Crtieria</a></small></h3>
+				<h3>Acceptance Criteria <small><a th:href="@{/story/__${story.id}__/criteria}">Add Crtieria</a></small></h3>
 			</div>			
 			<ol>
 				<li th:each="criteria : ${story.criteria}">
