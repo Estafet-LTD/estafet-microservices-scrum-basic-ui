@@ -1,6 +1,7 @@
 package com.estafet.microservices.scrum.basic.ui.service;
 
 import com.estafet.microservices.scrum.basic.ui.model.Story;
+import com.estafet.microservices.scrum.lib.util.WaitUntil;
 
 public class WaitUntilStoryUpdated extends WaitUntil {
 
