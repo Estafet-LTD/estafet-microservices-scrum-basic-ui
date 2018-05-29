@@ -233,7 +233,6 @@
 			<groupId>com.estafet.microservices.scrum</groupId>
 			<artifactId>microservices-scrum-lib</artifactId>
 			<version>1.0.1</version>
-			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
