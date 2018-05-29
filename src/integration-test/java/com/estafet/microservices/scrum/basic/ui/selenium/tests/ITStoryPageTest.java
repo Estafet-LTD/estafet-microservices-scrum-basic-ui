@@ -66,7 +66,7 @@ public class ITStoryPageTest {
 	
 	@Test
 	public void testClickAddCriteria() {
-		assertTrue(storyPage.clickAddCriteriaLink().isLoaded("3"));
+		assertTrue(storyPage.clickAddCriteriaLink().isLoaded());
 	}
 	
 }
