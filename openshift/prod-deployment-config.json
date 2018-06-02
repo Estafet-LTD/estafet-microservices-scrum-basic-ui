@@ -70,6 +70,7 @@
 							}
 						],
 						"name": "basic-ui",
+						"image": "basic-ui:latest",
 						"imagePullPolicy": "Always",
 						"ports": [
 							{
