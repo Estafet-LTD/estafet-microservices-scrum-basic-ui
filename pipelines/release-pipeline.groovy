@@ -76,7 +76,7 @@ node('maven') {
 
 	stage("tag image") {
 		openshiftTag namespace: project, srcStream: microservice, srcTag: 'PrepareForTesting', destinationNamespace: 'prod', destinationStream: microservice, destinationTag: releaseVersion
-		sh "oc tag ${microservice}:latest ${microservice}:${releaseVersion} -n prod"
+		openshiftTag namespace: project, srcStream: microservice, srcTag: 'PrepareForTesting', destinationNamespace: 'prod', destinationStream: microservice, destinationTag: "latest"
 	}	
 	
 }
