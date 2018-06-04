@@ -9,13 +9,12 @@ You can find a detailed explanation of how to install this (and other microservi
 
 ## Environment Variables
 ```
-PROJECT_API_SERVICE_URI=http://localhost:8080/project-api
-SPRINT_API_SERVICE_URI=http://localhost:8080/sprint-api
-STORY_API_SERVICE_URI=http://localhost:8080/story-api
-TASK_API_SERVICE_URI=http://localhost:8080/task-api
-
-SPRINT_BURNDOWN_SERVICE_URI=http://localhost:8080/sprint-burndown
-SPRINT_BOARD_API_SERVICE_URI=http://localhost:8080/sprint-board-api
-PROJECT_API_SERVICE_URI=http://localhost:8080/project-api
+PROJECT_API_SERVICE_URI
+SPRINT_API_SERVICE_URI
+STORY_API_SERVICE_URI
+TASK_API_SERVICE_URI
+SPRINT_BURNDOWN_SERVICE_URI
+SPRINT_BOARD_API_SERVICE_URI
+PROJECT_API_SERVICE_URI
 ```
 
