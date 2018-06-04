@@ -34,7 +34,7 @@ node('maven') {
 		git branch: "master", url: "https://${username()}:${password()}@github.com/Estafet-LTD/estafet-microservices-scrum-basic-ui"
 	}
 	
-	stage("deploy container") {
+	stage("deploy container to test") {
 		sh "oc get is -o json -n ${project} > is.json"
 		def is = readFile('is.json')
 		def image = getImage (is, microservice)
@@ -74,7 +74,7 @@ node('maven') {
 		} 
 	}	
 
-	stage("tag image") {
+	stage("promote to production") {
 		openshiftTag namespace: project, srcStream: microservice, srcTag: 'PrepareForTesting', destinationNamespace: 'prod', destinationStream: microservice, destinationTag: releaseVersion
 		openshiftTag namespace: project, srcStream: microservice, srcTag: 'PrepareForTesting', destinationNamespace: 'prod', destinationStream: microservice, destinationTag: "latest"
 	}	
