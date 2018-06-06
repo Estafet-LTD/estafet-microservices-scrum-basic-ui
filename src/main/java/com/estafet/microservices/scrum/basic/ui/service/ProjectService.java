@@ -1,6 +1,5 @@
 package com.estafet.microservices.scrum.basic.ui.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +8,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.estafet.microservices.scrum.basic.ui.model.Project;
 import com.estafet.microservices.scrum.basic.ui.model.ProjectBurndown;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.estafet.microservices.scrum.lib.commons.rest.RestHelper;
 
 import io.opentracing.Tracer;
 
@@ -26,18 +24,8 @@ public class ProjectService {
 	@Autowired
 	private RestTemplate restTemplate;
 	
-	@SuppressWarnings("rawtypes")
 	public List<Project> getProjects() {
-		List objects = restTemplate.getForObject(System.getenv("PROJECT_API_SERVICE_URI") + "/projects",
-				List.class);
-		List<Project> projects = new ArrayList<Project>();
-		ObjectMapper mapper = new ObjectMapper();
-		for (Object object : objects) {
-			Project project = mapper.convertValue(object, new TypeReference<Project>() {
-			});
-			projects.add(project);
-		}
-		return projects;
+		return RestHelper.getRestQuery(restTemplate, System.getenv("PROJECT_API_SERVICE_URI") + "/projects", Project.class);
 	}
 
 	public Project getProject(int projectId) {

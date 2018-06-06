@@ -34,7 +34,7 @@ node('maven') {
 		git branch: "master", url: "https://${username()}:${password()}@github.com/Estafet-LTD/estafet-microservices-scrum-basic-ui"
 	}
 	
-	stage("deploy container to test") {
+	stage("deploy container") {
 		sh "oc get is -o json -n ${project} > is.json"
 		def is = readFile('is.json')
 		def image = getImage (is, microservice)
@@ -51,7 +51,7 @@ node('maven') {
 		openshiftVerifyDeployment namespace: project, depCfg: microservice, replicaCount:"1", verifyReplicaCount: "true", waitTime: "600000"
 	}	
 	
-	stage("trigger acceptance tests") {
+	stage("trigger cucumber tests") {
 		sh "oc start-build qa-pipeline -n cicd"	
 	}
 	

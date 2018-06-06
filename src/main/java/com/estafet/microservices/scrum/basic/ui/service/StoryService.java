@@ -69,11 +69,8 @@ public class StoryService {
 		tracer.activeSpan().setTag("project.id", projectId);
 		story = restTemplate.postForObject(System.getenv("STORY_API_SERVICE_URI") + "/project/{id}/story", story, Story.class,
 				projectId);
-		if(story.getId() != null) {
-			story.setRestTemplate(restTemplate);
-			tracer.activeSpan().setTag("story.id", story.getId());
-		}
-		
+		story.setRestTemplate(restTemplate);
+		tracer.activeSpan().setTag("story.id", story.getId());
 		return story;
 	}
 
