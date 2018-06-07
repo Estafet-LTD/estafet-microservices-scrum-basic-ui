@@ -41,7 +41,7 @@ node('maven') {
 		sh "oc get dc -o json -n test > dc.json"
 		def dc = readFile ('dc.json')
 		if (deploymentConfigurationExists (dc, microservice)) {
-			openshiftDeploy namespace: project, depCfg: microservice
+			openshiftDeploy namespace: project, depCfg: microservice, showBuildLogs: "true",  waitTime: "3000000"
 		} else {
 			def template = readFile ('openshift/test-deployment-config.json').replaceAll(/\$\{image\}/, image).replaceAll(/\$\{microservice\}/, microservice)
 			def serviceTemplate = readFile ('openshift/test-service-config.yaml').replaceAll(/\$\{microservice\}/, microservice)
@@ -69,6 +69,7 @@ node('maven') {
         withMaven(mavenSettingsConfig: 'microservices-scrum') {
 			sh "mvn release:clean release:prepare release:perform -DreleaseVersion=${releaseVersion} -DdevelopmentVersion=${developmentVersion} -DpushChanges=false -DlocalCheckout=true -DpreparationGoals=initialize -B"
 			sh "git push origin master"
+			sh "mvn versions:set -DnewVersion=${releaseVersion}"
 			sh "git tag ${releaseTag}"
 			sh "git push origin ${releaseTag}"
 		} 
@@ -76,7 +77,7 @@ node('maven') {
 
 	stage("promote to production") {
 		openshiftTag namespace: project, srcStream: microservice, srcTag: 'PrepareForTesting', destinationNamespace: 'prod', destinationStream: microservice, destinationTag: releaseVersion
-		openshiftTag namespace: project, srcStream: microservice, srcTag: 'PrepareForTesting', destinationNamespace: 'prod', destinationStream: microservice, destinationTag: "latest"
+		openshiftTag namespace: project, srcStream: microservice, srcTag: 'PrepareForTesting', destinationNamespace: 'prod', destinationStream: microservice, destinationTag: 'latest'
 	}	
 	
 }
