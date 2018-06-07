@@ -71,7 +71,7 @@
 							}
 						],
 						"name": "basic-ui",
-						"image": "basic-ui:latest",
+						"image": "172.30.1.1:5000/prod/basic-ui:latest",
 						"imagePullPolicy": "Always",
 						"ports": [
 							{
@@ -89,12 +89,12 @@
 						],
 						"readinessProbe": {
 							"failureThreshold": "10",
-							"initialDelaySeconds": "90",
+							"initialDelaySeconds": "60",
 							"periodSeconds": "30",
 							"successThreshold": "1",
 							"timeoutSeconds": "1",
 							"httpGet": {
-								"path": "/api",
+								"path": "/",
 								"port": 8080,
 								"scheme": "HTTP"
 							}
