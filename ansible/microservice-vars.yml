@@ -8,4 +8,4 @@ cpu_max: 500m
 memory_min: 50Mi
 memory_max: 150Mi
 
-expose_basic_ui: true
+expose_service: true
