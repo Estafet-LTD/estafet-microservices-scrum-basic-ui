@@ -8,13 +8,11 @@ node("maven") {
 	}
 
 	stage("update wiremock") {
-		sh "oc get pods --selector app=wiremock-docker -o json -n ${project} > pods.json"
-		def json = readFile('pods.json');
-		def pod = new groovy.json.JsonSlurper().parseText(json).items[0].metadata.name
-		sh "oc exec ${pod} -n ${project} -- /bin/sh -i -c \"rm -f /home/wiremock/mappings/*.json\""
-		sh "oc rsync src/integration-test/resources/ ${pod}:/home/wiremock/mappings -n ${project}"
-		openshiftDeploy namespace: project, depCfg: "wiremock-docker", showBuildLogs: "true",  waitTime: "3000000"
-		openshiftVerifyDeployment namespace: project, depCfg: "wiremock-docker", replicaCount:"1", verifyReplicaCount: "true", waitTime: "300000"
+		def files = findFiles(glob: 'src/integration-test/resources/*.json')
+		files.each { file -> 
+			def json = readFile(file.path)
+			def response = httpRequest url: "http://wiremock-docker.${project}.svc:8080/__admin/mappings/new", httpMode: "POST", validResponseCodes: "201", requestBody: json
+		}
 	}
 
 	stage("build & deploy container") {
