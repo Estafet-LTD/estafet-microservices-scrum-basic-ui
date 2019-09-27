@@ -3,6 +3,3 @@
 /src/main/java/META-INF/
 /create-app.retry
 /release-pipeline.groovy.bak
-.project
-.classpath
-.settings/
