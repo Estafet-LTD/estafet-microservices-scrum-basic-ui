@@ -34,6 +34,7 @@ node("maven") {
 
 	stage("create deployment config") {
 		sh "oc process -n ${project} -f openshift/templates/${microservice}-config.yml -p NAMESPACE=${project} | oc apply -f -"
+		sh "oc set env dc/${microservice} SPRINT_API_SERVICE_URI=http://wiremock-docker.${project}.svc:8080/basic-ui/sprint-api STORY_API_SERVICE_URI=http://wiremock-docker.${project}.svc:8080/basic-ui/story-api TASK_API_SERVICE_URI=http://wiremock-docker.${project}.svc:8080/basic-ui/task-api PROJECT_API_SERVICE_URI=http://wiremock-docker.${project}.svc:8080/basic-ui/project-api SPRINT_BOARD_API_SERVICE_URI=http://wiremock-docker.${project}.svc:8080/basic-ui/sprint-board SPRINT_BURNDOWN_SERVICE_URI=http://wiremock-docker.${project}.svc:8080/basic-ui/sprint-burndown PROJECT_BURNDOWN_SERVICE_URI=http://wiremock-docker.${project}.svc:8080/basic-ui/project-burndown -n ${project}"
 	}
 
 	stage("execute deployment") {
