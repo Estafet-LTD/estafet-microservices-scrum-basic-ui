@@ -80,6 +80,7 @@ node('maven') {
 
 	stage ("verify build image") {
 		def version = getLatestVersion microservice
+		println "latest version is $version"
 		def pom = readFile('pom.xml')
 		def matcher = new XmlSlurper().parseText(pom).version =~ /(\d+\.\d+\.)(\d+)(\-SNAPSHOT)/
 		def pomVersion = "${matcher[0][1]}${matcher[0][2].toInteger()}-SNAPSHOT"
