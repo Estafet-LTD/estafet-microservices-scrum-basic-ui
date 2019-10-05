@@ -1,10 +1,12 @@
 @NonCPS
 def getVersions(json) {
+	println "getVersions"
 	def tags = new groovy.json.JsonSlurper().parseText(json).status.tags
 	def versions = []
 	for (int i = 0; i < tags.size(); i++) {
 		versions << tags[i]['tag'].replaceAll("\\-SNAPSHOT", "")
 	}
+	println versions
 	return versions
 }
 
@@ -53,7 +55,6 @@ def getLatestVersion(microservice) {
 	if (versions.size == 0) {
 		throw new RuntimeException("There are no images for ${microservice}")
 	}
-	println versions
 	return "${recentVersion(versions)}-SNAPSHOT"
 }
 
