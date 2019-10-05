@@ -31,7 +31,9 @@ node("maven") {
 	}
 
 	stage("create build config") {
-			sh "oc process -n ${project} -f openshift/templates/${microservice}-build-config.yml -p NAMESPACE=${project} -p GITHUB=${params.GITHUB} | oc apply -f -"
+			def pom = readFile('pom.xml')
+			version = getVersion(pom)
+			sh "oc process -n ${project} -f openshift/templates/${microservice}-build-config.yml -p NAMESPACE=${project} -p GITHUB=${params.GITHUB} -p IMAGE_TAG=${version} | oc apply -f -"
 	}
 
 	stage("execute build") {
@@ -40,9 +42,7 @@ node("maven") {
 	}
 
 	stage("create deployment config") {
-		def pom = readFile('pom.xml')
-		version = getVersion(pom)
-		sh "oc process -n ${project} -f openshift/templates/${microservice}-config.yml -p NAMESPACE=${project} p DOCKER_IMAGE_LABEL=${version} | oc apply -f -"
+		sh "oc process -n ${project} -f openshift/templates/${microservice}-config.yml -p NAMESPACE=${project} | oc apply -f -"
 		sh "oc set env dc/${microservice} SPRINT_API_SERVICE_URI=http://wiremock-docker.${project}.svc:8080/basic-ui/sprint-api STORY_API_SERVICE_URI=http://wiremock-docker.${project}.svc:8080/basic-ui/story-api TASK_API_SERVICE_URI=http://wiremock-docker.${project}.svc:8080/basic-ui/task-api PROJECT_API_SERVICE_URI=http://wiremock-docker.${project}.svc:8080/basic-ui/project-api SPRINT_BOARD_API_SERVICE_URI=http://wiremock-docker.${project}.svc:8080/basic-ui/sprint-board SPRINT_BURNDOWN_SERVICE_URI=http://wiremock-docker.${project}.svc:8080/basic-ui/sprint-burndown PROJECT_BURNDOWN_SERVICE_URI=http://wiremock-docker.${project}.svc:8080/basic-ui/project-burndown -n ${project}"
 	}
 
@@ -65,7 +65,7 @@ node("maven") {
 		} 
 	}	
 	
-	stage("promote to test") {
+	stage("flag image as successful") {
 		openshiftTag namespace: project, srcStream: microservice, srcTag: version, destinationNamespace: microservice, destinationStream: microservice, destinationTag: 'passed'
 	}
 
