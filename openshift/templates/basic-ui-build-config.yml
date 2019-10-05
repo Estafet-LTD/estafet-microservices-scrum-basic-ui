@@ -28,8 +28,7 @@ parameters:
   required: true    
 - description: Defines docker registry
   name: IMAGE_TAG
-  value: latest
-  required: false        
+  required: true        
 objects:
 - apiVersion: v1
   kind: ImageStream
