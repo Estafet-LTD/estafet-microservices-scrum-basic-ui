@@ -21,11 +21,29 @@ def password() {
 }
 
 def recentVersion( versions ) {
-  versions.sort( false ) { a, b ->
-    [a,b]*.tokenize('.')*.collect { it as int }.with { u, v ->
-      [u,v].transpose().findResult{ x,y-> x<=>y ?: null } ?: u.size() <=> v.size()
+  def sorted = versions.sort(false) { a, b -> 
+
+    List verA = a.tokenize('.')
+    List verB = b.tokenize('.')
+
+    def commonIndices = Math.min(verA.size(), verB.size())
+
+    for (int i = 0; i < commonIndices; ++i) {
+      def numA = verA[i].toInteger()
+      def numB = verB[i].toInteger()
+      println "comparing $numA and $numB"
+
+      if (numA != numB) {
+        return numA <=> numB
+      }
     }
-  }[-1]
+
+    // If we got this far then all the common indices are identical, so whichever version is longer must be more recent
+    verA.size() <=> verB.size()
+  }
+
+  println "sorted versions: $sorted"
+  sorted[-1]
 }
 
 def getLatestVersion(microservice) {
