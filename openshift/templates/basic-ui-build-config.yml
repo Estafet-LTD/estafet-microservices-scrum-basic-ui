@@ -25,7 +25,11 @@ parameters:
 - description: Defines docker registry
   name: DOCKER_REGISTRY
   value: docker-registry.default.svc:5000
-  required: true      
+  required: true    
+- description: Defines docker registry
+  name: IMAGE_TAG
+  value: latest
+  required: false        
 objects:
 - apiVersion: v1
   kind: ImageStream
@@ -33,6 +37,7 @@ objects:
     creationTimestamp: null
     labels:
       app: ${MICROSERVICE}
+      product: microservices-scrum
     name: ${MICROSERVICE}
     namespace: ${NAMESPACE}
   spec:
@@ -49,6 +54,7 @@ objects:
     creationTimestamp: null
     labels:
       app: ${MICROSERVICE}
+      product: microservices-scrum
     name: ${MICROSERVICE}
     namespace: ${NAMESPACE}
   spec:
@@ -57,7 +63,7 @@ objects:
     output:
       to:
         kind: ImageStreamTag
-        name: "${MICROSERVICE}:latest"
+        name: "${MICROSERVICE}:${IMAGE_TAG}"
     postCommit: {}
     resources: {}
     runPolicy: Serial

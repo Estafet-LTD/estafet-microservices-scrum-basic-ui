@@ -57,6 +57,7 @@ objects:
         creationTimestamp: null
         labels:
           app: ${MICROSERVICE}
+          product: microservices-scrum
           deploymentconfig: ${MICROSERVICE}
       spec:
         containers:

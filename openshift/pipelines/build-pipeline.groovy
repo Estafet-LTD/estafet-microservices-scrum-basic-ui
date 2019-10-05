@@ -57,7 +57,10 @@ node("maven") {
 	}	
 	
 	stage("promote to test") {
-		openshiftTag namespace: project, srcStream: microservice, srcTag: 'latest', destinationNamespace: 'test', destinationStream: microservice, destinationTag: 'PrepareForTesting'
+		def pom = readFile('pom.xml');
+		def matcher = new XmlSlurper().parseText(pom).version =~ /(\d+\.\d+\.)(\d+)(\-SNAPSHOT)/
+		def version = "${matcher[0][1]}${matcher[0][2].toInteger()}-SNAPSHOT"
+		openshiftTag namespace: project, srcStream: microservice, srcTag: 'latest', destinationNamespace: 'test', destinationStream: microservice, destinationTag: version
 	}
 
 }
