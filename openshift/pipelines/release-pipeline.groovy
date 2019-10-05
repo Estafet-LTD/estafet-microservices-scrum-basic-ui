@@ -26,14 +26,9 @@ def recentVersion( versions ) {
 }
 
 def getLatestVersion(microservice) {
-	println "get latest image version for ${microservice}"
-	println "oc get is ${microservice} -o json -n cicd > image.json"
 	sh "oc get is ${microservice} -o json -n cicd > image.json"
-	print "now read the file"
 	def image = readFile('image.json')
-	println "pre getVersions"
 	def versions = getVersions(image)
-	println "post getVersions"
 	if (versions.size() == 0) {
 		throw new RuntimeException("There are no images for ${microservice}")
 	}
