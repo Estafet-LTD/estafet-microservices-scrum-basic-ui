@@ -21,38 +21,39 @@ def password() {
 }
 
 def recentVersion( versions ) {
-  def sorted = versions.sort(false) { a, b -> 
+	def sorted = versions.sort(false) { a, b -> 
 
-    List verA = a.tokenize('.')
-    List verB = b.tokenize('.')
+  	List verA = a.tokenize('.')
+  	List verB = b.tokenize('.')
 
-    def commonIndices = Math.min(verA.size(), verB.size())
+  	def commonIndices = Math.min(verA.size(), verB.size())
 
-    for (int i = 0; i < commonIndices; ++i) {
-      def numA = verA[i].toInteger()
-      def numB = verB[i].toInteger()
-      println "comparing $numA and $numB"
+	  for (int i = 0; i < commonIndices; ++i) {
+	  	def numA = verA[i].toInteger()
+	    def numB = verB[i].toInteger()
+	     println "comparing $numA and $numB"
+	     if (numA != numB) {
+	     	return numA <=> numB
+	     }
+	  }
 
-      if (numA != numB) {
-        return numA <=> numB
-      }
-    }
-
-    // If we got this far then all the common indices are identical, so whichever version is longer must be more recent
-    verA.size() <=> verB.size()
-  }
+  	// If we got this far then all the common indices are identical, so whichever version is longer must be more recent
+  	verA.size() <=> verB.size()
+	}
 
   println "sorted versions: $sorted"
   sorted[-1]
 }
 
 def getLatestVersion(microservice) {
+	println "get latest image version for ${microservice}"
 	sh "oc get is ${microservice} -o json -n ${project} > image.json"
 	def image = readFile('image.json')
 	def versions = getVersions(image)
 	if (versions.size == 0) {
 		throw new RuntimeException("There are no images for ${microservice}")
 	}
+	println versions
 	return "${recentVersion(versions)}-SNAPSHOT"
 }
 
