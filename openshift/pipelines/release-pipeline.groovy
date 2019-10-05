@@ -37,7 +37,7 @@ def getLatestVersion(microservice) {
 	if (versions.size() == 0) {
 		throw new RuntimeException("There are no images for ${microservice}")
 	}
-	return recentVersion versions
+	return recentVersion(versions)
 }
 
 def project = "test"
