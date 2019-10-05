@@ -47,8 +47,8 @@ def recentVersion( versions ) {
 
 def getLatestVersion(microservice) {
 	println "get latest image version for ${microservice}"
-	println "oc get is ${microservice} -o json -n test > image.json"
-	sh "oc get is ${microservice} -o json -n test > image.json"
+	println "oc get is ${microservice} -o json -n cicd > image.json"
+	sh "oc get is ${microservice} -o json -n cicd > image.json"
 	print "now read the file"
 	def image = readFile('image.json')
 	println "pre getVersions"

@@ -29,10 +29,14 @@ node("maven") {
 			def response = httpRequest url: "http://wiremock-docker.${project}.svc:8080/__admin/mappings/new", httpMode: "POST", validResponseCodes: "201", requestBody: json
 		}
 	}
+	
+	stage("reset the promoted image stream") {
+		def pom = readFile('pom.xml')
+		version = getVersion(pom)
+		sh "oc tag -d ${microservice}:${version} -n cicd || true"
+	}
 
 	stage("create build config") {
-			def pom = readFile('pom.xml')
-			version = getVersion(pom)
 			sh "oc process -n ${project} -f openshift/templates/${microservice}-build-config.yml -p NAMESPACE=${project} -p GITHUB=${params.GITHUB} -p DOCKER_IMAGE_LABEL=${version} | oc apply -f -"
 	}
 
@@ -65,8 +69,8 @@ node("maven") {
 		} 
 	}	
 	
-	stage("flag image as successful") {
-		openshiftTag namespace: project, srcStream: microservice, srcTag: version, destinationNamespace: microservice, destinationStream: microservice, destinationTag: 'passed'
+	stage("promote the image") {
+		openshiftTag namespace: project, srcStream: microservice, srcTag: version, destinationNamespace: 'cicd', destinationStream: microservice, destinationTag: version
 	}
 
 }
