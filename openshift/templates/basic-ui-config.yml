@@ -19,6 +19,9 @@ parameters:
   name: MIN_MEMORY
   value: 50Mi
   required: true
+- description: Defines the namespace for the image stream
+  name: DOCKER_NAMESPACE
+  required: true  
 - description: Defines docker registry
   name: DOCKER_REGISTRY
   value: docker-registry.default.svc:5000
@@ -33,6 +36,7 @@ objects:
     creationTimestamp: null
     labels:
       app: ${MICROSERVICE}
+      product: microservices-scrum
     name: ${MICROSERVICE}
     namespace: ${NAMESPACE}
   spec:
@@ -56,7 +60,6 @@ objects:
         creationTimestamp: null
         labels:
           app: ${MICROSERVICE}
-          product: microservices-scrum
           deploymentconfig: ${MICROSERVICE}
       spec:
         containers:
@@ -75,7 +78,7 @@ objects:
                 value: 'http://story-api.${NAMESPACE}.svc:8080'
               - name: TASK_API_SERVICE_URI
                 value: 'http://task-api.${NAMESPACE}.svc:8080'          
-            image: ${DOCKER_REGISTRY}/${NAMESPACE}/${MICROSERVICE}:${DOCKER_IMAGE_LABEL}
+            image: ${DOCKER_REGISTRY}/${DOCKER_NAMESPACE}/${MICROSERVICE}:${DOCKER_IMAGE_LABEL}
             imagePullPolicy: Always
             name: ${MICROSERVICE}
             ports:
@@ -118,7 +121,7 @@ objects:
           from:
             kind: ImageStreamTag
             name: "${MICROSERVICE}:${DOCKER_IMAGE_LABEL}"
-            namespace: ${NAMESPACE}
+            namespace: ${DOCKER_NAMESPACE}
         type: ImageChange
 - apiVersion: v1
   kind: Service
