@@ -12,7 +12,7 @@ def getVersions(json) {
 def getNamespace(json) {
 	def matcher = new groovy.json.JsonSlurper().parseText(json).items[0].spec.to.name =~ /(green|blue)(\-basic\-ui)/
 	String namespace = matcher[0][1]
-	return namespace.equals("green") ? "blue" : "green" 
+	return namespace.equals("green") ? "prod-blue" : "prod-green" 
 }
 
 def recentVersion( versions ) {
