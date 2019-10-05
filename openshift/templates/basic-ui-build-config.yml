@@ -26,8 +26,8 @@ parameters:
   name: DOCKER_REGISTRY
   value: docker-registry.default.svc:5000
   required: true    
-- description: Defines docker registry
-  name: IMAGE_TAG
+- description: Defines docker image label
+  name: DOCKER_IMAGE_LABEL
   required: true        
 objects:
 - apiVersion: v1
@@ -62,7 +62,7 @@ objects:
     output:
       to:
         kind: ImageStreamTag
-        name: "${MICROSERVICE}:${IMAGE_TAG}"
+        name: "${MICROSERVICE}:${DOCKER_IMAGE_LABEL}"
     postCommit: {}
     resources: {}
     runPolicy: Serial
