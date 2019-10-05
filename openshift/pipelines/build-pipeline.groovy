@@ -1,6 +1,5 @@
 @NonCPS
 def getVersion(pom) {
-	def pom = readFile('pom.xml');
 	def matcher = new XmlSlurper().parseText(pom).version =~ /(\d+\.\d+\.)(\d+)(\-SNAPSHOT)/
 	return "${matcher[0][1]}${matcher[0][2].toInteger()}-SNAPSHOT"
 }
@@ -64,7 +63,7 @@ node("maven") {
 	}	
 	
 	stage("promote to test") {
-		def pom = readFile('pom.xml');
+		def pom = readFile('pom.xml')
 		def version = getVersion(pom)
 		openshiftTag namespace: project, srcStream: microservice, srcTag: 'latest', destinationNamespace: 'test', destinationStream: microservice, destinationTag: version
 	}
