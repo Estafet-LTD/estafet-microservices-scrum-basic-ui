@@ -47,7 +47,7 @@ def recentVersion( versions ) {
 }
 
 def getLatestVersion(microservice) {
-	sh "oc get is ${microservice} -o json -n prod > image.json"
+	sh "oc get is ${microservice} -o json -n ${project} > image.json"
 	def image = readFile('image.json')
 	def versions = getVersions(image)
 	if (versions.size == 0) {
