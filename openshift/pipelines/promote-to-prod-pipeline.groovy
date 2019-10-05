@@ -55,7 +55,9 @@ node {
 	}
 	
 	stage("checkout release version") {
-		git tag: version, url: "https://github.com/${params.GITHUB}/estafet-microservices-scrum-basic-ui"
+		checkout scm: [$class: 'GitSCM', 
+      userRemoteConfigs: [[url: "https://github.com/${params.GITHUB}/estafet-microservices-scrum-basic-ui"]], 
+      branches: [[name: "refs/tags/${version}"]]], changelog: false, poll: false
 	}
 	
 	stage("create deployment config") {
