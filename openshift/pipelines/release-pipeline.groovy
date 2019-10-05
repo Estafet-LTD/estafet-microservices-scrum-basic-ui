@@ -5,7 +5,6 @@ def getVersions(json) {
 	for (int i = 0; i < tags.size(); i++) {
 		versions << tags[i]['tag'].replaceAll("\\-SNAPSHOT", "")
 	}
-	println versions
 	return versions
 }
 
@@ -49,6 +48,7 @@ def recentVersion( versions ) {
 def getLatestVersion(microservice) {
 	println "get latest image version for ${microservice}"
 	sh "oc get is ${microservice} -o json -n ${project} > image.json"
+	println "oc get is ${microservice} -o json -n ${project} > image.json"
 	def image = readFile('image.json')
 	println "pre getVersions"
 	def versions = getVersions(image)
