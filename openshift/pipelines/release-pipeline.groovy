@@ -105,24 +105,7 @@ node('maven') {
 		openshiftDeploy namespace: project, depCfg: microservice,  waitTime: "3000000"
 		openshiftVerifyDeployment namespace: project, depCfg: microservice, replicaCount:"1", verifyReplicaCount: "true", waitTime: "300000" 
 	}
-	
-	stage("increment version") {
-		def pom = readFile('pom.xml');
-		def matcher = new XmlSlurper().parseText(pom).version =~ /(\d+\.\d+\.)(\d+)(\-SNAPSHOT)/
-		developmentVersion = "${matcher[0][1]}${matcher[0][2].toInteger()+1}-SNAPSHOT"
-		releaseVersion = "${matcher[0][1]}${matcher[0][2]}"
-	}
-	
-	stage("perform release") {
-        sh "git config --global user.email \"jenkins@estafet.com\""
-        sh "git config --global user.name \"jenkins\""
-        withMaven(mavenSettingsConfig: 'microservices-scrum') {
-			sh "mvn release:clean release:prepare release:perform -DreleaseVersion=${releaseVersion} -DdevelopmentVersion=${developmentVersion} -DpushChanges=false -DlocalCheckout=true -DpreparationGoals=initialize -B"
-			sh "git push origin master"
-			sh "git tag ${releaseVersion}"
-			sh "git push origin ${releaseVersion}"
-		} 
-	}	
+
 
 	stage("promote image to staging") {
 		openshiftTag namespace: project, srcStream: microservice, srcTag: releaseVersion, destinationNamespace: 'staging', destinationStream: microservice, destinationTag: releaseVersion
