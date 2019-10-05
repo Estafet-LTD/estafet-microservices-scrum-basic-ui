@@ -3,7 +3,7 @@ def getVersions(json) {
 	def tags = new groovy.json.JsonSlurper().parseText(json).status.tags
 	def versions = []
 	for (int i = 0; i < tags.size(); i++) {
-		versions << tags[i]['tag'].replaceAll("\\-SNAPSHOT", "")
+		versions << tags[i]['tag']
 	}
 	return versions
 }
@@ -21,28 +21,8 @@ def password() {
 }
 
 def recentVersion( versions ) {
-	def sorted = versions.sort(false) { a, b -> 
-
-  	List verA = a.tokenize('.')
-  	List verB = b.tokenize('.')
-
-  	def commonIndices = Math.min(verA.size(), verB.size())
-
-	  for (int i = 0; i < commonIndices; ++i) {
-	  	def numA = verA[i].toInteger()
-	    def numB = verB[i].toInteger()
-	     println "comparing $numA and $numB"
-	     if (numA != numB) {
-	     	return numA <=> numB
-	     }
-	  }
-
-  	// If we got this far then all the common indices are identical, so whichever version is longer must be more recent
-  	verA.size() <=> verB.size()
-	}
-
-  println "sorted versions: $sorted"
-  sorted[-1]
+	def size = versions.size()
+	return versions[size-1]
 }
 
 def getLatestVersion(microservice) {
@@ -57,7 +37,7 @@ def getLatestVersion(microservice) {
 	if (versions.size() == 0) {
 		throw new RuntimeException("There are no images for ${microservice}")
 	}
-	return "${recentVersion(versions)}-SNAPSHOT"
+	return recentVersion versions
 }
 
 def project = "test"
