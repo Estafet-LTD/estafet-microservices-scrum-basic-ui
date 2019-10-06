@@ -25,7 +25,7 @@ def getISDockerImageHash(json, version) {
 			return matcher[0][2]
 		}
 	}
-	throw new RuntimeException "cannot find image for version $version" 
+	throw new RuntimeException("cannot find image for version $version")
 }
 
 @NonCPS
