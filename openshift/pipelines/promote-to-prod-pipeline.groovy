@@ -15,6 +15,26 @@ def getNamespace(json) {
 	return namespace.equals("green") ? "prod-blue" : "prod-green" 
 }
 
+@NonCPS
+def getISDockerImageHash(json, version) {
+	def tags = new groovy.json.JsonSlurper().parseText(json).status.tags
+	for (int i = 0; i < tags.size(); i++) {
+		if (tags[i]['tag'].equals(version)) {
+			def image = tags[i]['items'][0]['image']
+			def matcher = image =~ /(sha256\:)(\w+)/
+			return matcher[0][2]
+		}
+	}
+	throw new RuntimeException "cannot find image for version $version" 
+}
+
+@NonCPS
+def getPodImageHash(json) {
+	def imageId = new groovy.json.JsonSlurper().parseText(json).status.containerStatuses[0].imageID
+	def matcher = imageId =~ /(.*\@sha256\:)(\w+)/
+	return matcher[0][2]
+}
+
 def recentVersion( versions ) {
 	def size = versions.size()
 	return versions[size-1]
@@ -28,6 +48,16 @@ def getLatestVersion(microservice) {
 		throw new RuntimeException("There are no images for ${microservice}")
 	}
 	return recentVersion(versions)
+}
+
+boolean isLatestVersionDeployed(microservice) {
+	sh "oc get is ${microservice} -n staging -o json > image.json"
+	def image = readFile('image.json')
+	def imageStreamHash = getISDockerImageHash(image, version)
+	sh "oc get pods --selector deploymentconfig=${microservice} -o json > pod.json"
+	def pod = readFile('pod.json')
+	def podImageHash = getPodImageHash(pod)
+	return pod.equals(podImageHash)
 }
 
 node {
@@ -62,12 +92,16 @@ node {
 	
 	stage("create deployment config") {
 		sh "oc process -n ${project} -f openshift/templates/${microservice}-config.yml -p NAMESPACE=${project} -p DOCKER_NAMESPACE=staging -p DOCKER_IMAGE_LABEL=${version} | oc apply -f -"
-		sh "oc set env dc/${microservice} SPRINT_API_SERVICE_URI=http://sprint-api.${project}.svc:8080 STORY_API_SERVICE_URI=http://story-api.${project}.svc:8080 TASK_API_SERVICE_URI=http://task-api.${project}.svc:8080 PROJECT_API_SERVICE_URI=http://project-api.${project}.svc:8080 SPRINT_BOARD_API_SERVICE_URI=http://sprint-board.${project}.svc:8080 SPRINT_BURNDOWN_SERVICE_URI=http://sprint-burndown.${project}.svc:8080 PROJECT_BURNDOWN_SERVICE_URI=http://project-burndown.${project}.svc:8080 JAEGER_AGENT_HOST=jaeger-agent.${project}.svc JAEGER_SAMPLER_MANAGER_HOST_PORT=jaeger-agent.${project}.svc:5778 JAEGER_SAMPLER_PARAM=1 JAEGER_SAMPLER_TYPE=const -n ${project}"
+		sh "oc set env dc/${microservice} SPRINT_API_SERVICE_URI=http://sprint-api.${project}.svc:8080 STORY_API_SERVICE_URI=http://story-api.${project}.svc:8080 TASK_API_SERVICE_URI=http://task-api.${project}.svc:8080 PROJECT_API_SERVICE_URI=http://project-api.${project}.svc:8080 SPRINT_BOARD_API_SERVICE_URI=http://sprint-board.${project}.svc:8080 SPRINT_BURNDOWN_SERVICE_URI=http://sprint-burndown.${project}.svc:8080 PROJECT_BURNDOWN_SERVICE_URI=http://project-burndown.${project}.svc:8080 JAEGER_AGENT_HOST=jaeger-agent.${project}.svc JAEGER_SAMPLER_MANAGER_HOST_PORT=jaeger-agent.${project}.svc:5778 JAEGER_SAMPLER_PARAM=1 JAEGER_SAMPLER_TYPE=const -n ${project}"	
 	}
 	
 	stage("execute deployment") {
-		openshiftDeploy namespace: project, depCfg: microservice,  waitTime: "3000000"
-		openshiftVerifyDeployment namespace: project, depCfg: microservice, replicaCount:"1", verifyReplicaCount: "true", waitTime: "300000" 
+		if (!isLatestVersionDeployed(microservice)) {
+			openshiftDeploy namespace: project, depCfg: microservice,  waitTime: "3000000"
+			openshiftVerifyDeployment namespace: project, depCfg: microservice, replicaCount:"1", verifyReplicaCount: "true", waitTime: "300000" 
+		} else {
+			println "version $version of $microservice is already deployed and running"
+		}
 	}
 
 }
