@@ -50,7 +50,7 @@ def getLatestVersion(microservice) {
 	return recentVersion(versions)
 }
 
-boolean isLatestVersionDeployed(microservice, version) {
+boolean isLatestVersionDeployed(project, microservice, version) {
 	sh "oc get is ${microservice} -o json -n staging > image.json"
 	def image = readFile('image.json')
 	def imageStreamHash = getImageStreamHash(image, version)
@@ -98,7 +98,7 @@ node {
 	}
 	
 	stage("execute deployment") {
-		if (!isLatestVersionDeployed(microservice, version)) {
+		if (!isLatestVersionDeployed(project, microservice, version)) {
 			openshiftDeploy namespace: project, depCfg: microservice,  waitTime: "3000000"
 			openshiftVerifyDeployment namespace: project, depCfg: microservice, replicaCount:"1", verifyReplicaCount: "true", waitTime: "300000" 
 		} else {
