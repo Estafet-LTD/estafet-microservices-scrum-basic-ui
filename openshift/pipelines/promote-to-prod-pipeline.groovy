@@ -54,7 +54,7 @@ boolean isLatestVersionDeployed(microservice) {
 	sh "oc get is ${microservice} -n staging -o json > image.json"
 	def image = readFile('image.json')
 	def imageStreamHash = getISDockerImageHash(image, version)
-	sh "oc get pods --selector deploymentconfig=${microservice} -o json > pod.json"
+	sh "oc get pods --selector deploymentconfig=${microservice} -n staging -o json > pod.json"
 	def pod = readFile('pod.json')
 	def podImageHash = getPodImageHash(pod)
 	return pod.equals(podImageHash)
