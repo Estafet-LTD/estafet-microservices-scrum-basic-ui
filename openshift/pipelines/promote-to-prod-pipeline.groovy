@@ -51,7 +51,6 @@ def getLatestVersion(microservice) {
 }
 
 boolean isLatestVersionDeployed(microservice) {
-	println image
 	def imageStreamHash = getImageStreamHash(image, version)
 	println "image stream hash $imageStreamHash"
 	sh "oc get pods --selector deploymentconfig=${microservice} -n staging -o json > pod.json"
@@ -64,7 +63,7 @@ boolean isLatestVersionDeployed(microservice) {
 node {
 	
 	def project
-	def version
+	String version
 	def image
 	def microservice = "basic-ui"
 
