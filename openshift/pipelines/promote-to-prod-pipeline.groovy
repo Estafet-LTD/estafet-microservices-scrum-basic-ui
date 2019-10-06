@@ -97,6 +97,8 @@ node {
 	}
 	
 	stage("execute deployment") {
+		println "version $version"
+		println "$image"
 		if (!isLatestVersionDeployed(microservice, image, version)) {
 			openshiftDeploy namespace: project, depCfg: microservice,  waitTime: "3000000"
 			openshiftVerifyDeployment namespace: project, depCfg: microservice, replicaCount:"1", verifyReplicaCount: "true", waitTime: "300000" 
