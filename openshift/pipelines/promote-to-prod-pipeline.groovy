@@ -61,11 +61,12 @@ boolean isLatestVersionDeployed(microservice) {
 	return pod.equals(podImageHash)
 }
 
+def version
+def image
+
 node {
 	
 	def project
-	def version
-	def image
 	def microservice = "basic-ui"
 
 	properties([
