@@ -57,6 +57,7 @@ boolean isLatestVersionDeployed(project, microservice, version) {
 	println "image stream hash $imageStreamHash"
 	sh "oc get pods --selector deploymentconfig=${microservice} -n ${project} -o json > pod.json"
 	def pod = readFile('pod.json')
+	println pod
 	def podImageHash = getPodImageHash(pod)
 	println "pod image hash $podImageHash"
 	return pod.equals(podImageHash)
