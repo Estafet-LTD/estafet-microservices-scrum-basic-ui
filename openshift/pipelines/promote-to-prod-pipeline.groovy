@@ -30,7 +30,7 @@ def getImageStreamHash(json, version) {
 
 @NonCPS
 def getPodImageHash(json) {
-	def imageId = new groovy.json.JsonSlurper().parseText(json).status.containerStatuses[0].imageID
+	def imageId = new groovy.json.JsonSlurper().parseText(json).items[0].status.containerStatuses[0].imageID
 	def matcher = imageId =~ /(.*\@sha256\:)(\w+)/
 	return matcher[0][2]
 }
@@ -57,7 +57,6 @@ boolean isLatestVersionDeployed(project, microservice, version) {
 	println "image stream hash $imageStreamHash"
 	sh "oc get pods --selector deploymentconfig=${microservice} -n ${project} -o json > pod.json"
 	def pod = readFile('pod.json')
-	println pod
 	def podImageHash = getPodImageHash(pod)
 	println "pod image hash $podImageHash"
 	return pod.equals(podImageHash)
