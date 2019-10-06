@@ -20,7 +20,7 @@ def password() {
     }
 }
 
-def recentVersion( versions ) {
+def recentVersion(versions) {
 	def size = versions.size()
 	return versions[size-1]
 }
@@ -35,13 +35,13 @@ def getLatestVersion(microservice) {
 	return recentVersion(versions)
 }
 
-def project = "test"
-def microservice = "basic-ui"
-
-def developmentVersion
-def releaseVersion
-
 node('maven') {
+
+	def project = "test"
+	def microservice = "basic-ui"
+
+	def developmentVersion
+	def releaseVersion
 
 	properties([
 	  parameters([
@@ -100,7 +100,6 @@ node('maven') {
 		openshiftDeploy namespace: project, depCfg: microservice,  waitTime: "3000000"
 		openshiftVerifyDeployment namespace: project, depCfg: microservice, replicaCount:"1", verifyReplicaCount: "true", waitTime: "300000" 
 	}
-
 
 	stage("promote image to staging") {
 		openshiftTag namespace: project, srcStream: microservice, srcTag: releaseVersion, destinationNamespace: 'staging', destinationStream: microservice, destinationTag: releaseVersion
