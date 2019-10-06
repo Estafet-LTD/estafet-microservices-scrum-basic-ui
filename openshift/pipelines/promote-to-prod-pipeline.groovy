@@ -18,6 +18,7 @@ def getNamespace(json) {
 @NonCPS
 def getImageStreamHash(json, version) {
 	def tags = new groovy.json.JsonSlurper().parseText(json).status.tags
+	println "getImageStreamHash $version"
 	for (int i = 0; i < tags.size(); i++) {
 		if (tags[i]['tag'].equals(version)) {
 			def image = tags[i]['items'][0]['image']
