@@ -42,7 +42,7 @@ def recentVersion( versions ) {
 
 def getLatestVersion(microservice) {
 	sh "oc get is ${microservice} -o json -n staging > image.json"
-	def image = readFile('image.json')
+	image = readFile('image.json')
 	def versions = getVersions(image)
 	if (versions.size() == 0) {
 		throw new RuntimeException("There are no images for ${microservice}")
@@ -51,9 +51,6 @@ def getLatestVersion(microservice) {
 }
 
 boolean isLatestVersionDeployed(microservice) {
-	sh "oc get is ${microservice} -n staging -o json > image.json"
-	def image = readFile('image.json')
-	println "getImageStreamHash $version"
 	def imageStreamHash = getImageStreamHash(image, version)
 	println "image stream hash $imageStreamHash"
 	sh "oc get pods --selector deploymentconfig=${microservice} -n staging -o json > pod.json"
@@ -67,6 +64,7 @@ node {
 	
 	def project
 	def version
+	def image
 	def microservice = "basic-ui"
 
 	properties([
