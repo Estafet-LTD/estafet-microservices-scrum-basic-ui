@@ -16,7 +16,7 @@ def getNamespace(json) {
 }
 
 @NonCPS
-def getISDockerImageHash(json, version) {
+def getImageStreamHash(json, version) {
 	def tags = new groovy.json.JsonSlurper().parseText(json).status.tags
 	for (int i = 0; i < tags.size(); i++) {
 		if (tags[i]['tag'].equals(version)) {
@@ -53,10 +53,12 @@ def getLatestVersion(microservice) {
 boolean isLatestVersionDeployed(microservice) {
 	sh "oc get is ${microservice} -n staging -o json > image.json"
 	def image = readFile('image.json')
-	def imageStreamHash = getISDockerImageHash(image, version)
+	def imageStreamHash = getImageStreamHash(image, version)
+	println "image stream hash $imageStreamHash"
 	sh "oc get pods --selector deploymentconfig=${microservice} -n staging -o json > pod.json"
 	def pod = readFile('pod.json')
 	def podImageHash = getPodImageHash(pod)
+	println "pod image hash $podImageHash"
 	return pod.equals(podImageHash)
 }
 
