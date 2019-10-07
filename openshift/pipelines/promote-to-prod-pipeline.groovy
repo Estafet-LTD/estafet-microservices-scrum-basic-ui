@@ -1,7 +1,7 @@
 @NonCPS
 def getVersions(json) {
 	def tags = new groovy.json.JsonSlurper().parseText(json).status.tags
-	def versions = []
+	String versions = []
 	for (int i = 0; i < tags.size(); i++) {
 		versions << tags[i]['tag']
 	}
