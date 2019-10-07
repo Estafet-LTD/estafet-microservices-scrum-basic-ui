@@ -29,22 +29,25 @@ parameters:
 - description: Defines docker registry
   name: DOCKER_IMAGE_LABEL
   required: true  
+- description: Environment
+  name: ENV
+  required: false    
 objects:
 - apiVersion: v1
   kind: DeploymentConfig
   metadata:
     creationTimestamp: null
     labels:
-      app: ${MICROSERVICE}
+      app: "${ENV}${MICROSERVICE}"
       product: microservices-scrum
-    name: ${MICROSERVICE}
+    name: "${ENV}${MICROSERVICE}"
     namespace: ${NAMESPACE}
   spec:
     replicas: 1
     revisionHistoryLimit: 10
     selector:
-      app: ${MICROSERVICE}
-      deploymentconfig: ${MICROSERVICE}
+      app: "${ENV}${MICROSERVICE}"
+      deploymentconfig: "${ENV}${MICROSERVICE}"
     strategy:
       activeDeadlineSeconds: 21600
       resources: {}
@@ -59,28 +62,28 @@ objects:
       metadata:
         creationTimestamp: null
         labels:
-          app: ${MICROSERVICE}
-          deploymentconfig: ${MICROSERVICE}
+          app: "${ENV}${MICROSERVICE}"
+          deploymentconfig: "${ENV}${MICROSERVICE}"
       spec:
         containers:
           - env:
               - name: PROJECT_API_SERVICE_URI
-                value: 'http://project-api.${NAMESPACE}.svc:8080'
+                value: 'http://${ENV}project-api.${NAMESPACE}.svc:8080'
               - name: PROJECT_BURNDOWN_SERVICE_URI
-                value: 'http://project-burndown.${NAMESPACE}.svc:8080'
+                value: 'http://${ENV}project-burndown.${NAMESPACE}.svc:8080'
               - name: SPRINT_API_SERVICE_URI
-                value: 'http://sprint-api.${NAMESPACE}.svc:8080'
+                value: 'http://${ENV}sprint-api.${NAMESPACE}.svc:8080'
               - name: SPRINT_BOARD_API_SERVICE_URI
-                value: 'http://sprint-board.${NAMESPACE}.svc:8080'
+                value: 'http://${ENV}sprint-board.${NAMESPACE}.svc:8080'
               - name: SPRINT_BURNDOWN_SERVICE_URI
-                value: 'http://sprint-burndown.${NAMESPACE}.svc:8080'
+                value: 'http://${ENV}sprint-burndown.${NAMESPACE}.svc:8080'
               - name: STORY_API_SERVICE_URI
-                value: 'http://story-api.${NAMESPACE}.svc:8080'
+                value: 'http://${ENV}story-api.${NAMESPACE}.svc:8080'
               - name: TASK_API_SERVICE_URI
-                value: 'http://task-api.${NAMESPACE}.svc:8080'          
+                value: 'http://${ENV}task-api.${NAMESPACE}.svc:8080'          
             image: ${DOCKER_REGISTRY}/${DOCKER_NAMESPACE}/${MICROSERVICE}:${DOCKER_IMAGE_LABEL}
             imagePullPolicy: Always
-            name: ${MICROSERVICE}
+            name: "${ENV}${MICROSERVICE}"
             ports:
               - containerPort: 8778
                 protocol: TCP
@@ -128,8 +131,8 @@ objects:
   metadata:
     creationTimestamp: null
     labels:
-      app: ${MICROSERVICE}
-    name: ${MICROSERVICE}
+      app: "${ENV}${MICROSERVICE}"
+    name: "${ENV}${MICROSERVICE}"
     namespace: ${NAMESPACE}
   spec:
     ports:
@@ -146,25 +149,9 @@ objects:
         protocol: TCP
         targetPort: 8778
     selector:
-      app: ${MICROSERVICE}
-      deploymentconfig: ${MICROSERVICE}
+      app: "${ENV}${MICROSERVICE}"
+      deploymentconfig: "${ENV}${MICROSERVICE}"
     sessionAffinity: None
     type: ClusterIP
   status:
     loadBalancer: {}
-- apiVersion: v1
-  kind: Route
-  metadata:
-    creationTimestamp: null
-    labels:
-      app: basic-ui
-    name: basic-ui
-    namespace: ${NAMESPACE}
-  spec:
-    port:
-      targetPort: 8080-tcp
-    to:
-      kind: Service
-      name: basic-ui
-      weight: 100
-    wildcardPolicy: None
