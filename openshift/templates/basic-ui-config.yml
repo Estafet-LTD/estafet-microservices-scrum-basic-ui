@@ -40,6 +40,7 @@ objects:
     labels:
       app: "${ENV}${MICROSERVICE}"
       product: microservices-scrum
+      environment: ${ENV}
     name: "${ENV}${MICROSERVICE}"
     namespace: ${NAMESPACE}
   spec:
@@ -120,7 +121,7 @@ objects:
       - imageChangeParams:
           automatic: true
           containerNames:
-            - ${MICROSERVICE}
+            - "${ENV}${MICROSERVICE}"
           from:
             kind: ImageStreamTag
             name: "${MICROSERVICE}:${DOCKER_IMAGE_LABEL}"
