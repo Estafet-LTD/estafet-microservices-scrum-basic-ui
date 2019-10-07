@@ -1,7 +1,7 @@
 @NonCPS
 def getVersions(json) {
 	def tags = new groovy.json.JsonSlurper().parseText(json).status.tags
-	String versions = []
+	def versions = []
 	for (int i = 0; i < tags.size(); i++) {
 		versions << tags[i]['tag']
 	}
@@ -10,7 +10,7 @@ def getVersions(json) {
 
 @NonCPS
 def getPassive(json) {
-	def matcher = new groovy.json.JsonSlurper().parseText(json).items[0].spec.to.name =~ /(green|blue)(\-basic\-ui)/
+	def matcher = new groovy.json.JsonSlurper().parseText(json).spec.to.name =~ /(green|blue)(basic\-ui)/
 	String namespace = matcher[0][1]
 	return namespace.equals("green") ? "blue" : "green" 
 }
