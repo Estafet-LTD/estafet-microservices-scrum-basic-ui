@@ -73,7 +73,7 @@ node {
 	
 	def project = "prod"
 	def version
-	dev env
+	def env
 	def microservice = "basic-ui"
 
 	properties([
