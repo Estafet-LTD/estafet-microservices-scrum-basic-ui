@@ -40,7 +40,7 @@ def recentVersion( versions ) {
 	return versions[size-1]
 }
 
-def getLatestVersion(microservice) {
+def getLatestVersion(project, microservice) {
 	sh "oc get is ${microservice} -o json -n ${project} > image.json"
 	def image = readFile('image.json')
 	def versions = getVersions(image)
@@ -90,7 +90,7 @@ node {
 	}
 	
 	stage("determine which image is to be deployed") {
-		version = getLatestVersion microservice
+		version = getLatestVersion project, microservice
 		println "latest version is $version"
 	}
 	
