@@ -15,26 +15,6 @@ def getPassive(json) {
 	return namespace.equals("green") ? "blue" : "green" 
 }
 
-@NonCPS
-def getImageStreamHash(json, version) {
-	def tags = new groovy.json.JsonSlurper().parseText(json).status.tags
-	for (int i = 0; i < tags.size(); i++) {
-		if (tags[i]['tag'].equals(version)) {
-			def image = tags[i]['items'][0]['image']
-			def matcher = image =~ /(sha256\:)(\w+)/
-			return matcher[0][2]
-		}
-	}
-	throw new RuntimeException("cannot find image for version $version")
-}
-
-@NonCPS
-def getPodImageHash(json) {
-	def imageId = new groovy.json.JsonSlurper().parseText(json).items[0].status.containerStatuses[0].imageID
-	def matcher = imageId =~ /(.*\@sha256\:)(\w+)/
-	return matcher[0][2]
-}
-
 def recentVersion( versions ) {
 	def size = versions.size()
 	return versions[size-1]
@@ -48,25 +28,6 @@ def getLatestVersion(project, microservice) {
 		throw new RuntimeException("There are no images for ${microservice}")
 	}
 	return recentVersion(versions)
-}
-
-boolean isLatestVersionDeployed(project, microservice, version, env) {
-	sh "oc get is ${microservice} -o json -n ${project} > image.json"
-	def image = readFile('image.json')
-	def imageStreamHash = getImageStreamHash(image, version)
-	println "image stream hash $imageStreamHash"
-	sh "oc get pods --selector deploymentconfig=${env}${microservice} -n ${project} > exists.out"
-	def exists = readFile('exists.out')
-	println "${exists}"
-	if (exists.equals("No resources")) {
-		return false
-	} else {
-		sh "oc get pods --selector deploymentconfig=${env}${microservice} -n ${project} -o json > pod.json"
-		def pod = readFile('pod.json')
-		def podImageHash = getPodImageHash(pod)
-		println "pod image hash $podImageHash"
-		return imageStreamHash.equals(podImageHash)	
-	}
 }
 
 node {
