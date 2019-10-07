@@ -55,11 +55,12 @@ boolean isLatestVersionDeployed(project, microservice, version) {
 	def image = readFile('image.json')
 	def imageStreamHash = getImageStreamHash(image, version)
 	println "image stream hash $imageStreamHash"
-	def dc = "${env}${microservice}"
-	sh "oc get pods --selector deploymentconfig=${dc} -n ${project} > exists.json"
+	println "what is the value is this ${env}"
+	println "what is the value is this ${env}${microservice}"
+	sh "oc get pods --selector deploymentconfig=${env}${microservice} -n ${project} > exists.json"
 	def exists = readFile('exists.json')
 	if (exists.indexOf("No resources") >= 0) {
-		sh "oc get pods --selector deploymentconfig=${dc} -n ${project} -o json > pod.json"
+		sh "oc get pods --selector deploymentconfig=${env}${microservice} -n ${project} -o json > pod.json"
 		def pod = readFile('pod.json')
 		def podImageHash = getPodImageHash(pod)
 		println "pod image hash $podImageHash"
