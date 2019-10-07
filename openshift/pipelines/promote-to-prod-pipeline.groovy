@@ -72,9 +72,9 @@ boolean isLatestVersionDeployed(project, microservice, version) {
 node {
 	
 	def project = "prod"
+	def microservice = "basic-ui"
 	def version
 	def env
-	def microservice = "basic-ui"
 
 	properties([
 	  parameters([
@@ -83,7 +83,7 @@ node {
 	])
 	
 	stage("determine the environment to deploy to") {
-		sh "oc get route --selector app=basic-ui -n prod ${project} > route.json"
+		sh "oc get route --selector app=basic-ui -n ${project} > route.json"
 		def route = readFile('route.json')
 		env = getPassive(route)
 		println "the target environment is $env"
