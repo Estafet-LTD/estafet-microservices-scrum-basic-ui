@@ -83,7 +83,7 @@ node {
 	])
 	
 	stage("determine the environment to deploy to") {
-		sh "oc get route --selector app=basic-ui -n ${project} > route.json"
+		sh "oc get route basic-ui -o json -n ${project} > route.json"
 		def route = readFile('route.json')
 		env = getPassive(route)
 		println "the target environment is $env"
