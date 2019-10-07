@@ -56,9 +56,9 @@ boolean isLatestVersionDeployed(project, microservice, version, env) {
 	def imageStreamHash = getImageStreamHash(image, version)
 	println "image stream hash $imageStreamHash"
 	sh "oc get pods --selector deploymentconfig=${env}${microservice} -n ${project} > exists.out"
-	String exists = readFile('exists.out')
-	println exists
-	if (exists.indexOf("No resources")>= 0) {
+	def exists = readFile('exists.out')
+	println "${exists}"
+	if (exists.equals("No resources")) {
 		return false
 	} else {
 		sh "oc get pods --selector deploymentconfig=${env}${microservice} -n ${project} -o json > pod.json"
@@ -106,12 +106,7 @@ node {
 	}
 	
 	stage("execute deployment") {
-		if (!isLatestVersionDeployed(project, microservice, version, env)) {
-			openshiftDeploy namespace: project, depCfg: "${env}${microservice}",  waitTime: "3000000"
-			openshiftVerifyDeployment namespace: project, depCfg: "${env}${microservice}", replicaCount:"1", verifyReplicaCount: "true", waitTime: "300000" 
-		} else {
-			println "version $version of $microservice is already deployed and running"
-		}
+		openshiftVerifyDeployment namespace: project, depCfg: "${env}${microservice}", replicaCount:"1", verifyReplicaCount: "true", waitTime: "300000" 
 	}
 
 }
