@@ -107,8 +107,8 @@ node {
 	
 	stage("execute deployment") {
 		if (!isLatestVersionDeployed(project, microservice, version)) {
-			openshiftDeploy namespace: project, depCfg: microservice,  waitTime: "3000000"
-			openshiftVerifyDeployment namespace: project, depCfg: microservice, replicaCount:"1", verifyReplicaCount: "true", waitTime: "300000" 
+			openshiftDeploy namespace: project, depCfg: "${env}${microservice}",  waitTime: "3000000"
+			openshiftVerifyDeployment namespace: project, depCfg: "${env}${microservice}", replicaCount:"1", verifyReplicaCount: "true", waitTime: "300000" 
 		} else {
 			println "version $version of $microservice is already deployed and running"
 		}
