@@ -27,6 +27,7 @@ public class Application extends SpringBootServletInitializer {
 				com.uber.jaeger.Configuration.ReporterConfiguration.fromEnv()).getTracer();
 	}
 	
+	// just testing the webhook!
 	@Bean
 	public RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder) {
 		return restTemplateBuilder.build();
