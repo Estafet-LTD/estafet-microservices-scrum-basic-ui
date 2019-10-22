@@ -8,6 +8,8 @@ import org.junit.Test;
 
 import com.estafet.microservices.scrum.lib.selenium.pages.home.HomePage;
 
+//test comment
+
 public class ITHomePageTest {
 
 	HomePage homePage;
