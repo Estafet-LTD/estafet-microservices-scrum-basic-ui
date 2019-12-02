@@ -28,7 +28,10 @@ parameters:
   required: true    
 - description: Defines docker image label
   name: DOCKER_IMAGE_LABEL
-  required: true        
+  required: true    
+- description: Defines the product that this pipeline is related to
+  name: PRODUCT
+  required: true         
 objects:
 - apiVersion: v1
   kind: ImageStream
@@ -36,7 +39,7 @@ objects:
     creationTimestamp: null
     labels:
       app: ${MICROSERVICE}
-      product: microservices-scrum
+      product: ${PRODUCT}
     name: ${MICROSERVICE}
     namespace: ${NAMESPACE}
   spec:
@@ -53,7 +56,7 @@ objects:
     creationTimestamp: null
     labels:
       app: ${MICROSERVICE}
-      product: microservices-scrum
+      product: ${PRODUCT}
     name: ${MICROSERVICE}
     namespace: ${NAMESPACE}
   spec:
@@ -73,6 +76,9 @@ objects:
       type: Git
     strategy:
       sourceStrategy:
+        env:
+        - name: MAVEN_MIRROR_URL
+          value: http://nexus.nexus.svc:8081/nexus/content/groups/public      
         from:
           kind: ImageStreamTag
           name: 'redhat-openjdk18-openshift:1.2'

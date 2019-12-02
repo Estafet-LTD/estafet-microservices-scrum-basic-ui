@@ -32,6 +32,9 @@ parameters:
 - description: Environment
   name: ENV
   required: false    
+- description: Defines the product that this pipeline is related to
+  name: PRODUCT
+  required: true     
 objects:
 - apiVersion: v1
   kind: DeploymentConfig
@@ -39,7 +42,7 @@ objects:
     creationTimestamp: null
     labels:
       app: "${ENV}${MICROSERVICE}"
-      product: microservices-scrum
+      product: ${PRODUCT}
       environment: ${ENV}
     name: "${ENV}${MICROSERVICE}"
     namespace: ${NAMESPACE}
@@ -133,7 +136,7 @@ objects:
     creationTimestamp: null
     labels:
       app: "${ENV}${MICROSERVICE}"
-      product: microservices-scrum
+      product: ${PRODUCT}
     name: "${ENV}${MICROSERVICE}"
     namespace: ${NAMESPACE}
   spec:

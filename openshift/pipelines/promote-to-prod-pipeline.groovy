@@ -43,18 +43,18 @@ def getTestStatus(json) {
 }
 
 node {
+
+	properties([
+	  parameters([
+	     string(name: 'GITHUB'), string(name: 'PRODUCT'),
+	  ])
+	])
 	
-	def project = "prod"
+	def project = "${params.PRODUCT}-prod"
 	def microservice = "basic-ui"
 	def version
 	def env
 	def testStatus
-
-	properties([
-	  parameters([
-	     string(name: 'GITHUB'),
-	  ])
-	])
 	
 	stage("determine the environment to deploy to") {
 		sh "oc get route basic-ui -o json -n ${project} > route.json"
@@ -64,7 +64,7 @@ node {
 	}
 	
 	stage ("determine the status of the target environment") {
-		sh "oc get dc --selector product=microservices-scrum -n test -o json > test.json"
+		sh "oc get dc --selector product=${params.PRODUCT} -n ${params.PRODUCT}-test -o json > test.json"
 		def test = readFile('test.json')
 		testStatus = getTestStatus(test)
 		println "the target environment test status is $testStatus"
@@ -83,7 +83,7 @@ node {
 	}
 	
 	stage("create deployment config") {
-		sh "oc process -n ${project} -f openshift/templates/${microservice}-config.yml -p NAMESPACE=${project} -p ENV=${env} -p DOCKER_NAMESPACE=${project} -p DOCKER_IMAGE_LABEL=${version} | oc apply -f -"
+		sh "oc process -n ${project} -f openshift/templates/${microservice}-config.yml -p NAMESPACE=${project} -p ENV=${env} -p DOCKER_NAMESPACE=${project} -p DOCKER_IMAGE_LABEL=${version} -p PRODUCT=${params.PRODUCT} | oc apply -f -"
 		sh "oc set env dc/${env}${microservice} SPRINT_API_SERVICE_URI=http://${env}sprint-api.${project}.svc:8080 STORY_API_SERVICE_URI=http://${env}story-api.${project}.svc:8080 TASK_API_SERVICE_URI=http://${env}task-api.${project}.svc:8080 PROJECT_API_SERVICE_URI=http://${env}project-api.${project}.svc:8080 SPRINT_BOARD_API_SERVICE_URI=http://${env}sprint-board.${project}.svc:8080 SPRINT_BURNDOWN_SERVICE_URI=http://${env}sprint-burndown.${project}.svc:8080 PROJECT_BURNDOWN_SERVICE_URI=http://${env}project-burndown.${project}.svc:8080 JAEGER_AGENT_HOST=jaeger-agent.${project}.svc JAEGER_SAMPLER_MANAGER_HOST_PORT=jaeger-agent.${project}.svc:5778 JAEGER_SAMPLER_PARAM=1 JAEGER_SAMPLER_TYPE=const -n ${project}"	
 	}
 	
