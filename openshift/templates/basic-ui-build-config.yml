@@ -7,6 +7,14 @@ parameters:
 - description: Defines the namespace within which these objects are deployed
   name: NAMESPACE
   required: true
+- description: Defines the namespace for the image stream for builder image
+  name: IMAGESTREAM_NAMESPACE
+  value: openshift
+  required: true
+- description: Defines the tag for the image stream for builder image
+  name: IMAGESTREAM_TAG
+  value: 1.4
+  required: true
 - description: Defines the location of the estafet github (change this if you have forked and want to use another github)
   name: GITHUB
   required: true
@@ -81,7 +89,7 @@ objects:
           value: http://nexus.nexus.svc:8081/nexus/content/groups/public      
         from:
           kind: ImageStreamTag
-          name: 'redhat-openjdk18-openshift:1.2'
-          namespace: ${NAMESPACE}
+          name: 'redhat-openjdk18-openshift:${IMAGESTREAM_TAG}'
+          namespace: ${IMAGESTREAM_NAMESPACE}
       type: Source
     successfulBuildsHistoryLimit: 5
