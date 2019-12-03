@@ -29,7 +29,7 @@ parameters:
 - description: Defines docker image label
   name: DOCKER_IMAGE_LABEL
   required: true    
-- description: Defines the product that this pipeline is related to
+- description: Defines the product that this template is related to
   name: PRODUCT
   required: true         
 objects:
