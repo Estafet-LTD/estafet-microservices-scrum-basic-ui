@@ -15,11 +15,16 @@ node("maven") {
 	def project = "${params.PRODUCT}-build"
 	def microservice = "basic-ui"
 	def version
+	def pipelines
 
 	currentBuild.description = "Build a container from the source, then execute unit and container integration tests before promoting the container as a release candidate for acceptance testing."
 
 	stage("checkout") {
 		git branch: "master", url: "https://github.com/${params.GITHUB}/estafet-microservices-scrum-basic-ui"
+	}
+	
+	stage("read the pipeline definition") {
+		pipelines = readYaml file: "openshift/pipelines/pipelines.yml"
 	}
 
 	stage("update wiremock") {
@@ -47,11 +52,17 @@ node("maven") {
 
 	stage("create deployment config") {
 		sh "oc process -n ${project} -f openshift/templates/${microservice}-config.yml -p NAMESPACE=${project} -p DOCKER_NAMESPACE=${project} -p DOCKER_IMAGE_LABEL=${version} -p PRODUCT=${params.PRODUCT} | oc apply -f -"
-		sh "oc set env dc/${microservice} SPRINT_API_SERVICE_URI=http://wiremock-docker.${project}.svc:8080/basic-ui/sprint-api STORY_API_SERVICE_URI=http://wiremock-docker.${project}.svc:8080/basic-ui/story-api TASK_API_SERVICE_URI=http://wiremock-docker.${project}.svc:8080/basic-ui/task-api PROJECT_API_SERVICE_URI=http://wiremock-docker.${project}.svc:8080/basic-ui/project-api SPRINT_BOARD_API_SERVICE_URI=http://wiremock-docker.${project}.svc:8080/basic-ui/sprint-board SPRINT_BURNDOWN_SERVICE_URI=http://wiremock-docker.${project}.svc:8080/basic-ui/sprint-burndown PROJECT_BURNDOWN_SERVICE_URI=http://wiremock-docker.${project}.svc:8080/basic-ui/project-burndown -n ${project}"
+		if (pipelines.build.wiremock == true) {
+			def envVars = ""
+			for (int i = 0; i < pipelines.build.wiremock_environment_variables.size(); i++) {
+				envVars = "${envVars} ${pipelines.build.wiremock_environment_variables[i].name}=${pipelines.build.wiremock_environment_variables[i].value}"
+			}
+			sh "oc set env dc/${microservice} ${envVars} -n ${project}"	
+		}
 	}
 
 	stage("execute deployment") {
-		openshiftDeploy namespace: project, depCfg: microservice,  waitTime: "3000000"
+		openshiftDeploy namespace: project, depCfg: microservice
 		openshiftVerifyDeployment namespace: project, depCfg: microservice, replicaCount:"1", verifyReplicaCount: "true", waitTime: "300000" 
 	}
 
