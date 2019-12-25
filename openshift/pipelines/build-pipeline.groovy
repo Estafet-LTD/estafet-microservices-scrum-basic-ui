@@ -56,9 +56,9 @@ node("maven") {
 		if (pipelines.build.wiremock) {
 			def envVars = ""
 			for (int i = 0; i < pipelines.build.wiremock_environment_variables.size(); i++) {
-				def name = pipelines.build.wiremock_environment_variables[i].name
+				def name = pipelines.build.wiremock_environment_variables.name[i]
 				println "name ${name}"
-				def value = pipelines.build.wiremock_environment_variables[i].value
+				def value = pipelines.build.wiremock_environment_variables.value[i]
 				println "value ${value}"
 				envVars = "${envVars} ${name}=${value}"
 			}
