@@ -56,11 +56,9 @@ node("maven") {
 	}
 
 	stage("container tests") {
-		withEnv( [ "BASIC_UI_URI=http://${microservice}.${project}.svc:8080" ]) {
 			withMaven(mavenSettingsConfig: 'microservices-scrum') {
  				sh "mvn clean verify -P integration-test"
 			} 
-		} 
 	}
 
 	stage("deploy snapshots") {
