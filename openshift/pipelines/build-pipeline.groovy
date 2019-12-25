@@ -53,11 +53,12 @@ node("maven") {
 	stage("create deployment config") {
 		sh "oc process -n ${project} -f openshift/templates/${microservice}-config.yml -p NAMESPACE=${project} -p DOCKER_NAMESPACE=${project} -p DOCKER_IMAGE_LABEL=${version} -p PRODUCT=${params.PRODUCT} | oc apply -f -"
 		println "pipelines.build.wiremock ${pipelines.build.wiremock}"
-		if (pipelines.build.wiremock == "true") {
+		if (pipelines.build.wiremock) {
 			def envVars = ""
 			for (int i = 0; i < pipelines.build.wiremock_environment_variables.size(); i++) {
 				envVars = "${envVars} ${pipelines.build.wiremock_environment_variables[i].name}=${pipelines.build.wiremock_environment_variables[i].value}"
 			}
+			println "envVars ${envVars}"
 			sh "oc set env dc/${microservice} ${envVars} -n ${project}"	
 		}
 	}
