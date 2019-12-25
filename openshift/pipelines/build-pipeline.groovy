@@ -41,7 +41,7 @@ node("maven") {
 	}
 
 	stage("execute build") {
-		openshiftBuild namespace: project, buildConfig: microservice, waitTime: "300000"
+		openshiftBuild namespace: project, buildConfig: microservice
 		openshiftVerifyBuild namespace: project, buildConfig: microservice, waitTime: "300000" 
 	}
 
