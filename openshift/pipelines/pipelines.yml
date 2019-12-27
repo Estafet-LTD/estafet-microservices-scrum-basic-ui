@@ -2,6 +2,8 @@
     db: false
     mq: false
     wiremock: true
+    promote: true
+    tests: true
     wiremock_environment_variables:
       - name: SPRINT_API_SERVICE_URI
         value: http://wiremock-docker.ms-scrum-build.svc:8080/basic-ui/sprint-api
