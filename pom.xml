@@ -5,9 +5,9 @@
 	<name>estafet-microservices-scrum-basic-ui</name>
 
 	<parent>
-		<groupId>com.estafet.microservices.scrum</groupId>
-		<artifactId>microservices-scrum-parent</artifactId>
-		<version>1.0.6</version>
+		<groupId>com.estafet.openshift.boost</groupId>
+		<artifactId>estafet-openshift-boost-springboot-ui</artifactId>
+		<version>1.0.0</version>
 		<relativePath />
 	</parent>
 
