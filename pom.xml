@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>com.estafet.openshift.boost</groupId>
 		<artifactId>estafet-openshift-boost-springboot-ui</artifactId>
-		<version>1.0.0</version>
+		<version>1.0.5</version>
 		<relativePath />
 	</parent>
 
