@@ -36,10 +36,11 @@
 			<version>1.0.7</version>
 		</dependency>
 		<dependency>
-			<groupId>com.estafet.openshift.boost</groupId>
-			<artifactId>estafet-openshift-boost-commons-lib</artifactId>
-			<version>0.0.5</version>
-		</dependency>	
+			<groupId>com.estafet.microservices.scrum</groupId>
+			<artifactId>microservices-scrum-pages-lib</artifactId>
+			<version>1.0.5</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<scm>
