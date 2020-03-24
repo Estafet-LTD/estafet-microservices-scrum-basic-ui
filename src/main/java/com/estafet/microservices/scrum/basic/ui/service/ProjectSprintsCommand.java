@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.web.client.RestTemplate;
 
 import com.estafet.microservices.scrum.basic.ui.model.Sprint;
-import com.estafet.microservices.scrum.lib.commons.wait.WaitUntilCommand;
+import com.estafet.openshift.boost.commons.lib.wait.WaitUntilCommand;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

@@ -1,5 +1,6 @@
 package com.estafet.microservices.scrum.basic.ui.service;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,6 @@ import org.springframework.web.client.RestTemplate;
 
 import com.estafet.microservices.scrum.basic.ui.model.Project;
 import com.estafet.microservices.scrum.basic.ui.model.ProjectBurndown;
-import com.estafet.microservices.scrum.lib.commons.rest.RestHelper;
 
 import io.opentracing.Tracer;
 
@@ -25,7 +25,7 @@ public class ProjectService {
 	private RestTemplate restTemplate;
 	
 	public List<Project> getProjects() {
-		return RestHelper.getRestQuery(restTemplate, System.getenv("PROJECT_API_SERVICE_URI") + "/projects", Project.class);
+		return Arrays.asList(restTemplate.getForObject(System.getenv("PROJECT_API_SERVICE_URI") + "/projects", Project[].class));
 	}
 
 	public Project getProject(int projectId) {

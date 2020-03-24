@@ -1,7 +1,7 @@
 package com.estafet.microservices.scrum.basic.ui.service;
 
 import com.estafet.microservices.scrum.basic.ui.model.Story;
-import com.estafet.microservices.scrum.lib.commons.wait.WaitUntil;
+import com.estafet.openshift.boost.commons.lib.wait.WaitUntil;
 
 public class WaitUntilStoryUpdated extends WaitUntil {
 
