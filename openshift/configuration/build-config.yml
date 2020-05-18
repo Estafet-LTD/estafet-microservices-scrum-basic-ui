@@ -1,0 +1,25 @@
+config_map:
+  - name: PROJECT_API_SERVICE_URI
+    value: http://wiremock-docker.{{ project }}.svc:8080/basic-ui/sprint-api
+  - name: PROJECT_BURNDOWN_SERVICE_URI
+    value: http://wiremock-docker.{{ project }}.svc:8080/basic-ui/project-burndown
+  - name: SPRINT_BOARD_API_SERVICE_URI
+    value: http://wiremock-docker.{{ project }}.svc:8080/basic-ui/sprint-board
+  - name: SPRINT_BURNDOWN_SERVICE_URI
+    value: http://wiremock-docker.{{ project }}.svc:8080/basic-ui/sprint-burndown                
+  - name: SPRINT_API_SERVICE_URI
+    value: http://wiremock-docker.{{ project }}.svc:8080/basic-ui/sprint-api
+  - name: STORY_API_SERVICE_URI
+    value: http://wiremock-docker.{{ project }}.svc:8080/basic-ui/story-api
+  - name: TASK_API_SERVICE_URI
+    value: http://wiremock-docker.{{ project }}.svc:8080/basic-ui/task-api
+  - name: JAEGER_SERVICE_NAME
+    value: build-{{ microservice.name }}
+  - name: JAEGER_SAMPLER_TYPE
+    value: const
+  - name: JAEGER_SAMPLER_PARAM
+    value: 1
+  - name: JAEGER_SAMPLER_MANAGER_HOST_PORT
+    value: jaeger-agent.{{ product.name }}-monitoring.svc:5778    
+  - name: JAEGER_AGENT_HOST
+    value: jaeger-agent.{{ product.name }}-monitoring.svc      
