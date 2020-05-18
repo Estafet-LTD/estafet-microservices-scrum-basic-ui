@@ -1,6 +1,6 @@
 config_map:
   - name: PROJECT_API_SERVICE_URI
-    value: http://wiremock-docker.{{ project }}.svc:8080/basic-ui/sprint-api
+    value: http://wiremock-docker.{{ project }}.svc:8080/basic-ui/project-api
   - name: PROJECT_BURNDOWN_SERVICE_URI
     value: http://wiremock-docker.{{ project }}.svc:8080/basic-ui/project-burndown
   - name: SPRINT_BOARD_API_SERVICE_URI

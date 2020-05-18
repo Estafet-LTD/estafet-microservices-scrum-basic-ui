@@ -1,12 +1,12 @@
 config_map:
   - name: PROJECT_API_SERVICE_URI
-    value: 'http://${ENV}project-api.${NAMESPACE}.svc:8080'
+    value: http://greenproject-api.{{ project }}.svc:8080
   - name: PROJECT_BURNDOWN_SERVICE_URI
-    value: 'http://${ENV}project-burndown.${NAMESPACE}.svc:8080'
+    value: http://greenproject-burndown.{{ project }}.svc:8080
   - name: SPRINT_BOARD_API_SERVICE_URI
-    value: 'http://${ENV}sprint-board.${NAMESPACE}.svc:8080'
+    value: http://greensprint-board.{{ project }}.svc:8080
   - name: SPRINT_BURNDOWN_SERVICE_URI
-    value: 'http://${ENV}sprint-burndown.${NAMESPACE}.svc:8080' 
+    value: http://greensprint-burndown.{{ project }}.svc:8080 
   - name: SPRINT_API_SERVICE_URI
     value: http://greensprint-api.{{ project }}.svc:8080
   - name: STORY_API_SERVICE_URI
